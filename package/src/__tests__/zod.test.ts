@@ -3,7 +3,7 @@ import * as z from "zod";
 import { defineEnv, schema } from "../lib/index.ts";
 import * as e from "../zod.ts";
 
-describe("@vlandoss/env/zod — primitives compose with schema()", () => {
+describe("@variablelab/env/zod — primitives compose with schema()", () => {
   const Env = schema({
     server: { PORT: e.port, HOST: e.host },
     log: { LEVEL: e.logLevel, ENABLED: e.bool },

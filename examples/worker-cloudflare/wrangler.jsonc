@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-05-01",
   // No `compatibility_flags: ["nodejs_compat"]` — this example proves the
-  // @vlandoss/env core runs on Workers without the Node compat shim. The env
+  // @variablelab/env core runs on Workers without the Node compat shim. The env
   // is read from `c.env` (the per-request bindings), not from `process.env`.
   "vars": {
     "LOG_LEVEL": "debug",

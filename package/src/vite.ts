@@ -64,7 +64,7 @@ export type EnvConfigOptions = {
  *    and `vite build --mode staging` are equivalent, and you no longer have to
  *    thread `--mode` through every command. Discovery is
  *    `[src/]config/<env>.{ts,mts,cts,js,mjs,cjs,json}` — same algorithm as
- *    `loadConfig` in `@vlandoss/env/fs`. Only the matched file enters the bundle.
+ *    `loadConfig` in `@variablelab/env/fs`. Only the matched file enters the bundle.
  * 2. Injects `define: { __ENV_NAME__: JSON.stringify(env) }`. The core's
  *    `envName()` reads this identifier so dynamic-import and alias patterns
  *    alike return the correct env in the browser — including custom envs
@@ -81,7 +81,7 @@ export type EnvConfigOptions = {
  * @example
  * // vite.config.ts
  * import { defineConfig } from "vite";
- * import { envConfig } from "@vlandoss/env/vite";
+ * import { envConfig } from "@variablelab/env/vite";
  *
  * export default defineConfig({ plugins: [envConfig()] });
  *
@@ -90,7 +90,7 @@ export type EnvConfigOptions = {
  *
  * // src/env/index.ts
  * import config from "#config";
- * import { defineEnv } from "@vlandoss/env";
+ * import { defineEnv } from "@variablelab/env";
  * import { Env } from "./schema";
  *
  * export const env = defineEnv({ schema: Env, config });
@@ -124,7 +124,7 @@ export function envConfig(options: EnvConfigOptions = {}): Plugin {
     load(id) {
       if (id === VIRTUAL_MISSING_ID) {
         throw new Error(
-          `@vlandoss/env/vite: no config file found for env "${resolvedEnv}" — searched [src/]config/${resolvedEnv}.{ts,mts,cts,js,mjs,cjs,json} under ${cwd}`,
+          `@variablelab/env/vite: no config file found for env "${resolvedEnv}" — searched [src/]config/${resolvedEnv}.{ts,mts,cts,js,mjs,cjs,json} under ${cwd}`,
         );
       }
       return undefined;

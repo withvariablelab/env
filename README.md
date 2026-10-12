@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="./docsite/public/lockup/lockup-stacked-dark.svg" width="220" alt="{e} @vlandoss/env">
+  <img src="./docsite/public/lockup/lockup-stacked-dark.svg" width="220" alt="{e} @variablelab/env">
 </p>
 
-[![npm version](https://img.shields.io/npm/v/@vlandoss/env?label=%40vlandoss%2Fenv&color=blue)](https://www.npmjs.com/package/@vlandoss/env)
-[![CI](https://github.com/variableland/env/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/variableland/env/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@variablelab/env?label=%40variablelab%2Fenv&color=blue)](https://www.npmjs.com/package/@variablelab/env)
+[![CI](https://github.com/withvariablelab/env/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/withvariablelab/env/actions/workflows/ci.yml)
 [![changesets](https://img.shields.io/badge/maintained%20with-changesets-176de3.svg)](https://github.com/changesets/changesets)
 
 Contract-first environment configuration with typed schemas — runtime-agnostic core (Node, Bun, Deno, browser, Workers, Edge) with opt-in adapters for Node, Vite, and React (SSR).
 
 ```bash
-pnpm add @vlandoss/env
+pnpm add @variablelab/env
 ```
 
 📚 **[env.oss.variable.land](https://env.oss.variable.land)** — full docs
@@ -20,7 +20,7 @@ This is the monorepo. Three things live here:
 
 | Path                      | What it is                                                                                                                      |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| [`package/`](./package)   | The [`@vlandoss/env`](./package) library — published to npm                                                                     |
+| [`package/`](./package)   | The [`@variablelab/env`](./package) library — published to npm                                                                     |
 | [`docsite/`](./docsite)   | The Fumadocs site behind [env.oss.variable.land](https://env.oss.variable.land), on Cloudflare Workers                          |
 | [`examples/`](./examples) | 9 runtime-isolated demos (Node, Bun, Deno, Workers, Edge, Vite SPA, SSR) — each one is a real consumer of the published tarball |
 
@@ -38,8 +38,8 @@ Day-to-day:
 
 ```bash
 mise run docsite     # docs site dev server
-mise run lib:test    # unit tests for @vlandoss/env
-mise run lib:build   # build @vlandoss/env
+mise run lib:test    # unit tests for @variablelab/env
+mise run lib:build   # build @variablelab/env
 mise run check       # JS & TS check across package + docsite
 ```
 

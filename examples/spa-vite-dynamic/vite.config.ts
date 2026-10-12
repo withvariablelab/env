@@ -1,5 +1,5 @@
+import { envConfig } from "@variablelab/env/vite";
 import react from "@vitejs/plugin-react";
-import { envConfig } from "@vlandoss/env/vite";
 import { defineConfig } from "vite";
 
 // envConfig() is enabled here purely for its `__ENV_NAME__` build-time inject:

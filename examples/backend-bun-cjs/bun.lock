@@ -4,7 +4,7 @@
     "": {
       "name": "example-backend-bun",
       "dependencies": {
-        "@vlandoss/env": "file:../../package/.local/vlandoss-env.tgz",
+        "@variablelab/env": "file:../../package/.local/variablelab-env.tgz",
         "hono": "4.12.18",
         "zod": "4.3.6",
       },
@@ -109,9 +109,9 @@
 
     "@usage-spec/core": ["@usage-spec/core@1.1.0", "", { "dependencies": { "@bgotink/kdl": "^0.4.0" } }, "sha512-OjcN6IWdvuxN6bZYknTPIx9n/UTZODtGNaQEQe3yN7Y5DluH8/UJ8GeG+C0hNBWc/OePc0n9MmBw3rTbtoRVKg=="],
 
-    "@vlandoss/clibuddy": ["@vlandoss/clibuddy@0.7.0", "", { "dependencies": { "@pnpm/fs.find-packages": "1000.0.24", "@pnpm/types": "1001.3.0", "ansis": "4.2.0", "memoize": "10.2.0", "pkg-types": "2.3.0", "std-env": "3.9.0", "tinyexec": "1.1.2", "yaml": "2.8.4" } }, "sha512-Z/2oPgBW3xrkL0L8Ug6WRmDmaYR7X8V38IaIMIcZhMCnlTXZALrajfj8n/ZAe07Y/A0kkoXz/ZIgJKYFoX+Twg=="],
+    "@variablelab/env": ["@variablelab/env@../../package/.local/variablelab-env.tgz", { "dependencies": { "@standard-schema/spec": "1.1.0", "defu": "6.1.7", "type-fest": "5.4.4" }, "peerDependencies": { "react": ">=19", "react-dom": ">=19", "vite": ">=5", "zod": "^4" }, "optionalPeers": ["react", "react-dom", "vite", "zod"] }],
 
-    "@vlandoss/env": ["@vlandoss/env@../../package/.local/vlandoss-env.tgz", { "dependencies": { "@standard-schema/spec": "1.1.0", "defu": "6.1.7", "type-fest": "5.4.4" }, "peerDependencies": { "react": ">=19", "react-dom": ">=19", "vite": ">=5", "zod": "^4" }, "optionalPeers": ["react", "react-dom", "vite", "zod"] }],
+    "@vlandoss/clibuddy": ["@vlandoss/clibuddy@0.7.0", "", { "dependencies": { "@pnpm/fs.find-packages": "1000.0.24", "@pnpm/types": "1001.3.0", "ansis": "4.2.0", "memoize": "10.2.0", "pkg-types": "2.3.0", "std-env": "3.9.0", "tinyexec": "1.1.2", "yaml": "2.8.4" } }, "sha512-Z/2oPgBW3xrkL0L8Ug6WRmDmaYR7X8V38IaIMIcZhMCnlTXZALrajfj8n/ZAe07Y/A0kkoXz/ZIgJKYFoX+Twg=="],
 
     "@vlandoss/loggy": ["@vlandoss/loggy@0.2.1", "", { "dependencies": { "consola": "3.4.2", "debug": "4.4.3" } }, "sha512-M/Lx4FTF54+EQalmGGKpsk52LzdHVS6s38JWzObMDJqZ8Odx3Q3US2kpTGeOZIWx/alCRucne+ud+zQIuzl9DA=="],
 

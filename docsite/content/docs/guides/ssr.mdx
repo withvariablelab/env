@@ -14,15 +14,15 @@ icon: LayoutTemplate
 
 ## Reference examples
 
-- [`examples/ssr-react-router/`](https://github.com/variableland/env/tree/main/examples/ssr-react-router) — React Router 7, config loaded with `loadConfig({ schema, pattern })`.
-- [`examples/ssr-tanstack-start/`](https://github.com/variableland/env/tree/main/examples/ssr-tanstack-start) — TanStack Start, config loaded via the `#config` alias.
+- [`examples/ssr-react-router/`](https://github.com/withvariablelab/env/tree/main/examples/ssr-react-router) — React Router 7, config loaded with `loadConfig({ schema, pattern })`.
+- [`examples/ssr-tanstack-start/`](https://github.com/withvariablelab/env/tree/main/examples/ssr-tanstack-start) — TanStack Start, config loaded via the `#config` alias.
 
 The two differ only in **how config is loaded**. The public/server split and the `<EnvScript />` bridge are identical.
 
 ## Schemas — compose, don't duplicate
 
 ```ts title="app/env/schema.public.ts"
-import { schema } from "@vlandoss/env";
+import { schema } from "@variablelab/env";
 import * as z from "zod";
 
 export const PublicEnv = schema({
@@ -32,8 +32,8 @@ export const PublicEnv = schema({
 ```
 
 ```ts title="app/env/schema.server.ts"
-import { type Config, schema } from "@vlandoss/env";
-import * as e from "@vlandoss/env/zod";
+import { type Config, schema } from "@variablelab/env";
+import * as e from "@variablelab/env/zod";
 import * as z from "zod";
 import { PublicEnv } from "./schema.public.ts";
 
@@ -58,8 +58,8 @@ The wiring varies by how you read the config from disk. Both end the same way: a
 ### With `loadConfig` (no Vite plugin)
 
 ```ts title="app/env/env.server.ts"
-import { defineEnv } from "@vlandoss/env";
-import { loadConfig } from "@vlandoss/env/fs";
+import { defineEnv } from "@variablelab/env";
+import { loadConfig } from "@variablelab/env/fs";
 import { ServerEnv } from "./schema.server.ts";
 
 const config = loadConfig({ schema: ServerEnv, pattern: "app/config/{env}.ts" });
@@ -81,7 +81,7 @@ export const env = defineEnv({
 
 ```ts title="src/env/env.server.ts"
 import config from "#config";
-import { defineEnv } from "@vlandoss/env";
+import { defineEnv } from "@variablelab/env";
 import { ServerEnv } from "./schema.server.ts";
 
 export const env = defineEnv({
@@ -97,7 +97,7 @@ export const env = defineEnv({
 ```ts title="vite.config.ts"
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
-import { envConfig } from "@vlandoss/env/vite";
+import { envConfig } from "@variablelab/env/vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -112,7 +112,7 @@ export default defineConfig({
 ## Public env — isomorphic
 
 ```ts title="app/env/env.public.ts"
-import { defineEnv } from "@vlandoss/env";
+import { defineEnv } from "@variablelab/env";
 import { PublicEnv } from "./schema.public.ts";
 
 export const env = defineEnv({ schema: PublicEnv });
@@ -130,7 +130,7 @@ The server picks the public-safe values and renders them into a `<script>` tag. 
 ### React Router
 
 ```tsx title="app/root.tsx"
-import { EnvScript } from "@vlandoss/env/react";
+import { EnvScript } from "@variablelab/env/react";
 import { Outlet, useLoaderData } from "react-router";
 import { env as serverEnv } from "./env/env.server.ts";
 
@@ -158,7 +158,7 @@ export default function App() {
 ```tsx title="src/routes/__root.tsx"
 import { createRootRoute, Outlet, Scripts } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { EnvScript } from "@vlandoss/env/react";
+import { EnvScript } from "@variablelab/env/react";
 
 const getPublicEnv = createServerFn({ method: "GET" }).handler(async () => {
   const { env } = await import("../env/env.server.ts");

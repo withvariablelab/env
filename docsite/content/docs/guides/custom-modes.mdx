@@ -15,7 +15,7 @@ This is independent of how you load config: it bites both [Pattern 1 (dynamic im
 The `envConfig()` plugin injects `__ENV_NAME__ = JSON.stringify(mode)` as a build-time constant. `envName()` checks `__ENV_NAME__` **before** `NODE_ENV` in its [precedence chain](/docs/concepts/env-name), so the browser sees the mode you actually built.
 
 ```ts title="vite.config.ts"
-import { envConfig } from "@vlandoss/env/vite";
+import { envConfig } from "@variablelab/env/vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -44,7 +44,7 @@ src/
     production.ts
 ```
 
-The plugin's discovery scans `[src/]config/<mode>.{ts,mts,cts,js,mjs,cjs,json}` and pulls in the right one — same algorithm as `loadConfig` in `@vlandoss/env/fs`.
+The plugin's discovery scans `[src/]config/<mode>.{ts,mts,cts,js,mjs,cjs,json}` and pulls in the right one — same algorithm as `loadConfig` in `@variablelab/env/fs`.
 
 ## Selecting the env without `--mode`
 
@@ -74,7 +74,7 @@ export default defineConfig({
 After a `vite build --mode staging`, anywhere in browser code:
 
 ```ts
-import { envName } from "@vlandoss/env";
+import { envName } from "@variablelab/env";
 
 console.log(envName());  // "staging"
 ```
@@ -83,7 +83,7 @@ And `env.$name` on the resolved env object will also be `"staging"`.
 
 ## Reference example
 
-[`examples/spa-vite-dynamic/`](https://github.com/variableland/env/tree/main/examples/spa-vite-dynamic) wires the plugin **purely for the `__ENV_NAME__` inject** — its config is loaded by a dynamic `import()`, not by the `#config` alias. The plugin earns its place in the config solely to make `envName()` honest after a build.
+[`examples/spa-vite-dynamic/`](https://github.com/withvariablelab/env/tree/main/examples/spa-vite-dynamic) wires the plugin **purely for the `__ENV_NAME__` inject** — its config is loaded by a dynamic `import()`, not by the `#config` alias. The plugin earns its place in the config solely to make `envName()` honest after a build.
 
 ## Server vs. browser
 

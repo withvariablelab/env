@@ -1,10 +1,10 @@
-# Contributing to `@vlandoss/env`
+# Contributing to `@variablelab/env`
 
 Thanks for taking the time to contribute. This document covers the conventions we follow so your PR can land smoothly. For local setup, the per-task reference, and how the monorepo is wired, see [DEVELOPMENT.md](./DEVELOPMENT.md).
 
 ## Ways to contribute
 
-- **Report a bug.** Open an issue with a minimal repro and the actual vs. expected behavior. Include runtime (Node / Bun / Deno / Workers / Edge), `@vlandoss/env` version, and the schema validator you use.
+- **Report a bug.** Open an issue with a minimal repro and the actual vs. expected behavior. Include runtime (Node / Bun / Deno / Workers / Edge), `@variablelab/env` version, and the schema validator you use.
 - **Propose a feature.** Open an issue first so we can align on scope before you spend time on a PR. We bias toward small, composable APIs.
 - **Improve the docs.** Even one-paragraph corrections are welcome. Docs live in [`docsite/content/docs/`](../docsite/content/docs).
 - **Add an example.** Demos that exercise a runtime or framework we don't cover yet are great PRs. See [adding a new example](#adding-a-new-example) below.
@@ -15,7 +15,7 @@ Thanks for taking the time to contribute. This document covers the conventions w
 1. **An issue exists for non-trivial changes.** For typo fixes, dead-code removal, or a single-file bug fix, just open the PR. For anything that adds API, changes behavior, or touches public types, open an issue first.
 2. **Your branch is up to date with `main`.**
 3. **`mise run test:e2e` passes locally** (or at least the suites your change touches).
-4. **You added a changeset** if the change affects the published `@vlandoss/env`. See [Changesets](#changesets).
+4. **You added a changeset** if the change affects the published `@variablelab/env`. See [Changesets](#changesets).
 
 ## Branch and commit conventions
 
@@ -56,7 +56,7 @@ pnpm changeset
 
 That command walks you through:
 
-1. Which packages changed (almost always just `@vlandoss/env`).
+1. Which packages changed (almost always just `@variablelab/env`).
 2. The bump type — `patch` (bug fix), `minor` (new feature, backwards-compatible), `major` (breaking change).
 3. A user-facing description (it lands in the changelog).
 
@@ -76,7 +76,7 @@ Don't bump versions or edit `CHANGELOG.md` by hand — Changesets does both duri
 - [ ] Tests cover the change (unit in `package/src/__tests__/`, e2e in `examples/<name>/test/e2e/` if relevant)
 - [ ] `mise run lib:test` and `mise run check` pass locally (JS & TS check)
 - [ ] `mise run test:e2e` passes locally for affected examples
-- [ ] Changeset added (if the published `@vlandoss/env` changed)
+- [ ] Changeset added (if the published `@variablelab/env` changed)
 - [ ] Docs updated (if public API or behavior changed)
 
 ## CI
@@ -90,12 +90,12 @@ Both must be green to merge.
 
 ## Adding a new example
 
-Examples are runtime-isolated demos. Each one is a real consumer of the published `@vlandoss/env` tarball — no shared lockfile, no workspace cheating. To add one:
+Examples are runtime-isolated demos. Each one is a real consumer of the published `@variablelab/env` tarball — no shared lockfile, no workspace cheating. To add one:
 
 1. Create the directory under `examples/<name>/` with the source for the demo.
-2. Add a `package.json` that consumes `@vlandoss/env` from the local tarball:
+2. Add a `package.json` that consumes `@variablelab/env` from the local tarball:
    ```jsonc
-   "@vlandoss/env": "file:../../package/.local/vlandoss-env.tgz"
+   "@variablelab/env": "file:../../package/.local/variablelab-env.tgz"
    ```
 3. Add a `mise.toml` with the runtime tools (`node` / `bun` / `deno` / `pnpm`) and the standard tasks (`setup`, `start`, `test:e2e`, `check`). Use any of the existing examples as a template — pick the one with the closest runtime.
 4. Add a `biome.json` extending `@rrlab/biome-config` (skip this for Deno-only examples).
@@ -108,10 +108,10 @@ The detailed setup mechanics — which package manager fits which runtime, why D
 
 ## Preview releases
 
-PRs from branches named `feat/*` or `fix/*` publish a preview build of `@vlandoss/env` to npm under the `pr-<PR_NUMBER>` dist-tag, so reviewers can install the unmerged version:
+PRs from branches named `feat/*` or `fix/*` publish a preview build of `@variablelab/env` to npm under the `pr-<PR_NUMBER>` dist-tag, so reviewers can install the unmerged version:
 
 ```sh
-pnpm install @vlandoss/env@pr-123
+pnpm install @variablelab/env@pr-123
 ```
 
 The preview is republished on every push to the PR.
@@ -134,4 +134,4 @@ Be kind and assume good faith. We don't have a formal CoC document yet — if yo
 
 ---
 
-Questions? Open a [discussion](https://github.com/variableland/env/discussions) or ping us in the PR.
+Questions? Open a [discussion](https://github.com/withvariablelab/env/discussions) or ping us in the PR.

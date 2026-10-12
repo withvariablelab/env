@@ -65,7 +65,7 @@ jobs:
       - name: 📦 Install root workspace (for env:pack)
         run: pnpm install --frozen-lockfile
 
-      - name: 🎁 Pack @vlandoss/env
+      - name: 🎁 Pack @variablelab/env
         run: mise run env:pack
 
       - name: 🧩 Test e2e

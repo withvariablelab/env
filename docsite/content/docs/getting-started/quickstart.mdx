@@ -21,7 +21,7 @@ src/
 The schema is the contract. Every variable your app expects is declared here, grouped into branches, and each leaf is a Standard Schema validator that runs at boot.
 
 ```ts title="src/env/schema.ts"
-import { schema, type Config } from "@vlandoss/env";
+import { schema, type Config } from "@variablelab/env";
 import * as z from "zod";
 
 export const Env = schema({
@@ -57,8 +57,8 @@ export default {
 ## 3. Wire it up
 
 ```ts title="src/env/index.ts"
-import { defineEnv } from "@vlandoss/env";
-import { loadConfig } from "@vlandoss/env/fs";
+import { defineEnv } from "@variablelab/env";
+import { loadConfig } from "@variablelab/env/fs";
 import { Env } from "./schema.ts";
 
 const config = loadConfig(Env);

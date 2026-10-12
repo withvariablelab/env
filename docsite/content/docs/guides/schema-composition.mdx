@@ -14,7 +14,7 @@ icon: Combine
 `schema()` accepts another `schema()` result as a branch. The inner shape is inlined recursively:
 
 ```ts
-import { schema } from "@vlandoss/env";
+import { schema } from "@variablelab/env";
 import * as z from "zod";
 
 const PublicEnv = schema({ API_BASE_URL: z.url() });
@@ -37,7 +37,7 @@ See the [SSR guide](/docs/guides/ssr) for the full pattern with two files (`sche
 When you inline a public schema into a server schema, the leaves under it sit at `public.*` — but you usually want them bound to the **same** env-var names whether read from server code or browser code. `vars: { public: null }` tells `defineEnv` to skip the branch prefix:
 
 ```ts
-import { defineEnv } from "@vlandoss/env";
+import { defineEnv } from "@variablelab/env";
 
 defineEnv({
   schema: ServerEnv,

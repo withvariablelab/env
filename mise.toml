@@ -25,15 +25,15 @@ run = [
 ]
 
 [tasks."env:pack"]
-description = "Build @vlandoss/env and pack it into package/.local/vlandoss-env.tgz"
+description = "Build @variablelab/env and pack it into package/.local/variablelab-env.tgz"
 dir = "{{config_root}}/package"
 sources = ["src/**/*", "package.json", "tsdown.config.ts"]
-outputs = [".local/vlandoss-env.tgz"]
+outputs = [".local/variablelab-env.tgz"]
 run = [
   "rr pack",
   "mkdir -p .local",
   "pnpm pack --pack-destination .local",
-  "mv .local/vlandoss-env-*.tgz .local/vlandoss-env.tgz",
+  "mv .local/variablelab-env-*.tgz .local/variablelab-env.tgz",
 ]
 
 [tasks."env:watch"]
@@ -64,12 +64,12 @@ description = "Start the docs site dev server"
 run = "pnpm --filter=docsite dev"
 
 [tasks."lib:test"]
-description = "Unit tests for @vlandoss/env"
+description = "Unit tests for @variablelab/env"
 dir = "{{config_root}}/package"
 run = "vitest run"
 
 [tasks."lib:build"]
-description = "Build @vlandoss/env"
+description = "Build @variablelab/env"
 dir = "{{config_root}}/package"
 run = "rr pack"
 

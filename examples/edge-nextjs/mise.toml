@@ -11,7 +11,7 @@ depends = ["//:env:pack"]
 sources = [
   "package.json",
   "pnpm-lock.yaml",
-  "{{config_root}}/../../package/.local/vlandoss-env.tgz",
+  "{{config_root}}/../../package/.local/variablelab-env.tgz",
 ]
 outputs = ["node_modules/.modules.yaml"]
 run = "pnpm install --ignore-workspace --no-frozen-lockfile"

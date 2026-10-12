@@ -69,7 +69,7 @@ export function Entrypoints() {
                 @max-[480px]/dirA:break-all @max-[480px]/dirA:text-base
               "
             >
-              <span className="text-landing-dim">@vlandoss/</span>
+              <span className="text-landing-dim">@variablelab/</span>
               <span className="text-landing-text">{e.name}</span>
             </div>
 

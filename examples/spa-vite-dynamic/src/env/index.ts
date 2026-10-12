@@ -1,4 +1,4 @@
-import { defineEnv, envName } from "@vlandoss/env";
+import { defineEnv, envName } from "@variablelab/env";
 import { Env } from "./schema.ts";
 
 export const env = await defineEnv({

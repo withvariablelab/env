@@ -1,14 +1,14 @@
 {
-  "name": "@vlandoss/env",
+  "name": "@variablelab/env",
   "version": "0.5.1",
   "description": "Contract-first environment configuration with typed schemas",
-  "homepage": "https://github.com/variableland/env/tree/main/package#readme",
+  "homepage": "https://github.com/withvariablelab/env/tree/main/package#readme",
   "bugs": {
-    "url": "https://github.com/variableland/env/issues"
+    "url": "https://github.com/withvariablelab/env/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/variableland/env.git"
+    "url": "git+https://github.com/withvariablelab/env.git"
   },
   "license": "MIT",
   "author": "rcrd <rcrd@variable.land>",

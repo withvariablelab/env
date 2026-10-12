@@ -1,6 +1,6 @@
 ---
 title: envName()
-description: How @vlandoss/env detects the current environment name across Node, browsers, and Vite builds — including the subtlety with custom modes.
+description: How @variablelab/env detects the current environment name across Node, browsers, and Vite builds — including the subtlety with custom modes.
 icon: Hash
 ---
 
@@ -21,7 +21,7 @@ First defined wins:
 By default, `envName()` reads from `readEnv()` (`process.env` on server, `window.__env` in browser). You can pass an explicit record:
 
 ```ts
-import { envName } from "@vlandoss/env";
+import { envName } from "@variablelab/env";
 
 envName({ NODE_ENV: "test", ENV: "qa" });  // -> "qa"
 ```

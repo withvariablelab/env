@@ -1,4 +1,4 @@
-import { EnvScript } from "@vlandoss/env/react";
+import { EnvScript } from "@variablelab/env/react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "react-router";
 import { env as serverEnv } from "./env/env.server.ts";
 

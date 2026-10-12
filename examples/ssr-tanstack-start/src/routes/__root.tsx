@@ -1,6 +1,6 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { EnvScript } from "@vlandoss/env/react";
+import { EnvScript } from "@variablelab/env/react";
 
 const getPublicEnv = createServerFn({ method: "GET" }).handler(async () => {
   const { env } = await import("../env/env.server.ts");

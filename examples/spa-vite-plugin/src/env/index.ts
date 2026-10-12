@@ -1,4 +1,4 @@
-import { defineEnv } from "@vlandoss/env";
+import { defineEnv } from "@variablelab/env";
 import config from "#config";
 import { Env } from "./schema.ts";
 

@@ -8,13 +8,13 @@ export function baseOptions(): BaseLayoutProps {
       url: "/docs",
       title: ({ href, className }) => (
         <div className={className}>
-          <Link to="/" aria-label="@vlandoss/env home">
+          <Link to="/" aria-label="@variablelab/env home">
             <BrandMark />
           </Link>
-          <Link to={href ?? "/docs"}>@vlandoss/env</Link>
+          <Link to={href ?? "/docs"}>@variablelab/env</Link>
         </div>
       ),
     },
-    githubUrl: "https://github.com/variableland/env",
+    githubUrl: "https://github.com/withvariablelab/env",
   };
 }

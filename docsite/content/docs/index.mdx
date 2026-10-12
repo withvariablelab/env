@@ -4,7 +4,7 @@ description: Contract-first environment configuration with typed schemas. Define
 icon: BookOpen
 ---
 
-`@vlandoss/env` lets you describe every variable your app expects in a single [Standard Schema](https://github.com/standard-schema/standard-schema) contract (Zod, Valibot, ArkType…), then resolves it against per-environment config files and your environment variables at boot. Missing or malformed values fail the process before user code ever reads them.
+`@variablelab/env` lets you describe every variable your app expects in a single [Standard Schema](https://github.com/standard-schema/standard-schema) contract (Zod, Valibot, ArkType…), then resolves it against per-environment config files and your environment variables at boot. Missing or malformed values fail the process before user code ever reads them.
 
 The core is **runtime-agnostic** — Node, Bun, Deno, browsers, Workers, Edge. File-based config loading lives in a separate, opt-in entrypoint so the core stays portable, and client-side adapters (Vite plugin, React `<EnvScript />`) ship as their own optional entrypoints too.
 
@@ -13,7 +13,7 @@ The core is **runtime-agnostic** — Node, Bun, Deno, browsers, Workers, Edge. F
 The contract — every variable your app expects, grouped into branches.
 
 ```ts title="src/env/schema.ts"
-import { schema, type Config } from "@vlandoss/env";
+import { schema, type Config } from "@variablelab/env";
 import * as z from "zod";
 
 export const Env = schema({
@@ -32,8 +32,8 @@ export type EnvConfig = Config<typeof Env>;
 The wiring — combine the schema with per-environment config and surface a single typed `env` object.
 
 ```ts title="src/env/index.ts"
-import { defineEnv } from "@vlandoss/env";
-import { loadConfig } from "@vlandoss/env/fs";
+import { defineEnv } from "@variablelab/env";
+import { loadConfig } from "@variablelab/env/fs";
 import { Env } from "./schema.ts";
 
 export const env = defineEnv({
@@ -48,11 +48,11 @@ export const env = defineEnv({
 
 | Entrypoint                                     | Runtime    | Description                                                       |
 | ---------------------------------------------- | ---------- | ----------------------------------------------------------------- |
-| [`@vlandoss/env`](/docs/api-reference/core)         | Any              | The core — declare schemas and resolve a typed env at boot.       |
-| [`@vlandoss/env/fs`](/docs/api-reference/fs)        | Node / Bun / Deno | Discover and load per-environment config files from disk.         |
-| [`@vlandoss/env/vite`](/docs/api-reference/vite)    | Build time       | Vite plugin that wires config and the current env name into your bundle. |
-| [`@vlandoss/env/react`](/docs/api-reference/react)  | SSR / SSG        | React component that ships the server-resolved env to the browser. |
-| [`@vlandoss/env/zod`](/docs/api-reference/zod)      | Any              | Opinionated Zod primitives for common env-var shapes (`port`, `host`, `bool`, …). |
+| [`@variablelab/env`](/docs/api-reference/core)         | Any              | The core — declare schemas and resolve a typed env at boot.       |
+| [`@variablelab/env/fs`](/docs/api-reference/fs)        | Node / Bun / Deno | Discover and load per-environment config files from disk.         |
+| [`@variablelab/env/vite`](/docs/api-reference/vite)    | Build time       | Vite plugin that wires config and the current env name into your bundle. |
+| [`@variablelab/env/react`](/docs/api-reference/react)  | SSR / SSG        | React component that ships the server-resolved env to the browser. |
+| [`@variablelab/env/zod`](/docs/api-reference/zod)      | Any              | Opinionated Zod primitives for common env-var shapes (`port`, `host`, `bool`, …). |
 
 ## Where to go next
 
