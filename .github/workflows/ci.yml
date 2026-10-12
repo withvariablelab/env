@@ -146,3 +146,19 @@ jobs:
           mode: publish
           publish_mode: oidc-only
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Job 2 of the two-job preview: never checks out or runs PR code. The
+  # reusable workflow mints the vland-bot token (this repo only,
+  # pull-requests: write) and upserts the PR comment. `packages` comes from a
+  # job that ran PR code, so it is untrusted: it only travels through
+  # `outputs:`/`with:` and is validated by the action, never put in a `run:`.
+  preview-comment:
+    needs: preview
+    if: ${{ needs.preview.result == 'success' }}
+    permissions: {}
+    uses: withvariablelab/gh-actions/.github/workflows/preview-comment.yml@main
+    with:
+      action: monorepo-preview-release
+      packages: ${{ needs.preview.outputs.packages }}
+    secrets:
+      VLAND_BOT_PRIVATE_KEY: ${{ secrets.VLAND_BOT_PRIVATE_KEY }}
