@@ -22,3 +22,11 @@ onlyBuiltDependencies:
 
 publicHoistPattern:
   - "@total-typescript/*"
+
+# Supply-chain guard: don't resolve versions published less than 24h ago
+# (most malicious releases are pulled within the hour). Our own scopes are
+# exempt so freshly released @variablelab/* and @rrlab/* can be picked up.
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "@variablelab/*"
+  - "@rrlab/*"
