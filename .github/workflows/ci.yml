@@ -13,6 +13,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# The default GITHUB_TOKEN is read-only in withvariablelab; every job asks for
+# exactly what it needs below.
+permissions: {}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -21,14 +25,18 @@ jobs:
     # `playwright install` download.
     container: mcr.microsoft.com/playwright:v1.59.1-noble
     timeout-minutes: 15
+    permissions:
+      contents: read
     env:
       MISE_EXPERIMENTAL: "1"
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
       - name: 🛠️ Setup mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
           install: true
           cache: true
@@ -52,25 +60,30 @@ jobs:
     needs: test
     if: ${{ github.ref == 'refs/heads/main' }}
     permissions:
-      id-token: write
-      contents: write
-      packages: write
-      pull-requests: write
+      contents: read
+      id-token: write # npm trusted publishing (OIDC) for `changeset publish`
     steps:
+      # The Version Packages PR and its commits are made by vland-bot (not
+      # GITHUB_TOKEN) so that PR runs CI. The token only covers this repo.
       - name: 🔑 Mint vland-bot token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
-          app-id: ${{ secrets.VLAND_BOT_APP_ID }}
+          client-id: ${{ vars.VLAND_BOT_CLIENT_ID }}
           private-key: ${{ secrets.VLAND_BOT_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
+        # zizmor: ignore[artipacked] changesets/action pushes the
+        # changeset-release/main branch with these (vland-bot) credentials, and
+        # this job uploads no artifacts.
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           token: ${{ steps.app-token.outputs.token }}
 
       - name: 🛠️ Setup mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
           install: true
           cache: true
@@ -79,13 +92,19 @@ jobs:
       - name: 📦 Install root workspace
         run: pnpm install --frozen-lockfile
 
+      # Identity of the app's bot user, derived from the token (pattern from
+      # the create-github-app-token README) instead of a hardcoded user id.
       - name: 🧑‍💻 Configure git user
+        env:
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          git config user.name "vland-bot[bot]"
-          git config user.email "282456776+vland-bot[bot]@users.noreply.github.com"
+          user_id="$(gh api "/users/${APP_SLUG}[bot]" --jq .id)"
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
 
       - name: 🚀 Create release PR or publish versions
-        uses: changesets/action@v1
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
           commit: "chore: update versions"
           title: "chore: update versions"
@@ -95,26 +114,35 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           LEFTHOOK: 0
 
+  # Job 1 of the two-job preview: runs the PR code and publishes it with npm
+  # OIDC. No app key here; it only hands the published package list on.
   preview:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: ${{ startsWith(github.head_ref, 'feat') || startsWith(github.head_ref, 'fix') || contains(github.event.pull_request.labels.*.name, 'preview') }}
     permissions:
-      id-token: write
       contents: read
+      id-token: write # npm trusted publishing (OIDC)
+    outputs:
+      packages: ${{ steps.preview.outputs.packages }}
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
       - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version-file: .node-version
 
       - name: ⌛ Setup CI
-        uses: variableland/gh-actions/actions/setup-pnpm@main
+        uses: withvariablelab/gh-actions/actions/setup-pnpm@main
 
       - name: 🚀 Preview release
-        uses: variableland/gh-actions/actions/monorepo-preview-release@main
+        id: preview
+        uses: withvariablelab/gh-actions/actions/monorepo-preview-release@main
         with:
+          mode: publish
+          publish_mode: oidc-only
           github_token: ${{ secrets.GITHUB_TOKEN }}

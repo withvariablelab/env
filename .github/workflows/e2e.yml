@@ -23,10 +23,14 @@ on:
       - "pnpm-workspace.yaml"
       - "mise.toml"
 
+permissions: {}
+
 jobs:
   test:
     name: ${{ matrix.example }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     # Browser examples run inside the official Playwright image (browsers
     # pre-baked, no download); non-browser examples run on the bare runner so
     # their bun/deno toolchains stay untouched. Empty string ⇒ no container.
@@ -52,10 +56,12 @@ jobs:
           - { example: ssr-tanstack-start,  browser: true  }
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
       - name: 🛠️ Setup mise (root + example tools)
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
           install: true
           cache: true

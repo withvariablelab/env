@@ -1,0 +1,11 @@
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        # First-party: withvariablelab/gh-actions is tracked at @main on
+        # purpose (Regla 4 of the migration plan, same policy as
+        # withvariablelab/gh-actions itself). Its main is protected by
+        # rulesets (PR required, signed commits, no force-push or deletion).
+        "withvariablelab/*": ref-pin
+        # Everything else must be pinned to a full commit SHA.
+        "*": hash-pin
