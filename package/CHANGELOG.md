@@ -1,5 +1,24 @@
 # @variablelab/env
 
+## 0.5.2
+
+### Patch Changes
+
+- [#30](https://github.com/withvariablelab/env/pull/30) [`48a8c42`](https://github.com/withvariablelab/env/commit/48a8c4258b9f68775a6ff324d6fb546206efa421) Thanks [@rqbazan](https://github.com/rqbazan)! - Renamed from `@vlandoss/env`. The package now lives at [withvariablelab/env](https://github.com/withvariablelab/env) and is published as `@variablelab/env`; the API is unchanged. To migrate, swap the dependency and update the import specifiers:
+
+  ```bash
+  pnpm remove @vlandoss/env && pnpm add @variablelab/env
+  ```
+
+  ```diff
+  - import { defineEnv } from "@vlandoss/env";
+  - import * as e from "@vlandoss/env/zod";
+  + import { defineEnv } from "@variablelab/env";
+  + import * as e from "@variablelab/env/zod";
+  ```
+
+  The same applies to the `/fs`, `/vite` and `/react` entry points. The `@variablelab/env/vite` "no config file found" error message now carries the new package name.
+
 ## 0.5.1
 
 ### Patch Changes
