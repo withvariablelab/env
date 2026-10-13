@@ -37,6 +37,20 @@ pnpm test:types      # typechecks
 
 `docsite/` lives in the small pnpm workspace alongside [`package/`](../package). It is **not** runtime-isolated like the [`examples/`](../examples) — those each declare their own runtime via mise and use a packed tarball of `@variablelab/env`.
 
+## Deploying
+
+[Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/) deploys the `vlandoss-env-docs` Worker on every merge to `main` and uploads a preview version for every other branch. Its settings live in the Cloudflare dashboard (_Workers & Pages → vlandoss-env-docs → Settings → Build_), not in this repo:
+
+| Setting                              | Value                                                    |
+| ------------------------------------ | -------------------------------------------------------- |
+| Root directory                       | `/` — `pnpm install` must run at the workspace root      |
+| Build command                        | `pnpm --filter docsite build`                            |
+| Deploy command                       | `pnpm --filter docsite exec wrangler deploy`             |
+| Non-production branch deploy command | `pnpm --filter docsite exec wrangler versions upload`    |
+| Build watch paths                    | `docsite/*`, `pnpm-lock.yaml`                            |
+
+The commands go through `pnpm --filter docsite exec` so they run inside `docsite/` with its pinned wrangler; a bare `npx wrangler` at the root downloads the latest one instead. `pnpm deploy` is the manual equivalent.
+
 ## Notes
 
 - `postinstall` runs `fumadocs-mdx` to generate `.source/` (Fumadocs' MDX index). Commit-ignored.
