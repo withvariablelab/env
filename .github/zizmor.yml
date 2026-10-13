@@ -3,7 +3,7 @@ rules:
     config:
       policies:
         # First-party: withvariablelab/gh-actions is tracked at @main on
-        # purpose (Regla 4 of the migration plan, same policy as
+        # purpose (same policy as
         # withvariablelab/gh-actions itself). Its main is protected by
         # rulesets (PR required, signed commits, no force-push or deletion).
         "withvariablelab/*": ref-pin
