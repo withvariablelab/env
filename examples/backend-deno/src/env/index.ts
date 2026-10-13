@@ -1,5 +1,5 @@
-import { defineEnv } from "@vlandoss/env";
-import { loadConfig } from "@vlandoss/env/fs";
+import { defineEnv } from "@variablelab/env";
+import { loadConfig } from "@variablelab/env/fs";
 import { Env } from "./schema.ts";
 
 const config = loadConfig(Env);

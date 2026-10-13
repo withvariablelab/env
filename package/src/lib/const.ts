@@ -1,6 +1,6 @@
 /**
  * DOM `id` attribute of the `<script type="application/json">` tag that
- * `<EnvScript />` (from `@vlandoss/env/react`) writes during SSR. On the
+ * `<EnvScript />` (from `@variablelab/env/react`) writes during SSR. On the
  * browser side, `readEnv()` queries the document for this id, parses the
  * tag's `textContent` as JSON, and returns it as the runtime env.
  *

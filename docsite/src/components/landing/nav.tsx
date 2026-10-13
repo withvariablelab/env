@@ -33,7 +33,7 @@ export function LandingNav() {
       <div className="flex items-center gap-3">
         <BrandMark size={24} />
         <span className="text-[15px] font-semibold tracking-[-0.01em] text-landing-text">
-          @vlandoss<span className="mx-px text-landing-dim-2">/</span>env
+          @variablelab<span className="mx-px text-landing-dim-2">/</span>env
         </span>
         <a href={LANDING_META.npmUrl} target="_blank" rel="noreferrer">
           <span

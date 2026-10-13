@@ -5,7 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, labeled]
     branches:
       - main
 
@@ -13,80 +13,92 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
-    # Run inside the official Playwright image: browsers (chromium v1217 for
-    # playwright 1.59.1) are pre-baked, so the lib browser tests need no
-    # `playwright install` download.
+    # Playwright image: browsers come pre-installed.
     container: mcr.microsoft.com/playwright:v1.59.1-noble
     timeout-minutes: 15
+    permissions:
+      contents: read
     env:
       MISE_EXPERIMENTAL: "1"
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
       - name: 🛠️ Setup mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
           install: true
           cache: true
           experimental: true
 
-      - name: 📦 Install root workspace
+      - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 💅 Check (biome + tsc)
+      - name: 💅 Lint and typecheck
         run: mise run check
 
-      - name: 🧪 Test unit (lib)
+      - name: 🧪 Run unit tests
         run: mise run lib:test
 
-      - name: 🔨 Build (lib)
+      - name: 🔨 Build library
         run: mise run lib:build
 
   release:
+    name: Release
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: test
     if: ${{ github.ref == 'refs/heads/main' }}
     permissions:
-      id-token: write
-      contents: write
-      packages: write
-      pull-requests: write
+      contents: read
+      id-token: write # npm trusted publishing (OIDC) for `changeset publish`
     steps:
       - name: 🔑 Mint vland-bot token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
-          app-id: ${{ secrets.VLAND_BOT_APP_ID }}
+          client-id: ${{ vars.VLAND_BOT_CLIENT_ID }}
           private-key: ${{ secrets.VLAND_BOT_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
 
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
 
       - name: 🛠️ Setup mise
-        uses: jdx/mise-action@v2
+        uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
           install: true
           cache: true
           experimental: true
 
-      - name: 📦 Install root workspace
+      - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: 🧑‍💻 Configure git user
+        env:
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          git config user.name "vland-bot[bot]"
-          git config user.email "282456776+vland-bot[bot]@users.noreply.github.com"
+          user_id="$(gh api "/users/${APP_SLUG}[bot]" --jq .id)"
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
 
-      - name: 🚀 Create release PR or publish versions
-        uses: changesets/action@v1
+      - name: 🚀 Release or version PR
+        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          commitMode: github-api
           commit: "chore: update versions"
           title: "chore: update versions"
           publish: pnpm changeset publish
@@ -95,26 +107,47 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           LEFTHOOK: 0
 
+  # Runs PR code: never give this job the bot key.
   preview:
+    name: Publish preview
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: ${{ startsWith(github.head_ref, 'feat') || startsWith(github.head_ref, 'fix') || contains(github.event.pull_request.labels.*.name, 'preview') }}
     permissions:
-      id-token: write
       contents: read
+      id-token: write # npm trusted publishing (OIDC)
+    outputs:
+      packages: ${{ steps.preview.outputs.packages }}
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
       - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version-file: .node-version
 
-      - name: ⌛ Setup CI
-        uses: variableland/gh-actions/actions/setup-pnpm@main
+      - name: ⌛ Setup pnpm
+        uses: withvariablelab/gh-actions/actions/setup-pnpm@main
 
-      - name: 🚀 Preview release
-        uses: variableland/gh-actions/actions/monorepo-preview-release@main
+      - name: 🚀 Publish preview
+        id: preview
+        uses: withvariablelab/gh-actions/actions/monorepo-preview-release@main
         with:
+          mode: publish
+          publish_mode: oidc-only
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  preview-comment:
+    name: Comment preview
+    needs: preview
+    if: ${{ needs.preview.result == 'success' }}
+    permissions: {}
+    uses: withvariablelab/gh-actions/.github/workflows/preview-comment.yml@main
+    with:
+      action: monorepo-preview-release
+      packages: ${{ needs.preview.outputs.packages }}
+    secrets:
+      VLAND_BOT_PRIVATE_KEY: ${{ secrets.VLAND_BOT_PRIVATE_KEY }}

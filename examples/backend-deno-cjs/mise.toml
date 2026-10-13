@@ -13,7 +13,7 @@ sources = [
   "package.json",
   "bun.lock",
   "deno.jsonc",
-  "{{config_root}}/../../package/.local/vlandoss-env.tgz",
+  "{{config_root}}/../../package/.local/variablelab-env.tgz",
 ]
 run = "bun install"
 

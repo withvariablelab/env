@@ -8,7 +8,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "@vlandoss/env — contract-first environment configuration",
+        title: "@variablelab/env — contract-first environment configuration",
       },
       {
         name: "description",

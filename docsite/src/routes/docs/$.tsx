@@ -21,7 +21,7 @@ export const Route = createFileRoute("/docs/$")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.title} — @vlandoss/env docs` },
+          { title: `${loaderData.title} — @variablelab/env docs` },
           ...(loaderData.description ? [{ name: "description", content: loaderData.description }] : []),
         ]
       : [],
@@ -47,7 +47,7 @@ const clientLoader = browserCollections.docs.createClientLoader({
   component({ toc, frontmatter, default: MDX }, props: { url: string }) {
     const slug = props.url === "/docs" ? "/index" : props.url.replace(/^\/docs/, "");
     const markdownUrl = `${props.url}.mdx`;
-    const githubUrl = `https://github.com/variableland/env/blob/main/docsite/content/docs${slug}.mdx`;
+    const githubUrl = `https://github.com/withvariablelab/env/blob/main/docsite/content/docs${slug}.mdx`;
 
     return (
       <DocsPage toc={toc}>

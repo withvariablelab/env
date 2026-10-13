@@ -1,4 +1,4 @@
-import { defineEnv } from "@vlandoss/env";
+import { defineEnv } from "@variablelab/env";
 import { Hono } from "hono";
 import { Env, type EnvBindings } from "./env/schema.ts";
 

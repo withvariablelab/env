@@ -1,6 +1,6 @@
 ---
 title: Filesystem (loadConfig)
-description: Wire @vlandoss/env in a long-running server. Schema, per-environment config files on disk, and a typed env loaded at boot via loadConfig.
+description: Wire @variablelab/env in a long-running server. Schema, per-environment config files on disk, and a typed env loaded at boot via loadConfig.
 icon: HardDrive
 ---
 
@@ -12,13 +12,13 @@ icon: HardDrive
 
 ## Reference example
 
-[`examples/backend-node/`](https://github.com/variableland/env/tree/main/examples/backend-node) — Node HTTP server (Hono via `@hono/node-server`) using Zod, the `@vlandoss/env/zod` primitives, and the short form of `loadConfig`.
+[`examples/backend-node/`](https://github.com/withvariablelab/env/tree/main/examples/backend-node) — Node HTTP server (Hono via `@hono/node-server`) using Zod, the `@variablelab/env/zod` primitives, and the short form of `loadConfig`.
 
 ## Wiring
 
 ```ts title="src/env/schema.ts"
-import { type Config, schema } from "@vlandoss/env";
-import * as e from "@vlandoss/env/zod";
+import { type Config, schema } from "@variablelab/env";
+import * as e from "@variablelab/env/zod";
 import * as z from "zod";
 
 export const Env = schema({
@@ -44,8 +44,8 @@ export default {
 ```
 
 ```ts title="src/env/index.ts"
-import { defineEnv } from "@vlandoss/env";
-import { loadConfig } from "@vlandoss/env/fs";
+import { defineEnv } from "@variablelab/env";
+import { loadConfig } from "@variablelab/env/fs";
 import { Env } from "./schema.ts";
 
 const config = loadConfig(Env);
@@ -67,7 +67,7 @@ server.listen(env.server.PORT, env.server.HOST);
 
 ## What each piece does
 
-- **`schema()`** is the contract. Leaves use Standard Schema validators (Zod here, but any Standard Schema lib works). The `@vlandoss/env/zod` primitives (`e.port`, `e.host`, `e.logLevel`, `e.bool`) are opinionated single-purpose schemas — see the [Zod primitives reference](/docs/api-reference/zod).
+- **`schema()`** is the contract. Leaves use Standard Schema validators (Zod here, but any Standard Schema lib works). The `@variablelab/env/zod` primitives (`e.port`, `e.host`, `e.logLevel`, `e.bool`) are opinionated single-purpose schemas — see the [Zod primitives reference](/docs/api-reference/zod).
 - **`config/<envName>.ts`** is the typed, versioned default per environment. `satisfies EnvConfig` is what gives you compile-time errors on typos. **Secrets do not go here** — leave them out of `config/*` and put them in `process.env`.
 - **`loadConfig(Env)`** is the short form: it **synchronously** auto-discovers `[src/]config/<envName>.{ts,mts,cts,js,mjs,cjs,json}` under `process.cwd()` and returns the first match (or `{}` if none) — no `await`.
 - **`defineEnv`** merges `defaults` (none here) → `config` → `process.env` and validates the result. See [Resolution order](/docs/concepts/resolution).
@@ -100,7 +100,7 @@ const config = loadConfig({ schema: Env, pattern: "config/{env}.ts", cwd: appRoo
 
 Because `loadConfig` is synchronous, it also works in **config files that tooling loads synchronously** — files pulled in via `require()` or bundled to CJS, where a top-level `await` would be rejected (`ERR_REQUIRE_ASYNC_MODULE`, or a build-time _"top-level await is not supported with the cjs output format"_). The wiring is exactly the same as above; there's no `await` to trip over.
 
-See the runnable [`backend-node-cjs`](https://github.com/variableland/env/tree/main/examples/backend-node-cjs), [`backend-bun-cjs`](https://github.com/variableland/env/tree/main/examples/backend-bun-cjs), and [`backend-deno-cjs`](https://github.com/variableland/env/tree/main/examples/backend-deno-cjs) examples — each boots its server from a CommonJS `require()` entry.
+See the runnable [`backend-node-cjs`](https://github.com/withvariablelab/env/tree/main/examples/backend-node-cjs), [`backend-bun-cjs`](https://github.com/withvariablelab/env/tree/main/examples/backend-bun-cjs), and [`backend-deno-cjs`](https://github.com/withvariablelab/env/tree/main/examples/backend-deno-cjs) examples — each boots its server from a CommonJS `require()` entry.
 
 ## Tradeoffs
 

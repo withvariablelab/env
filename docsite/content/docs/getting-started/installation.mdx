@@ -1,20 +1,20 @@
 ---
 title: Installation
-description: Add @vlandoss/env to a project, install the peer dependencies you need, and pick which runtime entrypoints to import.
+description: Add @variablelab/env to a project, install the peer dependencies you need, and pick which runtime entrypoints to import.
 icon: Download
 ---
 
 ## Install the package
 
 ```bash title="terminal"
-pnpm add @vlandoss/env
+pnpm add @variablelab/env
 ```
 
 ## Pick a schema validator
 
-`@vlandoss/env` is **agnostic to the schema validator** — the core relies on [Standard Schema](https://github.com/standard-schema/standard-schema), so any Standard Schema–compatible validator works (Zod, Valibot, ArkType, …). Install the one you'll actually use; you don't need any of them if you're plugging in your own.
+`@variablelab/env` is **agnostic to the schema validator** — the core relies on [Standard Schema](https://github.com/standard-schema/standard-schema), so any Standard Schema–compatible validator works (Zod, Valibot, ArkType, …). Install the one you'll actually use; you don't need any of them if you're plugging in your own.
 
-The docs and the opt-in primitives at `@vlandoss/env/zod` are written against Zod, so it's the most common pick:
+The docs and the opt-in primitives at `@variablelab/env/zod` are written against Zod, so it's the most common pick:
 
 ```bash title="terminal"
 pnpm add zod
@@ -26,10 +26,10 @@ Peers are **optional** — install only the ones whose entrypoints you import:
 
 | If you import…           | Install                  |
 | ------------------------ | ------------------------ |
-| `@vlandoss/env/zod`      | `zod@^4`                 |
-| `@vlandoss/env/vite`     | `vite@>=5`               |
-| `@vlandoss/env/react`    | `react@>=19`, `react-dom@>=19` |
-| `@vlandoss/env/fs`       | _(none — Node-compat built-ins)_ |
+| `@variablelab/env/zod`      | `zod@^4`                 |
+| `@variablelab/env/vite`     | `vite@>=5`               |
+| `@variablelab/env/react`    | `react@>=19`, `react-dom@>=19` |
+| `@variablelab/env/fs`       | _(none — Node-compat built-ins)_ |
 
 ## Available entrypoints
 
@@ -37,11 +37,11 @@ The package is split into a small set of entrypoints, each with its own page in 
 
 | Entrypoint              | Reference                              |
 | ----------------------- | -------------------------------------- |
-| `@vlandoss/env`         | [Core](/docs/api-reference/core)            |
-| `@vlandoss/env/fs`      | [Filesystem](/docs/api-reference/fs)        |
-| `@vlandoss/env/vite`    | [Vite](/docs/api-reference/vite)            |
-| `@vlandoss/env/react`   | [React](/docs/api-reference/react)          |
-| `@vlandoss/env/zod`     | [Zod primitives](/docs/api-reference/zod)   |
+| `@variablelab/env`         | [Core](/docs/api-reference/core)            |
+| `@variablelab/env/fs`      | [Filesystem](/docs/api-reference/fs)        |
+| `@variablelab/env/vite`    | [Vite](/docs/api-reference/vite)            |
+| `@variablelab/env/react`   | [React](/docs/api-reference/react)          |
+| `@variablelab/env/zod`     | [Zod primitives](/docs/api-reference/zod)   |
 
 ## Next
 

@@ -22,3 +22,9 @@ onlyBuiltDependencies:
 
 publicHoistPattern:
   - "@total-typescript/*"
+
+# Supply-chain cooldown: malicious releases are usually pulled within 24h; pattern excludes need pnpm >= 10.17.
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "@variablelab/*"
+  - "@rrlab/*"

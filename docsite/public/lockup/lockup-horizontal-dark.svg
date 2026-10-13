@@ -14,6 +14,6 @@
     <tspan class="br">{</tspan><tspan class="e">e</tspan><tspan class="br">}</tspan>
   </text>
   <line x1="320" y1="60" x2="320" y2="180" stroke="#8a8a92" stroke-opacity="0.4" stroke-width="1"/>
-  <text x="356" y="108" class="scope" font-size="20" letter-spacing="0.5" font-family="'Geist Mono', ui-monospace, monospace" fill="#8a8a92">@vlandoss</text>
+  <text x="356" y="108" class="scope" font-size="20" letter-spacing="0.5" font-family="'Geist Mono', ui-monospace, monospace" fill="#8a8a92">@variablelab</text>
   <text x="356" y="160" class="name" font-size="56" letter-spacing="-1.8" fill="#ededed">env</text>
 </svg>

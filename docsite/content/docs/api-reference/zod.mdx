@@ -1,10 +1,10 @@
 ---
 title: Zod
-description: Exports from the @vlandoss/env/zod entrypoint — opinionated single-purpose Zod schemas for common env-var shapes.
+description: Exports from the @variablelab/env/zod entrypoint — opinionated single-purpose Zod schemas for common env-var shapes.
 icon: Zod
 ---
 
-The `@vlandoss/env/zod` entrypoint is opinionated. It ships a handful of single-purpose Zod schemas for the env-var shapes we keep redefining — ports, hosts, booleans, secrets, and so on — so you can drop them straight into a schema.
+The `@variablelab/env/zod` entrypoint is opinionated. It ships a handful of single-purpose Zod schemas for the env-var shapes we keep redefining — ports, hosts, booleans, secrets, and so on — so you can drop them straight into a schema.
 
 This entrypoint is **optional**: it's there because we wanted it ourselves, not because the core depends on it. Use it, replace it, or skip it.
 
@@ -28,8 +28,8 @@ This entrypoint is **optional**: it's there because we wanted it ourselves, not 
 `json` is a factory: pass it the schema for the decoded shape and it returns a leaf that handles both sources a leaf can come from. A `process.env` var arrives as a JSON **string** and gets parsed and validated; a value from a config file or `defaults` arrives **already decoded** and is validated as-is. Either way the leaf infers as the decoded object — never `string`.
 
 ```ts title="src/env/schema.ts"
-import { schema } from "@vlandoss/env";
-import * as e from "@vlandoss/env/zod";
+import { schema } from "@variablelab/env";
+import * as e from "@variablelab/env/zod";
 import * as z from "zod";
 
 const RateLimit = z.object({

@@ -11,9 +11,9 @@ importers:
       '@hono/node-server':
         specifier: 2.0.2
         version: 2.0.2(hono@4.12.18)
-      '@vlandoss/env':
-        specifier: file:../../package/.local/vlandoss-env.tgz
-        version: file:../../package/.local/vlandoss-env.tgz(zod@4.3.6)
+      '@variablelab/env':
+        specifier: file:../../package/.local/variablelab-env.tgz
+        version: file:../../package/.local/variablelab-env.tgz(zod@4.3.6)
       hono:
         specifier: 4.12.18
         version: 4.12.18
@@ -266,13 +266,9 @@ packages:
   '@usage-spec/core@1.1.0':
     resolution: {integrity: sha512-OjcN6IWdvuxN6bZYknTPIx9n/UTZODtGNaQEQe3yN7Y5DluH8/UJ8GeG+C0hNBWc/OePc0n9MmBw3rTbtoRVKg==}
 
-  '@vlandoss/clibuddy@0.7.0':
-    resolution: {integrity: sha512-Z/2oPgBW3xrkL0L8Ug6WRmDmaYR7X8V38IaIMIcZhMCnlTXZALrajfj8n/ZAe07Y/A0kkoXz/ZIgJKYFoX+Twg==}
-    engines: {node: '>=20.0.0'}
-
-  '@vlandoss/env@file:../../package/.local/vlandoss-env.tgz':
-    resolution: {integrity: sha512-QbjtkuZTLSs1riHmy7RM2Q0wMJsOugOpCsk5eNZBpd7C4s3Wy2mxsjRv6a+uvOsxgnMFYwkPNiIICM1sFlUJRQ==, tarball: file:../../package/.local/vlandoss-env.tgz}
-    version: 0.2.1
+  '@variablelab/env@file:../../package/.local/variablelab-env.tgz':
+    resolution: {integrity: sha512-KiqChbBqdgXE1keS9ucQ+pTaCHD/+R9bBiJRd1BhbGcQd7ArMcbG1ivFCgax2qcn4CZ7JJoc5v+ZUTFMBWKAow==, tarball: file:../../package/.local/variablelab-env.tgz}
+    version: 0.5.1
     engines: {node: '>=22.12.0'}
     peerDependencies:
       react: '>=19'
@@ -288,6 +284,10 @@ packages:
         optional: true
       zod:
         optional: true
+
+  '@vlandoss/clibuddy@0.7.0':
+    resolution: {integrity: sha512-Z/2oPgBW3xrkL0L8Ug6WRmDmaYR7X8V38IaIMIcZhMCnlTXZALrajfj8n/ZAe07Y/A0kkoXz/ZIgJKYFoX+Twg==}
+    engines: {node: '>=20.0.0'}
 
   '@vlandoss/loggy@0.2.1':
     resolution: {integrity: sha512-M/Lx4FTF54+EQalmGGKpsk52LzdHVS6s38JWzObMDJqZ8Odx3Q3US2kpTGeOZIWx/alCRucne+ud+zQIuzl9DA==}
@@ -801,6 +801,13 @@ snapshots:
     dependencies:
       '@bgotink/kdl': 0.4.0
 
+  '@variablelab/env@file:../../package/.local/variablelab-env.tgz(zod@4.3.6)':
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      defu: 6.1.7
+    optionalDependencies:
+      zod: 4.3.6
+
   '@vlandoss/clibuddy@0.7.0(@pnpm/logger@1001.0.1)':
     dependencies:
       '@pnpm/fs.find-packages': 1000.0.24(@pnpm/logger@1001.0.1)
@@ -813,13 +820,6 @@ snapshots:
       yaml: 2.8.4
     transitivePeerDependencies:
       - '@pnpm/logger'
-
-  '@vlandoss/env@file:../../package/.local/vlandoss-env.tgz(zod@4.3.6)':
-    dependencies:
-      '@standard-schema/spec': 1.1.0
-      defu: 6.1.7
-    optionalDependencies:
-      zod: 4.3.6
 
   '@vlandoss/loggy@0.2.1':
     dependencies:

@@ -1,6 +1,6 @@
-# `@vlandoss/env` docsite
+# `@variablelab/env` docsite
 
-The Fumadocs-powered docs for [`@vlandoss/env`](../package), published at **[env.oss.variable.land](https://env.oss.variable.land)**.
+The Fumadocs-powered docs for [`@variablelab/env`](../package), published at **[env.oss.variable.land](https://env.oss.variable.land)**.
 
 Built with [TanStack Start](https://tanstack.com/start) + [Fumadocs](https://fumadocs.dev) + Tailwind v4, deployed to [Cloudflare Workers](https://developers.cloudflare.com/workers/) via Wrangler.
 
@@ -35,7 +35,7 @@ pnpm deploy          # build + wrangler deploy
 pnpm test:types      # typechecks
 ```
 
-`docsite/` lives in the small pnpm workspace alongside [`package/`](../package). It is **not** runtime-isolated like the [`examples/`](../examples) — those each declare their own runtime via mise and use a packed tarball of `@vlandoss/env`.
+`docsite/` lives in the small pnpm workspace alongside [`package/`](../package). It is **not** runtime-isolated like the [`examples/`](../examples) — those each declare their own runtime via mise and use a packed tarball of `@variablelab/env`.
 
 ## Notes
 

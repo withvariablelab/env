@@ -1,4 +1,4 @@
-# @vlandoss/env
+# @variablelab/env
 
 ## 0.5.1
 

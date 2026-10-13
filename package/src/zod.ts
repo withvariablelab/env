@@ -14,8 +14,8 @@ import * as z from "zod";
  * Recommended import style: namespace, so leaves stay short.
  *
  * @example
- * import { schema } from "@vlandoss/env";
- * import * as e from "@vlandoss/env/zod";
+ * import { schema } from "@variablelab/env";
+ * import * as e from "@variablelab/env/zod";
  *
  * export const Env = schema({
  *   server: { PORT: e.port, HOST: e.host },

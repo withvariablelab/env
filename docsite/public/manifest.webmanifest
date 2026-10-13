@@ -1,5 +1,5 @@
 {
-  "name": "@vlandoss/env",
+  "name": "@variablelab/env",
   "short_name": "env",
   "icons": [
     { "src": "/app-icon/icon-192.png", "sizes": "192x192", "type": "image/png" },

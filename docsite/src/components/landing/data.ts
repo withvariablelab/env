@@ -1,4 +1,4 @@
-export const SCHEMA_CODE = `import { schema, type Config } from "@vlandoss/env";
+export const SCHEMA_CODE = `import { schema, type Config } from "@variablelab/env";
 import * as z from "zod";
 
 export const Env = schema({
@@ -13,8 +13,8 @@ export const Env = schema({
 
 export type EnvConfig = Config<typeof Env>;`;
 
-export const WIRE_CODE = `import { defineEnv } from "@vlandoss/env";
-import { loadConfig } from "@vlandoss/env/fs";
+export const WIRE_CODE = `import { defineEnv } from "@variablelab/env";
+import { loadConfig } from "@variablelab/env/fs";
 import { Env } from "./schema.ts";
 
 const config = loadConfig(Env);
@@ -52,35 +52,35 @@ export const HERO_TABS = [
 
 export const ENTRYPOINTS = [
   {
-    pkg: "@vlandoss/env",
+    pkg: "@variablelab/env",
     name: "env",
     runtime: "Any",
     tags: ["core"],
     desc: "Declare a schema. Resolve a typed env at boot.",
   },
   {
-    pkg: "@vlandoss/env/fs",
+    pkg: "@variablelab/env/fs",
     name: "env/fs",
     runtime: "Node / Bun / Deno",
     tags: ["fs"],
     desc: "Discover & load per-environment config files from disk.",
   },
   {
-    pkg: "@vlandoss/env/vite",
+    pkg: "@variablelab/env/vite",
     name: "env/vite",
     runtime: "Build time",
     tags: ["plugin"],
     desc: "Vite plugin: alias #config, inject envName into the bundle.",
   },
   {
-    pkg: "@vlandoss/env/react",
+    pkg: "@variablelab/env/react",
     name: "env/react",
     runtime: "SSR / SSG",
     tags: ["react"],
     desc: "<EnvScript /> ships the server-resolved env to the browser.",
   },
   {
-    pkg: "@vlandoss/env/zod",
+    pkg: "@variablelab/env/zod",
     name: "env/zod",
     runtime: "Any",
     tags: ["zod"],
@@ -118,8 +118,8 @@ export const WHY_POINTS = [
 export const LANDING_META = {
   version: "v0.5.0",
   vlandUrl: "https://variable.land",
-  githubUrl: "https://github.com/variableland/env",
-  npmUrl: "https://www.npmjs.com/package/@vlandoss/env",
+  githubUrl: "https://github.com/withvariablelab/env",
+  npmUrl: "https://www.npmjs.com/package/@variablelab/env",
   docsHref: "/docs/" as string,
   publishDate: "2026",
 } as const;

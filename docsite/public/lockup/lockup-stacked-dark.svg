@@ -16,6 +16,6 @@
   <text x="180" y="400" text-anchor="middle"
         font-family="'Geist Mono', ui-monospace, monospace"
         font-size="22" letter-spacing="3.6" font-weight="500">
-    <tspan fill="#8a8a92">@vlandoss/</tspan><tspan fill="#ededed">env</tspan>
+    <tspan fill="#8a8a92">@variablelab/</tspan><tspan fill="#ededed">env</tspan>
   </text>
 </svg>

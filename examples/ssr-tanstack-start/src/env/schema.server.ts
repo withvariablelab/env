@@ -1,5 +1,5 @@
-import { type Config, schema } from "@vlandoss/env";
-import * as e from "@vlandoss/env/zod";
+import { type Config, schema } from "@variablelab/env";
+import * as e from "@variablelab/env/zod";
 import * as z from "zod";
 import { PublicEnv } from "./schema.public.ts";
 

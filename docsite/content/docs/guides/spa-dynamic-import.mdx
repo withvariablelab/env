@@ -14,13 +14,13 @@ If you need each build artifact to contain **only** its env's config (others not
 
 ## Reference example
 
-[`examples/spa-vite-dynamic/`](https://github.com/variableland/env/tree/main/examples/spa-vite-dynamic) — React + Vite SPA loading config via dynamic `import()`.
+[`examples/spa-vite-dynamic/`](https://github.com/withvariablelab/env/tree/main/examples/spa-vite-dynamic) — React + Vite SPA loading config via dynamic `import()`.
 
 ## Wiring
 
 ```ts title="src/env/schema.ts"
-import { type Config, schema } from "@vlandoss/env";
-import * as e from "@vlandoss/env/zod";
+import { type Config, schema } from "@variablelab/env";
+import * as e from "@variablelab/env/zod";
 import * as z from "zod";
 
 export const Env = schema({
@@ -46,7 +46,7 @@ export default {
 ```
 
 ```ts title="src/env/index.ts"
-import { defineEnv, envName } from "@vlandoss/env";
+import { defineEnv, envName } from "@variablelab/env";
 import { Env } from "./schema.ts";
 
 export const env = await defineEnv({
@@ -57,7 +57,7 @@ export const env = await defineEnv({
 
 ```ts title="vite.config.ts"
 import react from "@vitejs/plugin-react";
-import { envConfig } from "@vlandoss/env/vite";
+import { envConfig } from "@variablelab/env/vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({

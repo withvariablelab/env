@@ -14,4 +14,4 @@ pre-commit:
 pre-push:
   jobs:
     - name: test
-      run: pnpm --filter=@vlandoss/env test
+      run: pnpm --filter=@variablelab/env test

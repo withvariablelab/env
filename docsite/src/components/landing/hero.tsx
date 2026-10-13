@@ -9,7 +9,7 @@ type Snippets = {
   wireHtml: string;
 };
 
-const INSTALL_CMD = "pnpm add @vlandoss/env";
+const INSTALL_CMD = "pnpm add @variablelab/env";
 
 export function Hero({ snippets }: { snippets: Snippets }) {
   const [copied, setCopied] = useState(false);

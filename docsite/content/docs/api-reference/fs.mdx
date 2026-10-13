@@ -1,12 +1,12 @@
 ---
 title: Filesystem
-description: Exports from the @vlandoss/env/fs entrypoint — file-based config loading for any Node-compatible runtime with a filesystem.
+description: Exports from the @variablelab/env/fs entrypoint — file-based config loading for any Node-compatible runtime with a filesystem.
 icon: HardDrive
 ---
 
-The `@vlandoss/env/fs` entrypoint is the file-system adapter. It auto-discovers per-environment config files on disk so you don't have to wire imports by hand.
+The `@variablelab/env/fs` entrypoint is the file-system adapter. It auto-discovers per-environment config files on disk so you don't have to wire imports by hand.
 
-Works on any runtime that exposes a Node-compatible filesystem: **Node ≥22.12** (≥22.18 for `.ts`/`.mts`/`.cts` configs), **Bun**, and **Deno** (via its Node-compat layer). It does **not** work on Workers, Edge, or any environment without a filesystem — those should resolve config at build time (see [`@vlandoss/env/vite`](/docs/api-reference/vite)) or pass it explicitly to `defineEnv`.
+Works on any runtime that exposes a Node-compatible filesystem: **Node ≥22.12** (≥22.18 for `.ts`/`.mts`/`.cts` configs), **Bun**, and **Deno** (via its Node-compat layer). It does **not** work on Workers, Edge, or any environment without a filesystem — those should resolve config at build time (see [`@variablelab/env/vite`](/docs/api-reference/vite)) or pass it explicitly to `defineEnv`.
 
 ## Exports
 

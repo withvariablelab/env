@@ -1,35 +1,35 @@
-# `@vlandoss/env` examples
+# `@variablelab/env` examples
 
-Real-world usage examples for [`@vlandoss/env`](../package). **Each example is runtime-isolated**: it declares its own runtime in a local `mise.toml`, brings its own package manager and lockfile, and consumes `@vlandoss/env` from a packed tarball — exactly as an external consumer would. End-to-end tests use Playwright and exercise real `env` failure modes (missing required vars, wrong types, per-mode config isolation, SSR↔client hydration drift, config loaded synchronously from a CommonJS/`require()` entry).
+Real-world usage examples for [`@variablelab/env`](../package). **Each example is runtime-isolated**: it declares its own runtime in a local `mise.toml`, brings its own package manager and lockfile, and consumes `@variablelab/env` from a packed tarball — exactly as an external consumer would. End-to-end tests use Playwright and exercise real `env` failure modes (missing required vars, wrong types, per-mode config isolation, SSR↔client hydration drift, config loaded synchronously from a CommonJS/`require()` entry).
 
 | Example                                      | Runtime                                  | Package manager | `env` entries exercised                                                          |
 | -------------------------------------------- | ---------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
-| [`backend-node`](./backend-node)             | Node.js 24                               | pnpm            | `@vlandoss/env` + `@vlandoss/env/fs` + `@vlandoss/env/zod`                       |
-| [`backend-bun`](./backend-bun)               | Bun 1.2.4                                | bun             | `@vlandoss/env` + `@vlandoss/env/fs` + `@vlandoss/env/zod`                       |
-| [`backend-deno`](./backend-deno)             | Deno 2 (server) + Node 24 (test runner)  | bun             | `@vlandoss/env` + `@vlandoss/env/fs` + `@vlandoss/env/zod`                       |
-| [`backend-node-cjs`](./backend-node-cjs)     | Node.js 24                               | pnpm            | `@vlandoss/env` + `@vlandoss/env/fs` (sync `loadConfig` via `require()`) + `@vlandoss/env/zod` |
-| [`backend-bun-cjs`](./backend-bun-cjs)       | Bun 1.2.4                                | bun             | `@vlandoss/env` + `@vlandoss/env/fs` (sync `loadConfig` via `require()`) + `@vlandoss/env/zod` |
-| [`backend-deno-cjs`](./backend-deno-cjs)     | Deno 2 (server) + Node 24 (test runner)  | bun             | `@vlandoss/env` + `@vlandoss/env/fs` (sync `loadConfig` via `require()`) + `@vlandoss/env/zod` |
-| [`worker-cloudflare`](./worker-cloudflare)   | Cloudflare Workers (wrangler)            | pnpm            | `@vlandoss/env` (`runtimeEnv: c.env`, per-request) + `@vlandoss/env/zod`         |
-| [`edge-nextjs`](./edge-nextjs)               | Next.js Edge runtime                     | pnpm            | `@vlandoss/env` + `@vlandoss/env/zod` (no FS on Edge)                            |
-| [`spa-vite-plugin`](./spa-vite-plugin)       | Node.js (Vite)                           | pnpm            | `@vlandoss/env` + `@vlandoss/env/vite` (`envConfig()` + `#config`)               |
-| [`spa-vite-dynamic`](./spa-vite-dynamic)     | Node.js (Vite)                           | pnpm            | `@vlandoss/env` (dynamic `import()`) + `@vlandoss/env/vite` (for `__ENV_NAME__`) |
-| [`ssr-react-router`](./ssr-react-router)     | Node.js (React Router 7)                 | pnpm            | `@vlandoss/env` + `@vlandoss/env/fs` + `@vlandoss/env/react` (`<EnvScript />`)   |
-| [`ssr-tanstack-start`](./ssr-tanstack-start) | Node.js (TanStack Start)                 | pnpm            | `@vlandoss/env` + `@vlandoss/env/vite` + `@vlandoss/env/react`                   |
+| [`backend-node`](./backend-node)             | Node.js 24                               | pnpm            | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/zod`                       |
+| [`backend-bun`](./backend-bun)               | Bun 1.2.4                                | bun             | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/zod`                       |
+| [`backend-deno`](./backend-deno)             | Deno 2 (server) + Node 24 (test runner)  | bun             | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/zod`                       |
+| [`backend-node-cjs`](./backend-node-cjs)     | Node.js 24                               | pnpm            | `@variablelab/env` + `@variablelab/env/fs` (sync `loadConfig` via `require()`) + `@variablelab/env/zod` |
+| [`backend-bun-cjs`](./backend-bun-cjs)       | Bun 1.2.4                                | bun             | `@variablelab/env` + `@variablelab/env/fs` (sync `loadConfig` via `require()`) + `@variablelab/env/zod` |
+| [`backend-deno-cjs`](./backend-deno-cjs)     | Deno 2 (server) + Node 24 (test runner)  | bun             | `@variablelab/env` + `@variablelab/env/fs` (sync `loadConfig` via `require()`) + `@variablelab/env/zod` |
+| [`worker-cloudflare`](./worker-cloudflare)   | Cloudflare Workers (wrangler)            | pnpm            | `@variablelab/env` (`runtimeEnv: c.env`, per-request) + `@variablelab/env/zod`         |
+| [`edge-nextjs`](./edge-nextjs)               | Next.js Edge runtime                     | pnpm            | `@variablelab/env` + `@variablelab/env/zod` (no FS on Edge)                            |
+| [`spa-vite-plugin`](./spa-vite-plugin)       | Node.js (Vite)                           | pnpm            | `@variablelab/env` + `@variablelab/env/vite` (`envConfig()` + `#config`)               |
+| [`spa-vite-dynamic`](./spa-vite-dynamic)     | Node.js (Vite)                           | pnpm            | `@variablelab/env` (dynamic `import()`) + `@variablelab/env/vite` (for `__ENV_NAME__`) |
+| [`ssr-react-router`](./ssr-react-router)     | Node.js (React Router 7)                 | pnpm            | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/react` (`<EnvScript />`)   |
+| [`ssr-tanstack-start`](./ssr-tanstack-start) | Node.js (TanStack Start)                 | pnpm            | `@variablelab/env` + `@variablelab/env/vite` + `@variablelab/env/react`                   |
 
 The `backend-*`, `worker-*`, and `edge-nextjs` examples drive Playwright in HTTP-only mode (the `request` fixture); the 4 SPA / SSR examples drive a real chromium browser.
 
-## How `@vlandoss/env` is consumed
+## How `@variablelab/env` is consumed
 
 Each example declares the dependency as a local file tarball:
 
 ```jsonc
-"@vlandoss/env": "file:../../package/.local/vlandoss-env.tgz"
+"@variablelab/env": "file:../../package/.local/variablelab-env.tgz"
 ```
 
 The tarball is generated by `mise run env:pack` (which calls `pnpm pack` inside `package/`). This guarantees each example consumes the package **as published** — same `files`, same `publishConfig.exports`, same peerDeps — instead of reaching into the workspace source tree.
 
-`backend-deno` is the special case: `deno install` / `deno add` don't extract `file:` tarballs — they leave `node_modules/@vlandoss/env` as a dangling symlink to the `.tgz`. So we use `bun install` to hydrate the directory (bun extracts the tarball into a flat layout) and let Deno read it via `nodeModulesDir: "manual"`. Deno still owns the runtime; bun is only there to do the install step.
+`backend-deno` is the special case: `deno install` / `deno add` don't extract `file:` tarballs — they leave `node_modules/@variablelab/env` as a dangling symlink to the `.tgz`. So we use `bun install` to hydrate the directory (bun extracts the tarball into a flat layout) and let Deno read it via `nodeModulesDir: "manual"`. Deno still owns the runtime; bun is only there to do the install step.
 
 ## Setup (from the monorepo root)
 
@@ -74,4 +74,4 @@ mise run //examples/backend-node:start
 
 ## Why isolated?
 
-`@vlandoss/env` advertises itself as runtime-agnostic. Examples that secretly resolve through a shared pnpm workspace don't actually prove that promise. With per-example `mise.toml`, lockfiles, and a packed tarball, each example is a real consumer — it works exactly as it would for someone running `pnpm add @vlandoss/env` in a fresh project.
+`@variablelab/env` advertises itself as runtime-agnostic. Examples that secretly resolve through a shared pnpm workspace don't actually prove that promise. With per-example `mise.toml`, lockfiles, and a packed tarball, each example is a real consumer — it works exactly as it would for someone running `pnpm add @variablelab/env` in a fresh project.

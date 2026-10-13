@@ -14,13 +14,13 @@ If a single multi-env build is acceptable, the simpler [dynamic-import pattern](
 
 ## Reference example
 
-[`examples/spa-vite-plugin/`](https://github.com/variableland/env/tree/main/examples/spa-vite-plugin) — React + Vite SPA importing config through the `#config` alias.
+[`examples/spa-vite-plugin/`](https://github.com/withvariablelab/env/tree/main/examples/spa-vite-plugin) — React + Vite SPA importing config through the `#config` alias.
 
 ## Wiring
 
 ```ts title="vite.config.ts"
 import react from "@vitejs/plugin-react";
-import { envConfig } from "@vlandoss/env/vite";
+import { envConfig } from "@variablelab/env/vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -29,8 +29,8 @@ export default defineConfig({
 ```
 
 ```ts title="src/env/schema.ts"
-import { type Config, schema } from "@vlandoss/env";
-import * as e from "@vlandoss/env/zod";
+import { type Config, schema } from "@variablelab/env";
+import * as e from "@variablelab/env/zod";
 import * as z from "zod";
 
 export const Env = schema({
@@ -52,7 +52,7 @@ declare module "#config" {
 
 ```ts title="src/env/index.ts"
 import config from "#config";
-import { defineEnv } from "@vlandoss/env";
+import { defineEnv } from "@variablelab/env";
 import { Env } from "./schema.ts";
 
 export const env = defineEnv({ schema: Env, config });
