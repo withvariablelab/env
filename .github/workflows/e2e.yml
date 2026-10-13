@@ -1,3 +1,5 @@
+# Run each example app's e2e suite against the packed package.
+
 name: E2E
 
 on:
@@ -27,7 +29,7 @@ permissions: {}
 
 jobs:
   test:
-    name: ${{ matrix.example }}
+    name: E2E ${{ matrix.example }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -60,7 +62,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: 🛠️ Setup mise (root + example tools)
+      - name: 🛠️ Setup mise
         uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
         with:
           install: true
@@ -68,12 +70,12 @@ jobs:
           experimental: true
           working_directory: examples/${{ matrix.example }}
 
-      - name: 📦 Install root workspace (for env:pack)
+      - name: 📦 Install root dependencies
         run: pnpm install --frozen-lockfile
 
       - name: 🎁 Pack @variablelab/env
         run: mise run env:pack
 
-      - name: 🧩 Test e2e
+      - name: 🧩 Run e2e tests
         timeout-minutes: 5
         run: mise run //examples/${{ matrix.example }}:test:e2e

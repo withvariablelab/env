@@ -1,3 +1,5 @@
+# Test PRs and main; release from main; publish previews for feat/fix PRs.
+
 name: CI
 
 on:
@@ -19,6 +21,7 @@ permissions: {}
 
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
     # Run inside the official Playwright image: browsers (chromium v1217 for
     # playwright 1.59.1) are pre-baked, so the lib browser tests need no
@@ -42,19 +45,20 @@ jobs:
           cache: true
           experimental: true
 
-      - name: 📦 Install root workspace
+      - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 💅 Check (biome + tsc)
+      - name: 💅 Lint and typecheck
         run: mise run check
 
-      - name: 🧪 Test unit (lib)
+      - name: 🧪 Run unit tests
         run: mise run lib:test
 
-      - name: 🔨 Build (lib)
+      - name: 🔨 Build library
         run: mise run lib:build
 
   release:
+    name: Release
     runs-on: ubuntu-latest
     timeout-minutes: 15
     needs: test
@@ -86,7 +90,7 @@ jobs:
           cache: true
           experimental: true
 
-      - name: 📦 Install root workspace
+      - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
       # Identity of the app's bot user, derived from the token (pattern from
@@ -100,7 +104,7 @@ jobs:
           git config user.name "${APP_SLUG}[bot]"
           git config user.email "${user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
 
-      - name: 🚀 Create release PR or publish versions
+      - name: 🚀 Release or version PR
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
           github-token: ${{ steps.app-token.outputs.token }}
@@ -116,6 +120,7 @@ jobs:
   # Job 1 of the two-job preview: runs the PR code and publishes it with npm
   # OIDC. No app key here; it only hands the published package list on.
   preview:
+    name: Publish preview
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: ${{ startsWith(github.head_ref, 'feat') || startsWith(github.head_ref, 'fix') || contains(github.event.pull_request.labels.*.name, 'preview') }}
@@ -135,10 +140,10 @@ jobs:
         with:
           node-version-file: .node-version
 
-      - name: ⌛ Setup CI
+      - name: ⌛ Setup pnpm
         uses: withvariablelab/gh-actions/actions/setup-pnpm@main
 
-      - name: 🚀 Preview release
+      - name: 🚀 Publish preview
         id: preview
         uses: withvariablelab/gh-actions/actions/monorepo-preview-release@main
         with:
@@ -152,6 +157,7 @@ jobs:
   # job that ran PR code, so it is untrusted: it only travels through
   # `outputs:`/`with:` and is validated by the action, never put in a `run:`.
   preview-comment:
+    name: Comment preview
     needs: preview
     if: ${{ needs.preview.result == 'success' }}
     permissions: {}

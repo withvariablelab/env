@@ -1,3 +1,5 @@
+# Lighthouse SEO audit of the docs site.
+
 name: Docsite
 
 on:
@@ -13,6 +15,7 @@ permissions: {}
 
 jobs:
   seo:
+    name: Audit SEO
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,10 +35,10 @@ jobs:
           cache: true
           experimental: true
 
-      - name: 📦 Install root workspace
+      - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 💾 Cache pnpm dlx (Lighthouse CI)
+      - name: 💾 Cache Lighthouse CI
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         with:
           path: ~/.cache/pnpm/dlx
@@ -44,7 +47,7 @@ jobs:
       - name: 🌐 Setup Chrome
         uses: browser-actions/setup-chrome@c785b87e244131f27c9f19c1a33e2ead956ab7ce # v1.7.3
 
-      - name: 🔎 SEO audit (Lighthouse CI)
+      - name: 🔎 Run SEO audit
         timeout-minutes: 12
         run: pnpm --filter docsite check:seo
 
