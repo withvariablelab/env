@@ -124,4 +124,4 @@ export const LANDING_META = {
   publishDate: "2026",
 } as const;
 
-export const SITE_URL = "https://env.oss.variable.land";
+export const SITE_URL = "https://lab.variable.land/env";

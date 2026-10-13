@@ -19,6 +19,6 @@ The pinned `@lhci/cli@X.Y.Z` version lives in two places that **must be kept in 
 
 When bumping the version, update both — otherwise CI keeps restoring the old `~/.cache/pnpm/dlx` and the new bin is re-downloaded every run, defeating the cache.
 
-URLs and budgets live in [`.lighthouserc.cjs`](./.lighthouserc.cjs). The URL list is parsed from `dist/client/sitemap.xml` (produced by prerendering [`src/routes/sitemap[.]xml.ts`](./src/routes/sitemap[.]xml.ts) during `vite build`) — new docs are picked up automatically. Budgets: SEO and best-practices pinned at 100 (`error`); accessibility ≥90 and performance ≥50 (`warn`). Any regression in `meta-description`, `document-title`, `is-crawlable`, etc. fails the PR.
+URLs and budgets live in [`.lighthouserc.cjs`](./.lighthouserc.cjs). The URL list is parsed from `dist/client/env/sitemap.xml` (produced by prerendering [`src/routes/sitemap[.]xml.ts`](./src/routes/sitemap[.]xml.ts) during `vite build`) — new docs are picked up automatically. Budgets: SEO and best-practices pinned at 100 (`error`); accessibility ≥90 and performance ≥50 (`warn`). Any regression in `meta-description`, `document-title`, `is-crawlable`, etc. fails the PR.
 
 **Why Lighthouse CI instead of Unlighthouse:** an earlier version of this workflow used Unlighthouse. It worked but `unlighthouse-ci` leaks Chrome process handles after a successful scan and never exits cleanly — under GitHub Actions the step would hang several minutes after the audit finished. LHCI handles process cleanup correctly and is the more battle-tested CI primitive.

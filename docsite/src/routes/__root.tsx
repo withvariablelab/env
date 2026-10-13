@@ -2,6 +2,7 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-r
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import type * as React from "react";
 import { SITE_URL } from "#src/components/landing/data.ts";
+import { BASE_PATH } from "#src/lib/base-path.ts";
 import appCss from "#src/styles/app.css?url";
 
 export const Route = createRootRoute({
@@ -21,20 +22,32 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/geist-latin-wght-normal.woff2", crossOrigin: "anonymous" },
-      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/geist-latin-wght-italic.woff2", crossOrigin: "anonymous" },
       {
         rel: "preload",
         as: "font",
         type: "font/woff2",
-        href: "/fonts/geist-mono-latin-wght-normal.woff2",
+        href: `${BASE_PATH}/fonts/geist-latin-wght-normal.woff2`,
         crossOrigin: "anonymous",
       },
-      { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon/favicon-16.png" },
-      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon/favicon-32.png" },
-      { rel: "icon", type: "image/png", sizes: "48x48", href: "/favicon/favicon-48.png" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "/app-icon/apple-touch-icon.png" },
-      { rel: "manifest", href: "/manifest.webmanifest" },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: `${BASE_PATH}/fonts/geist-latin-wght-italic.woff2`,
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: `${BASE_PATH}/fonts/geist-mono-latin-wght-normal.woff2`,
+        crossOrigin: "anonymous",
+      },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: `${BASE_PATH}/favicon/favicon-16.png` },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: `${BASE_PATH}/favicon/favicon-32.png` },
+      { rel: "icon", type: "image/png", sizes: "48x48", href: `${BASE_PATH}/favicon/favicon-48.png` },
+      { rel: "apple-touch-icon", sizes: "180x180", href: `${BASE_PATH}/app-icon/apple-touch-icon.png` },
+      { rel: "manifest", href: `${BASE_PATH}/manifest.webmanifest` },
     ],
   }),
   component: RootComponent,
@@ -55,7 +68,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="flex min-h-screen flex-col">
-        <RootProvider>{children}</RootProvider>
+        <RootProvider search={{ options: { api: `${BASE_PATH}/api/search` } }}>{children}</RootProvider>
         <Scripts />
       </body>
     </html>
