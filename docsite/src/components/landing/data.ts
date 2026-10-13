@@ -1,3 +1,5 @@
+import { BASE_PATH } from "#src/lib/base-path.ts";
+
 export const SCHEMA_CODE = `import { schema, type Config } from "@variablelab/env";
 import * as z from "zod";
 
@@ -124,4 +126,4 @@ export const LANDING_META = {
   publishDate: "2026",
 } as const;
 
-export const SITE_URL = "https://lab.variable.land/env";
+export const SITE_URL = `https://lab.variable.land${BASE_PATH}`;

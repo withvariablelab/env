@@ -2,3 +2,8 @@
 // their own; prefix it wherever a path leaves the router: raw `<a href>`, `fetch()`, `<head>`
 // assets, text endpoints and the Worker entry.
 export const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+// Fumadocs writes markdown links router-relative (`](/docs/...)`).
+export function prefixMarkdownLinks(markdown: string) {
+  return markdown.replaceAll("](/", `](${BASE_PATH}/`);
+}

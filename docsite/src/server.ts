@@ -3,8 +3,8 @@ import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation";
 import { SITE_URL } from "#src/components/landing/data.ts";
 import { BASE_PATH } from "#src/lib/base-path.ts";
 
-// The docs used to live at the root of this host. Static assets only match under
-// `BASE_PATH`, so every legacy request reaches the Worker and is redirected here.
+// The docs used to live at the root of this host. Old URLs never start with `BASE_PATH`,
+// where the static assets live, so they reach the Worker and get redirected.
 const LEGACY_HOST = "env.oss.variable.land";
 
 // Public `/docs/foo.mdx` URLs and `Accept: text/markdown` requests on `/docs/*`

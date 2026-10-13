@@ -31,7 +31,7 @@ Or directly inside this workspace:
 pnpm dev             # local dev server
 pnpm build           # production build (Vite + Cloudflare adapter)
 pnpm preview         # preview the built bundle
-pnpm deploy          # build + wrangler deploy
+pnpm run deploy      # build + wrangler deploy
 pnpm test:types      # typechecks
 ```
 
@@ -49,14 +49,14 @@ pnpm test:types      # typechecks
 | Preview command   | `npx wrangler preview` (the default; needs `previews` in `wrangler.jsonc`) |
 | Build watch paths | `docsite/**`, `pnpm-lock.yaml`                                             |
 
-All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm deploy` is the manual equivalent.
+All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm run deploy` is the manual equivalent.
 
-Each branch gets its own preview trigger on its first push, holding a copy of the settings above at that moment. Changing the settings later does not touch the triggers of branches that already have one; update them through the Workers Builds API (`PATCH /accounts/{account_id}/builds/triggers/{trigger_uuid}`) or delete that branch's preview so the next push recreates it.
+A branch copies these settings into its own preview trigger on its first push, so later changes only reach new branches.
 
 ## Notes
 
 - `postinstall` runs `fumadocs-mdx` to generate `.source/` (Fumadocs' MDX index). Commit-ignored.
 - `llms.txt` and `llms-full.txt` are emitted from `src/routes/llms[.]txt.ts` and `src/routes/llms-full[.]txt.ts` so LLM agents can ingest the full docs corpus.
 - `src/server.ts` makes raw MDX addressable two ways: append `.mdx` to any `/docs/*` URL, or send `Accept: text/markdown`. Both are rewritten to the internal `/raw/*` route (TanStack Router can't express splat-plus-`.mdx` natively, so the rewrite lives at the Worker edge).
-- The site is served under the `/env` subpath of [lab.variable.land](https://lab.variable.land), whose root belongs to a separate landing Worker. Vite's `base` (`vite.config.ts`) and the routes in `wrangler.jsonc` must agree; TanStack Start derives the router basepath from `base`, so `<Link>`s need nothing extra. Static assets match by file path, so the build moves the prerendered client output under `dist/client/env/` (Cloudflare's `assets.base_path` would replace this, but it is not enabled on our account yet). Anything that leaves the router — raw `<a href>`, `fetch()`, `<head>` assets, text endpoints — prefixes `BASE_PATH` from `src/lib/base-path.ts`. Locally that means `pnpm dev` / `pnpm preview` serve at `/env/`.
+- The site lives under `/env` on [lab.variable.land](https://lab.variable.land), so `pnpm dev` / `pnpm preview` serve at `/env/` too. Vite's `base` and the routes in `wrangler.jsonc` must agree. TanStack Start derives the router basepath from `base`; `src/lib/base-path.ts` covers the URLs that leave the router, and `vite.config.ts` explains why the build nests the client output under `dist/client/env/`.
 - `env.oss.variable.land` is the legacy host: it stays attached to this Worker and `src/server.ts` 301s every request to the same path under `lab.variable.land/env`.
