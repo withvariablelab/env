@@ -51,6 +51,8 @@ pnpm test:types      # typechecks
 
 All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm deploy` is the manual equivalent.
 
+Each branch gets its own preview trigger on its first push, holding a copy of the settings above at that moment. Changing the settings later does not touch the triggers of branches that already have one; update them through the Workers Builds API (`PATCH /accounts/{account_id}/builds/triggers/{trigger_uuid}`) or delete that branch's preview so the next push recreates it.
+
 ## Notes
 
 - `postinstall` runs `fumadocs-mdx` to generate `.source/` (Fumadocs' MDX index). Commit-ignored.
