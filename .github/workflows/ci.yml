@@ -75,12 +75,9 @@ jobs:
           permission-pull-requests: write
 
       - name: ⬇️ Checkout repo
-        # zizmor: ignore[artipacked] changesets/action pushes the
-        # changeset-release/main branch with these (vland-bot) credentials, and
-        # this job uploads no artifacts.
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
 
       - name: 🛠️ Setup mise
         uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
@@ -106,6 +103,8 @@ jobs:
       - name: 🚀 Create release PR or publish versions
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
         with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          commitMode: github-api
           commit: "chore: update versions"
           title: "chore: update versions"
           publish: pnpm changeset publish
