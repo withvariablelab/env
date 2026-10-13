@@ -1,5 +1,3 @@
-# Run each example app's e2e suite against the packed package.
-
 name: E2E
 
 on:
@@ -33,9 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    # Browser examples run inside the official Playwright image (browsers
-    # pre-baked, no download); non-browser examples run on the bare runner so
-    # their bun/deno toolchains stay untouched. Empty string ⇒ no container.
+    # Browser examples use the Playwright image; others the bare runner (keeps bun/deno untouched).
     container: ${{ matrix.browser && 'mcr.microsoft.com/playwright:v1.59.1-noble' || '' }}
     timeout-minutes: 12
     env:

@@ -1,6 +1,3 @@
-# Static security analysis of the GitHub Actions workflows (zizmor).
-# Config and reviewed exceptions: .github/zizmor.yml
-
 name: Workflow audit
 
 on:
@@ -29,12 +26,8 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           persist-credentials: false
-
-      # pipx ships with the GitHub-hosted Ubuntu image, so no third-party
-      # setup action is needed.
       - name: 🔒 Scan workflows
         run: pipx run --spec zizmor==1.30.1 zizmor --format=github .github/
         env:
-          # Enables the online audits (impostor commits, known-vulnerable
-          # actions, ref confusion). Read-only: the job has contents: read.
+          # Enables zizmor's online audits.
           GH_TOKEN: ${{ github.token }}

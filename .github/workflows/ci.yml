@@ -1,5 +1,3 @@
-# Test PRs and main; release from main; publish previews for feat/fix PRs.
-
 name: CI
 
 on:
@@ -15,17 +13,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# The default GITHUB_TOKEN is read-only in withvariablelab; every job asks for
-# exactly what it needs below.
 permissions: {}
 
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    # Run inside the official Playwright image: browsers (chromium v1217 for
-    # playwright 1.59.1) are pre-baked, so the lib browser tests need no
-    # `playwright install` download.
+    # Playwright image: browsers come pre-installed.
     container: mcr.microsoft.com/playwright:v1.59.1-noble
     timeout-minutes: 15
     permissions:
@@ -67,8 +61,6 @@ jobs:
       contents: read
       id-token: write # npm trusted publishing (OIDC) for `changeset publish`
     steps:
-      # The Version Packages PR and its commits are made by vland-bot (not
-      # GITHUB_TOKEN) so that PR runs CI. The token only covers this repo.
       - name: 🔑 Mint vland-bot token
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -92,9 +84,6 @@ jobs:
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
-
-      # Identity of the app's bot user, derived from the token (pattern from
-      # the create-github-app-token README) instead of a hardcoded user id.
       - name: 🧑‍💻 Configure git user
         env:
           APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
@@ -117,8 +106,7 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           LEFTHOOK: 0
 
-  # Job 1 of the two-job preview: runs the PR code and publishes it with npm
-  # OIDC. No app key here; it only hands the published package list on.
+  # Runs PR code: never give this job the bot key.
   preview:
     name: Publish preview
     runs-on: ubuntu-latest
@@ -150,12 +138,6 @@ jobs:
           mode: publish
           publish_mode: oidc-only
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-  # Job 2 of the two-job preview: never checks out or runs PR code. The
-  # reusable workflow mints the vland-bot token (this repo only,
-  # pull-requests: write) and upserts the PR comment. `packages` comes from a
-  # job that ran PR code, so it is untrusted: it only travels through
-  # `outputs:`/`with:` and is validated by the action, never put in a `run:`.
   preview-comment:
     name: Comment preview
     needs: preview

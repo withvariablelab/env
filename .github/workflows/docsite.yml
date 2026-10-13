@@ -1,10 +1,7 @@
-# Lighthouse SEO audit of the docs site.
-
 name: Docsite
 
 on:
-  # Disabled on push/PR for now — the Lighthouse SEO audit is too slow and
-  # needs a rework. Run manually via the Actions tab in the meantime.
+  # Manual only until the slow Lighthouse audit is reworked.
   workflow_dispatch:
 
 concurrency:
