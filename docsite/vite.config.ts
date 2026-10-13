@@ -7,18 +7,14 @@ import react from "@vitejs/plugin-react";
 import mdx from "fumadocs-mdx/vite";
 import { defineConfig, type Plugin } from "vite";
 
-// Served at lab.variable.land/env (see the routes in wrangler.jsonc).
-const BASE = "/env/";
-
 // Workers static assets map URL paths straight onto the assets directory, and
 // `assets.base_path` is not enabled on our account yet. Once TanStack Start has
-// prerendered into `dist/client`, move it under `env/` so `/env/docs/` finds
+// prerendered into `dist/client`, move it under the base (`env/`) so `/env/docs/` finds
 // `dist/client/env/docs/index.html`. Dotfiles (`.assetsignore`) and `_headers` /
 // `_redirects` must stay at the root.
 function nestClientUnderBase(): Plugin {
   return {
     name: "docsite:nest-client-under-base",
-    apply: "build",
     enforce: "post",
     buildApp: {
       order: "post",
@@ -26,7 +22,7 @@ function nestClientUnderBase(): Plugin {
         const client = builder.environments.client;
         if (!client) throw new Error("No client environment to nest under the base path");
         const outDir = path.resolve(builder.config.root, client.config.build.outDir);
-        const target = path.join(outDir, BASE);
+        const target = path.join(outDir, builder.config.base);
         const entries = (await readdir(outDir)).filter((name) => !/^[._]/.test(name));
         await mkdir(target, { recursive: true });
         await Promise.all(entries.map((name) => rename(path.join(outDir, name), path.join(target, name))));
@@ -36,7 +32,8 @@ function nestClientUnderBase(): Plugin {
 }
 
 export default defineConfig({
-  base: BASE,
+  // Served at lab.variable.land/env (see the routes in wrangler.jsonc).
+  base: "/env/",
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
     tailwindcss(),
