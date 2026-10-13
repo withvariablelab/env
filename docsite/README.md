@@ -39,17 +39,17 @@ pnpm test:types      # typechecks
 
 ## Deploying
 
-[Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/) deploys the `vlandoss-env-docs` Worker on every merge to `main` and uploads a preview version for every other branch. Its settings live in the Cloudflare dashboard (_Workers & Pages → vlandoss-env-docs → Settings → Build_), not in this repo:
+[Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/) deploys the `vlandoss-env-docs` Worker on every merge to `main` and creates a [Worker Preview](https://developers.cloudflare.com/workers/previews/) for every other branch. Its settings live in the Cloudflare dashboard (_Workers & Pages → vlandoss-env-docs → Settings → Build_), not in this repo:
 
-| Setting                              | Value                                                    |
-| ------------------------------------ | -------------------------------------------------------- |
-| Root directory                       | `/` — `pnpm install` must run at the workspace root      |
-| Build command                        | `pnpm --filter docsite build`                            |
-| Deploy command                       | `pnpm --filter docsite exec wrangler deploy`             |
-| Non-production branch deploy command | `pnpm --filter docsite exec wrangler versions upload`    |
-| Build watch paths                    | `docsite/*`, `pnpm-lock.yaml`                            |
+| Setting           | Value                                                                      |
+| ----------------- | -------------------------------------------------------------------------- |
+| Root directory    | `/docsite`                                                                 |
+| Build command     | `pnpm build`                                                               |
+| Deploy command    | `pnpm exec wrangler deploy`                                                |
+| Preview command   | `npx wrangler preview` (the default; needs `previews` in `wrangler.jsonc`) |
+| Build watch paths | `docsite/**`, `pnpm-lock.yaml`                                             |
 
-The commands go through `pnpm --filter docsite exec` so they run inside `docsite/` with its pinned wrangler; a bare `npx wrangler` at the root downloads the latest one instead. `pnpm deploy` is the manual equivalent.
+All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm deploy` is the manual equivalent.
 
 ## Notes
 
