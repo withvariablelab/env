@@ -45,13 +45,13 @@ pnpm test:types      # typechecks
 | ----------------- | -------------------------------------------------------------------------- |
 | Root directory    | `/docsite`                                                                 |
 | Build command     | `pnpm build`                                                               |
-| Deploy command    | `pnpm exec wrangler deploy`                                                |
+| Deploy command    | `npx wrangler deploy` (the default)                                        |
 | Preview command   | `npx wrangler preview` (the default; needs `previews` in `wrangler.jsonc`) |
 | Build watch paths | `docsite/**`, `pnpm-lock.yaml`                                             |
 
 All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm run deploy` is the manual equivalent.
 
-A branch copies these settings into its own preview trigger on its first push, so later changes only reach new branches.
+A branch copies these settings into its own preview trigger on its first push, so later changes only reach new branches. The copy swaps in `npx wrangler preview` only while the deploy command is the default; a custom one is copied as is and makes every branch try a production `wrangler deploy`, so keep it at `npx wrangler deploy`.
 
 ## Notes
 
