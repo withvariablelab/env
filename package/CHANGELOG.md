@@ -1,5 +1,11 @@
 # @variablelab/env
 
+## 0.5.3
+
+### Patch Changes
+
+- [#33](https://github.com/withvariablelab/env/pull/33) [`2b7358a`](https://github.com/withvariablelab/env/commit/2b7358afbd868983add4e33d6af88a10d6545a1f) Thanks [@rqbazan](https://github.com/rqbazan)! - Point the README's documentation links to lab.variable.land/env
+
 ## 0.5.2
 
 ### Patch Changes
