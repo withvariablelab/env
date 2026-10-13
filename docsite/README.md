@@ -39,19 +39,16 @@ pnpm test:types      # typechecks
 
 ## Deploying
 
-[Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/) deploys the `vlandoss-env-docs` Worker on every merge to `main` and creates a [Worker Preview](https://developers.cloudflare.com/workers/previews/) for every other branch. Its settings live in the Cloudflare dashboard (_Workers & Pages → vlandoss-env-docs → Settings → Build_), not in this repo:
+[Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/) deploys the `variablelab-env` Worker on every merge to `main`; preview builds are off. Its settings live in the Cloudflare dashboard (_Workers & Pages → variablelab-env → Settings → Build_), not in this repo:
 
-| Setting           | Value                                                                      |
-| ----------------- | -------------------------------------------------------------------------- |
-| Root directory    | `/docsite`                                                                 |
-| Build command     | `pnpm build`                                                               |
-| Deploy command    | `npx wrangler deploy` (the default)                                        |
-| Preview command   | `npx wrangler preview` (the default; needs `previews` in `wrangler.jsonc`) |
-| Build watch paths | `docsite/**`, `pnpm-lock.yaml`                                             |
+| Setting           | Value                               |
+| ----------------- | ----------------------------------- |
+| Root directory    | `/docsite`                          |
+| Build command     | `pnpm build`                        |
+| Deploy command    | `npx wrangler deploy` (the default) |
+| Build watch paths | `docsite/**`, `pnpm-lock.yaml`      |
 
 All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm run deploy` is the manual equivalent.
-
-Branches copy these settings on their first push. The preview command lives in a separate config the dashboard doesn't show, and it must stay `npx wrangler preview`.
 
 ## Notes
 

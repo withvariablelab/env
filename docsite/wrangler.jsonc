@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "vlandoss-env-docs",
+  "name": "variablelab-env",
   "compatibility_date": "2026-05-01",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./src/server.ts",
@@ -11,7 +11,5 @@
     { "pattern": "lab.variable.land/env/*", "zone_name": "variable.land" },
     // Legacy host, kept attached so src/server.ts can 301 old links to lab.variable.land/env.
     { "pattern": "env.oss.variable.land", "custom_domain": true }
-  ],
-  // Workers Builds runs `wrangler preview` on non-production branches; it requires this block.
-  "previews": {}
+  ]
 }
