@@ -3,8 +3,8 @@ packages:
   - docsite
 
 catalog:
-  "@rrlab/ts-config": 0.0.2
-  "@rrlab/tsdown-config": 0.1.0
+  "@rrlab/ts-config": 0.0.3
+  "@rrlab/tsdown-config": 0.1.1
   "@types/node": 24.12.4
   "@types/react": 19.2.14
   "@types/react-dom": 19.2.3

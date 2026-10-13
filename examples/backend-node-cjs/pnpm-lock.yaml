@@ -28,20 +28,20 @@ importers:
         specifier: 1.59.1
         version: 1.59.1
       '@rrlab/biome-config':
-        specifier: 0.0.2
-        version: 0.0.2(@biomejs/biome@2.4.15)
+        specifier: 0.0.3
+        version: 0.0.3(@biomejs/biome@2.4.15)
       '@rrlab/biome-plugin':
-        specifier: 1.1.0
-        version: 1.1.0(@biomejs/biome@2.4.15)(@pnpm/logger@1001.0.1)(@rrlab/cli@1.1.0(@pnpm/logger@1001.0.1))
+        specifier: 1.1.3
+        version: 1.1.3(@biomejs/biome@2.4.15)(@pnpm/logger@1001.0.1)(@rrlab/cli@1.3.2(@pnpm/logger@1001.0.1))
       '@rrlab/cli':
-        specifier: 1.1.0
-        version: 1.1.0(@pnpm/logger@1001.0.1)
+        specifier: 1.3.2
+        version: 1.3.2(@pnpm/logger@1001.0.1)
       '@rrlab/ts-config':
-        specifier: 0.0.2
-        version: 0.0.2(@types/node@24.12.4)(typescript@6.0.3)
+        specifier: 0.0.3
+        version: 0.0.3(@types/node@24.12.4)(typescript@6.0.3)
       '@rrlab/ts-plugin':
-        specifier: 1.1.0
-        version: 1.1.0(@pnpm/logger@1001.0.1)(@rrlab/cli@1.1.0(@pnpm/logger@1001.0.1))(typescript@6.0.3)
+        specifier: 1.1.3
+        version: 1.1.3(@pnpm/logger@1001.0.1)(@rrlab/cli@1.3.2(@pnpm/logger@1001.0.1))(typescript@6.0.3)
       '@types/node':
         specifier: 24.12.4
         version: 24.12.4
@@ -60,10 +60,6 @@ packages:
 
   '@babel/helper-string-parser@7.29.7':
     resolution: {integrity: sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-validator-identifier@7.28.5':
-    resolution: {integrity: sha512-qSs4ifwzKJSV39ucNjsvc6WVHs6b7S03sOh2OcHF9UHfVPqWWALUsNUVzhSBiItjRZoLHx7nIarVjqKVusUZ1Q==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-identifier@7.29.7':
@@ -218,25 +214,25 @@ packages:
     resolution: {integrity: sha512-zG68fk03ryot7TWUl9S/ShQ91uHWzIL9sVr2aQCuNHJo8G9kjsG6S0p58Zj/voahdDQeakZYYBSJ0mjNZeiJnw==}
     engines: {node: '>=18.12'}
 
-  '@rrlab/biome-config@0.0.2':
-    resolution: {integrity: sha512-b54jSWnYejnTSemC/arKz8glA/5W/iLhyEmd/aznYZEXT18pHtRtYz76bMJHZfElmcU3woGC2adHtXBI3/Sing==}
+  '@rrlab/biome-config@0.0.3':
+    resolution: {integrity: sha512-WpB6f9Gg4/Rp9+FYvocWRaoP31yLw3MLOjBrpV4kxh2gdlXMhoyowO7xeeFhAphybv0Ctc7tsq7MaB9QmgLNKA==}
     peerDependencies:
       '@biomejs/biome': '>=2.0.0'
 
-  '@rrlab/biome-plugin@1.1.0':
-    resolution: {integrity: sha512-DJll0Yfw3jifr7wUz20sDz7Ow6dCOtsvJYT6su3zM7niPb0KZ7OI3xrc4wPgf5dbsgbttKyv+6dzeKQsROmg7Q==}
+  '@rrlab/biome-plugin@1.1.3':
+    resolution: {integrity: sha512-ij1F2MKdH0CvV3kWzA01UaKnyi2jVEpqcePmNoJcHTVFlLuGkDfdQ5+2kl6849F9UmQcU47ixJe6VNss40RnJA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       '@biomejs/biome': '>=2.0.0'
-      '@rrlab/cli': ^1.1.0
+      '@rrlab/cli': ^1.3.2
 
-  '@rrlab/cli@1.1.0':
-    resolution: {integrity: sha512-jK+NGnxfr5dfZze7gynYpmvMiecPxC+Z67GuHVxqSW6pM4gr1nw8q8OHALl4urmZbDnXmKMAIoSh/acvfp/YbA==}
+  '@rrlab/cli@1.3.2':
+    resolution: {integrity: sha512-aKF5KF7bID4gaz8uGkfK6yOCoxE6Nbdf982GJ24qwDYl8X02BD12HCR54J1a4JuzynQJanzQNuCXUIBy6wSCJw==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
-  '@rrlab/ts-config@0.0.2':
-    resolution: {integrity: sha512-Tt+XP7TE21Ev17kvpmhjrnmHWx/LI7iJ3cz7sTaYgTWkiFTicr9h9NCwcHaVDswCXo52jKyaQZOHfBkACgXB7Q==}
+  '@rrlab/ts-config@0.0.3':
+    resolution: {integrity: sha512-v0KGcKjBvUhs79KaFvonSSufw+he+CBOM86SCvfRlgqfDMmZUjrond3Tr0IxsbbR6wuoI7d8y3DzBAg113QXGA==}
     peerDependencies:
       '@types/node': '>=20'
       typescript: '>=5.0.0'
@@ -244,11 +240,11 @@ packages:
       '@types/node':
         optional: true
 
-  '@rrlab/ts-plugin@1.1.0':
-    resolution: {integrity: sha512-uHQOP7fgwFeLsiP36+0TMR7iDjb1LH8mP1d9loRTzMwrtlcl2CqM+5DmIJBdwb6n/sBe2+Ej6wW61IL8q+5o5Q==}
+  '@rrlab/ts-plugin@1.1.3':
+    resolution: {integrity: sha512-nZ8uMWqr7UZ3+EBU2cBXGvaBIOQJQwQxkF7BmnjTpFNNuSyidFdzLQNjn+zkv1dt/TqKXAwtw2WxeKDXuZklFg==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      '@rrlab/cli': ^1.1.0
+      '@rrlab/cli': ^1.3.2
       typescript: '>=5.0.0'
 
   '@standard-schema/spec@1.1.0':
@@ -266,9 +262,13 @@ packages:
   '@usage-spec/core@1.1.0':
     resolution: {integrity: sha512-OjcN6IWdvuxN6bZYknTPIx9n/UTZODtGNaQEQe3yN7Y5DluH8/UJ8GeG+C0hNBWc/OePc0n9MmBw3rTbtoRVKg==}
 
+  '@variablelab/clibuddy@0.7.3':
+    resolution: {integrity: sha512-DG18Hygr3y623IP7G4Fspgzjs2U8OyOHCtmfCf+Y10V23Jr6Ew50+RcoVtXFsYrisPm0BaM9r0LNV6tE2jAU0A==}
+    engines: {node: '>=20.0.0'}
+
   '@variablelab/env@file:../../package/.local/variablelab-env.tgz':
-    resolution: {integrity: sha512-KiqChbBqdgXE1keS9ucQ+pTaCHD/+R9bBiJRd1BhbGcQd7ArMcbG1ivFCgax2qcn4CZ7JJoc5v+ZUTFMBWKAow==, tarball: file:../../package/.local/variablelab-env.tgz}
-    version: 0.5.1
+    resolution: {integrity: sha512-UnLviyOFa/T5T37eow5HiovpzI+srIJJUegbK6+CzLhEWp5PZKCMel/Nq56Si+h7fto9U7xb9rgvoqJ5ZamSTA==, tarball: file:../../package/.local/variablelab-env.tgz}
+    version: 0.5.2
     engines: {node: '>=22.12.0'}
     peerDependencies:
       react: '>=19'
@@ -285,12 +285,8 @@ packages:
       zod:
         optional: true
 
-  '@vlandoss/clibuddy@0.7.0':
-    resolution: {integrity: sha512-Z/2oPgBW3xrkL0L8Ug6WRmDmaYR7X8V38IaIMIcZhMCnlTXZALrajfj8n/ZAe07Y/A0kkoXz/ZIgJKYFoX+Twg==}
-    engines: {node: '>=20.0.0'}
-
-  '@vlandoss/loggy@0.2.1':
-    resolution: {integrity: sha512-M/Lx4FTF54+EQalmGGKpsk52LzdHVS6s38JWzObMDJqZ8Odx3Q3US2kpTGeOZIWx/alCRucne+ud+zQIuzl9DA==}
+  '@variablelab/loggy@0.2.2':
+    resolution: {integrity: sha512-uqIaSjnHEg2SxsJqyPQ2GgTN3LBozh2dLEP4n6saGvz1yMUZl9DWhhZ7Tty6M73A4I9inSle/y267qXueZtQMg==}
     engines: {node: '>=20.0.0'}
 
   ansis@4.2.0:
@@ -363,6 +359,12 @@ packages:
 
   fast-safe-stringify@2.1.1:
     resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
+
+  fast-string-truncated-width@3.0.3:
+    resolution: {integrity: sha512-0jjjIEL6+0jag3l2XWWizO64/aZVtpiGE3t0Zgqxv0DPuxiMjvB3M24fCyhZUO4KomJQPj3LTSUnDP3GpdwC0g==}
+
+  fast-string-width@3.0.2:
+    resolution: {integrity: sha512-gX8LrtNEI5hq8DVUfRQMbr5lpaS4nMIWV+7XEbXk2b8kiQIizgnlr12B4dA3ZEx3308ze0O4Q1R+cHts8kyUJg==}
 
   fdir@6.5.0:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
@@ -584,13 +586,11 @@ snapshots:
 
   '@babel/code-frame@7.29.0':
     dependencies:
-      '@babel/helper-validator-identifier': 7.28.5
+      '@babel/helper-validator-identifier': 7.29.7
       js-tokens: 4.0.0
       picocolors: 1.1.1
 
   '@babel/helper-string-parser@7.29.7': {}
-
-  '@babel/helper-validator-identifier@7.28.5': {}
 
   '@babel/helper-validator-identifier@7.29.7': {}
 
@@ -737,27 +737,28 @@ snapshots:
       write-file-atomic: 5.0.1
       write-yaml-file: 5.0.0
 
-  '@rrlab/biome-config@0.0.2(@biomejs/biome@2.4.15)':
+  '@rrlab/biome-config@0.0.3(@biomejs/biome@2.4.15)':
     dependencies:
       '@biomejs/biome': 2.4.15
 
-  '@rrlab/biome-plugin@1.1.0(@biomejs/biome@2.4.15)(@pnpm/logger@1001.0.1)(@rrlab/cli@1.1.0(@pnpm/logger@1001.0.1))':
+  '@rrlab/biome-plugin@1.1.3(@biomejs/biome@2.4.15)(@pnpm/logger@1001.0.1)(@rrlab/cli@1.3.2(@pnpm/logger@1001.0.1))':
     dependencies:
       '@biomejs/biome': 2.4.15
-      '@rrlab/cli': 1.1.0(@pnpm/logger@1001.0.1)
-      '@vlandoss/clibuddy': 0.7.0(@pnpm/logger@1001.0.1)
+      '@rrlab/cli': 1.3.2(@pnpm/logger@1001.0.1)
+      '@variablelab/clibuddy': 0.7.3(@pnpm/logger@1001.0.1)
       comment-json: 4.2.5
     transitivePeerDependencies:
       - '@pnpm/logger'
 
-  '@rrlab/cli@1.1.0(@pnpm/logger@1001.0.1)':
+  '@rrlab/cli@1.3.2(@pnpm/logger@1001.0.1)':
     dependencies:
       '@clack/prompts': 0.11.0
       '@usage-spec/commander': 1.1.0
-      '@vlandoss/clibuddy': 0.7.0(@pnpm/logger@1001.0.1)
-      '@vlandoss/loggy': 0.2.1
+      '@variablelab/clibuddy': 0.7.3(@pnpm/logger@1001.0.1)
+      '@variablelab/loggy': 0.2.2
       commander: 14.0.3
       comment-json: 4.2.5
+      fast-string-width: 3.0.2
       glob: 13.0.6
       lilconfig: 3.1.3
       magicast: 0.3.5
@@ -768,17 +769,17 @@ snapshots:
       - '@pnpm/logger'
       - supports-color
 
-  '@rrlab/ts-config@0.0.2(@types/node@24.12.4)(typescript@6.0.3)':
+  '@rrlab/ts-config@0.0.3(@types/node@24.12.4)(typescript@6.0.3)':
     dependencies:
       '@total-typescript/tsconfig': 1.0.4
       typescript: 6.0.3
     optionalDependencies:
       '@types/node': 24.12.4
 
-  '@rrlab/ts-plugin@1.1.0(@pnpm/logger@1001.0.1)(@rrlab/cli@1.1.0(@pnpm/logger@1001.0.1))(typescript@6.0.3)':
+  '@rrlab/ts-plugin@1.1.3(@pnpm/logger@1001.0.1)(@rrlab/cli@1.3.2(@pnpm/logger@1001.0.1))(typescript@6.0.3)':
     dependencies:
-      '@rrlab/cli': 1.1.0(@pnpm/logger@1001.0.1)
-      '@vlandoss/clibuddy': 0.7.0(@pnpm/logger@1001.0.1)
+      '@rrlab/cli': 1.3.2(@pnpm/logger@1001.0.1)
+      '@variablelab/clibuddy': 0.7.3(@pnpm/logger@1001.0.1)
       comment-json: 4.2.5
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -801,14 +802,7 @@ snapshots:
     dependencies:
       '@bgotink/kdl': 0.4.0
 
-  '@variablelab/env@file:../../package/.local/variablelab-env.tgz(zod@4.3.6)':
-    dependencies:
-      '@standard-schema/spec': 1.1.0
-      defu: 6.1.7
-    optionalDependencies:
-      zod: 4.3.6
-
-  '@vlandoss/clibuddy@0.7.0(@pnpm/logger@1001.0.1)':
+  '@variablelab/clibuddy@0.7.3(@pnpm/logger@1001.0.1)':
     dependencies:
       '@pnpm/fs.find-packages': 1000.0.24(@pnpm/logger@1001.0.1)
       '@pnpm/types': 1001.3.0
@@ -821,7 +815,14 @@ snapshots:
     transitivePeerDependencies:
       - '@pnpm/logger'
 
-  '@vlandoss/loggy@0.2.1':
+  '@variablelab/env@file:../../package/.local/variablelab-env.tgz(zod@4.3.6)':
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      defu: 6.1.7
+    optionalDependencies:
+      zod: 4.3.6
+
+  '@variablelab/loggy@0.2.2':
     dependencies:
       consola: 3.4.2
       debug: 4.4.3
@@ -882,6 +883,12 @@ snapshots:
   fast-deep-equal@3.1.3: {}
 
   fast-safe-stringify@2.1.1: {}
+
+  fast-string-truncated-width@3.0.3: {}
+
+  fast-string-width@3.0.2:
+    dependencies:
+      fast-string-truncated-width: 3.0.3
 
   fdir@6.5.0(picomatch@4.0.4):
     optionalDependencies:
