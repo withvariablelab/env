@@ -5,7 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, labeled]
     branches:
       - main
 
@@ -84,6 +84,7 @@ jobs:
 
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
+
       - name: 🧑‍💻 Configure git user
         env:
           APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
@@ -138,6 +139,7 @@ jobs:
           mode: publish
           publish_mode: oidc-only
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
   preview-comment:
     name: Comment preview
     needs: preview
