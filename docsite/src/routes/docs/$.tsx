@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import browserCollections from "#collections/browser.ts";
 import { LLMCopyButton, ViewOptions } from "#src/components/ai/page-actions.tsx";
 import { useMDXComponents } from "#src/components/mdx.tsx";
+import { BASE_PATH } from "#src/lib/base-path.ts";
 import { baseOptions } from "#src/lib/layout.shared.tsx";
 import { source } from "#src/lib/source.ts";
 
@@ -46,7 +47,7 @@ const serverLoader = createServerFn({ method: "GET" })
 const clientLoader = browserCollections.docs.createClientLoader({
   component({ toc, frontmatter, default: MDX }, props: { url: string }) {
     const slug = props.url === "/docs" ? "/index" : props.url.replace(/^\/docs/, "");
-    const markdownUrl = `${props.url}.mdx`;
+    const markdownUrl = `${BASE_PATH}${props.url}.mdx`;
     const githubUrl = `https://github.com/withvariablelab/env/blob/main/docsite/content/docs${slug}.mdx`;
 
     return (

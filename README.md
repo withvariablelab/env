@@ -12,7 +12,7 @@ Contract-first environment configuration with typed schemas — runtime-agnostic
 pnpm add @variablelab/env
 ```
 
-📚 **[env.oss.variable.land](https://env.oss.variable.land)** — full docs
+📚 **[lab.variable.land/env](https://lab.variable.land/env)** — full docs
 
 ## Repository
 
@@ -21,7 +21,7 @@ This is the monorepo. Three things live here:
 | Path                      | What it is                                                                                                                      |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | [`package/`](./package)   | The [`@variablelab/env`](./package) library — published to npm                                                                     |
-| [`docsite/`](./docsite)   | The Fumadocs site behind [env.oss.variable.land](https://env.oss.variable.land), on Cloudflare Workers                          |
+| [`docsite/`](./docsite)   | The Fumadocs site behind [lab.variable.land/env](https://lab.variable.land/env), on Cloudflare Workers                          |
 | [`examples/`](./examples) | 9 runtime-isolated demos (Node, Bun, Deno, Workers, Edge, Vite SPA, SSR) — each one is a real consumer of the published tarball |
 
 ## Working on it

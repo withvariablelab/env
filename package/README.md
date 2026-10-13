@@ -18,12 +18,12 @@ pnpm add zod
 
 ## Documentation
 
-📚 **[env.oss.variable.land](https://env.oss.variable.land)**
+📚 **[lab.variable.land/env](https://lab.variable.land/env)**
 
-- [Getting started](https://env.oss.variable.land/getting-started/installation)
-- [Concepts](https://env.oss.variable.land/concepts/overview) — mental model, resolution order, env-var naming
-- [Guides](https://env.oss.variable.land/guides) — recipes for Node, SPA, SSR
-- [API reference](https://env.oss.variable.land/api-reference)
+- [Getting started](https://lab.variable.land/env/docs/getting-started/installation)
+- [Concepts](https://lab.variable.land/env/docs/concepts/overview) — mental model, resolution order, env-var naming
+- [Guides](https://lab.variable.land/env/docs/guides) — recipes for Node, SPA, SSR
+- [API reference](https://lab.variable.land/env/docs/api-reference)
 
 ## Examples
 
