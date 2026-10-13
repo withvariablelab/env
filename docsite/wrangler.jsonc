@@ -6,7 +6,8 @@
   "main": "./src/server.ts",
   // Paths must match Vite's `base` in vite.config.ts.
   "routes": [
-    // The rest of lab.variable.land belongs to the lab root Worker; these more specific routes win over it.
+    // Only /env is ours on lab.variable.land. Whatever serves the rest of the host must leave these
+    // paths alone: a zone Redirect Rule runs before Workers, so it has to exclude them explicitly.
     { "pattern": "lab.variable.land/env", "zone_name": "variable.land" },
     { "pattern": "lab.variable.land/env/*", "zone_name": "variable.land" },
     // Legacy host, kept attached so src/server.ts can 301 old links to lab.variable.land/env.
