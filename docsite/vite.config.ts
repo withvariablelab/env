@@ -32,7 +32,7 @@ function nestClientUnderBase(): Plugin {
 }
 
 export default defineConfig({
-  // Served at lab.variable.land/env (see the routes in wrangler.jsonc).
+  // Served under lab.variable.land/env/ (see the routes in wrangler.jsonc).
   base: "/env/",
   plugins: [
     cloudflare({ viteEnvironment: { name: "ssr" } }),
