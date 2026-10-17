@@ -1,7 +1,7 @@
 import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
 import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation";
-import { SITE_URL } from "#src/components/landing/data.ts";
 import { BASE_PATH } from "#src/lib/base-path.ts";
+import { SITE_URL } from "#src/lib/site-url.ts";
 
 // The docs used to live at the root of this host. Old URLs never start with `BASE_PATH`,
 // where the static assets live, so they reach the Worker and get redirected.
