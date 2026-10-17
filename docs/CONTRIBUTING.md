@@ -119,7 +119,7 @@ The preview is republished on every push to the PR.
 
 ## Release flow
 
-When PRs with changesets land on `main`, the [Changesets bot](https://github.com/changesets/bot) opens a "Version Packages" PR. Merging that PR triggers the [release job](../.github/workflows/ci.yml) to publish the new versions to npm and tag the release on GitHub.
+When PRs with changesets land on `main`, the [release job](../.github/workflows/ci.yml) (`changesets/action`, running as `vland-bot`) opens or updates a "chore: update versions" PR. Merging that PR runs the release job again, which publishes the new versions to npm and tags the release on GitHub.
 
 Maintainers don't need to manually bump versions or edit `CHANGELOG.md` — both are generated.
 
