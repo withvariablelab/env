@@ -6,6 +6,8 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: () => {
+        // Only the docs: `/env` is www's Project page, and `.lighthouserc.cjs` audits every
+        // URL listed here against this Worker's preview.
         const paths = source.getPages().map((page) => page.url);
         const urls = paths.map((path) => `  <url><loc>${SITE_URL}${path}</loc></url>`).join("\n");
         const xml = `<?xml version="1.0" encoding="UTF-8"?>
