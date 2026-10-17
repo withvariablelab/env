@@ -28,7 +28,7 @@ jobs:
       MISE_EXPERIMENTAL: "1"
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -71,7 +71,7 @@ jobs:
           permission-pull-requests: write
 
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
@@ -95,16 +95,13 @@ jobs:
           git config user.email "${user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
 
       - name: 🚀 Release or version PR
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
           github-token: ${{ steps.app-token.outputs.token }}
-          commitMode: github-api
-          commit: "chore: update versions"
-          title: "chore: update versions"
-          publish: pnpm changeset publish
-          setupGitUser: false
+          commit-message: "chore: update versions"
+          pr-title: "chore: update versions"
+          publish-script: pnpm changeset publish
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           LEFTHOOK: 0
 
   # Runs PR code: never give this job the bot key.
@@ -122,7 +119,7 @@ jobs:
       packages: ${{ steps.preview.outputs.packages }}
     steps:
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 

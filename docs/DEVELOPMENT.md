@@ -224,7 +224,7 @@ These hooks intentionally skip the examples — they take long enough that we on
 Two GitHub Actions workflows:
 
 - [`ci.yml`](../.github/workflows/ci.yml) — the lib + docs pipeline. Static checks, unit tests, build. Also runs the Changesets release job on `main`.
-- [`e2e.yml`](../.github/workflows/e2e.yml) — a matrix job per example. Each job sets up its own runtime via `jdx/mise-action@v2` (with `working_directory: examples/<name>`) and runs `mise run //examples/<name>:test:e2e`.
+- [`e2e.yml`](../.github/workflows/e2e.yml) — a matrix job per example. Each job sets up its own runtime via `jdx/mise-action` v4.3.0 (with `working_directory: examples/<name>`) and runs `mise run //examples/<name>:test:e2e`.
 
 Both use the experimental mise monorepo feature (`MISE_EXPERIMENTAL=1`).
 
@@ -282,4 +282,4 @@ mise run examples:bump
 
 ### CI passes but local fails (or vice versa)
 
-Make sure your local mise version is current (`mise self-update`) and that you ran `mise install` from the root **and** the example. CI uses `jdx/mise-action@v2` with `working_directory: examples/<name>` to ensure both layers are provisioned.
+Make sure your local mise version is current (`mise self-update`) and that you ran `mise install` from the root **and** the example. CI uses `jdx/mise-action` v4.3.0 with `working_directory: examples/<name>` to ensure both layers are provisioned.
