@@ -33,7 +33,7 @@ jobs:
           persist-credentials: false
 
       - name: 🛠️ Setup mise
-        uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           install: true
           cache: true
@@ -76,7 +76,7 @@ jobs:
           persist-credentials: false
 
       - name: 🛠️ Setup mise
-        uses: jdx/mise-action@c37c93293d6b742fc901e1406b8f764f6fb19dac # v2.4.4
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
           install: true
           cache: true
@@ -116,6 +116,8 @@ jobs:
     permissions:
       contents: read
       id-token: write # npm trusted publishing (OIDC)
+    env:
+      MISE_EXPERIMENTAL: "1"
     outputs:
       packages: ${{ steps.preview.outputs.packages }}
     steps:
@@ -124,13 +126,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+      - name: 🛠️ Setup mise
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
-          node-version-file: .node-version
+          install: true
+          cache: true
+          experimental: true
 
-      - name: ⌛ Setup pnpm
-        uses: withvariablelab/gh-actions/actions/setup-pnpm@main
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: 🚀 Publish preview
         id: preview

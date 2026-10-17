@@ -1,5 +1,5 @@
-min_version = "2025.5.0"
-experimental_monorepo_root = true
+min_version = "2026.6.6"
+monorepo_root = true
 
 [env]
 MISE_EXPERIMENTAL = "1"
@@ -8,6 +8,9 @@ _.path = ["{{config_root}}/node_modules/.bin"]
 [tools]
 node = "24"
 pnpm = "10.30.3"
+
+[settings]
+lockfile = true
 
 [monorepo]
 config_roots = [
