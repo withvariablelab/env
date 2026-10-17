@@ -140,6 +140,11 @@ html {
   background: var(--vlab-rule-strong);
 }
 
+/* Line numbers take the syntax gutter color (same selector as fumadocs-ui/css/lib/shiki.css). */
+.shiki:not(.not-fumadocs-codeblock *)[data-line-numbers] .line::after {
+  color: var(--vlab-syntax-gutter);
+}
+
 /* Link underlines and the selection use rule-strong. */
 .prose a:not([data-card]) {
   text-decoration-color: var(--vlab-rule-strong);
