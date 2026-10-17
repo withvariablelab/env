@@ -1,6 +1,10 @@
 <p align="center">
-  <img src="./docsite/public/lockup/lockup-stacked-dark.svg" width="220" alt="{e} @variablelab/env">
+  <img src="https://raw.githubusercontent.com/withvariablelab/env/HEAD/package/brand/sign-readme.svg" width="64" height="64" alt="">
 </p>
+
+<h1 align="center">env</h1>
+
+<p align="center">Only declared variables, checked at boot.</p>
 
 [![npm version](https://img.shields.io/npm/v/@variablelab/env?label=%40variablelab%2Fenv&color=blue)](https://www.npmjs.com/package/@variablelab/env)
 [![CI](https://github.com/withvariablelab/env/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/withvariablelab/env/actions/workflows/ci.yml)
@@ -12,7 +16,7 @@ Contract-first environment configuration with typed schemas — runtime-agnostic
 pnpm add @variablelab/env
 ```
 
-📚 **[lab.variable.land/env](https://lab.variable.land/env)** — full docs
+**[lab.variable.land/env/docs](https://lab.variable.land/env/docs)** — full docs
 
 ## Repository
 

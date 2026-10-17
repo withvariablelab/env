@@ -1,6 +1,12 @@
-# @variablelab/env
+<p align="center">
+  <img src="https://raw.githubusercontent.com/withvariablelab/env/HEAD/package/brand/sign-readme.svg" width="64" height="64" alt="">
+</p>
 
-🌱 Contract-first environment configuration with typed schemas. Define your env once with [Standard Schema](https://github.com/standard-schema/standard-schema) (Zod, Valibot, ArkType…), get a fully typed `env` object that merges per-environment config with your environment variables.
+<h1 align="center">env</h1>
+
+<p align="center">Only declared variables, checked at boot.</p>
+
+Contract-first environment configuration with typed schemas. Define your env once with [Standard Schema](https://github.com/standard-schema/standard-schema) (Zod, Valibot, ArkType…), get a fully typed `env` object that merges per-environment config with your environment variables.
 
 Runtime-agnostic core — Node, Bun, Deno, browser, Workers, Edge. Opt-in entry points: a filesystem-based config loader (works on Node, Bun, and Deno), a Vite plugin, a React `<EnvScript />` helper for hydrating runtime env across SSR or CSR, and a curated set of Zod-based schema primitives.
 
@@ -18,7 +24,7 @@ pnpm add zod
 
 ## Documentation
 
-📚 **[lab.variable.land/env](https://lab.variable.land/env)**
+**[lab.variable.land/env/docs](https://lab.variable.land/env/docs)**
 
 - [Getting started](https://lab.variable.land/env/docs/getting-started/installation)
 - [Concepts](https://lab.variable.land/env/docs/concepts/overview) — mental model, resolution order, env-var naming
