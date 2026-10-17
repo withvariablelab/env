@@ -71,11 +71,12 @@ jobs:
           audit "examples/worker-cloudflare/pnpm-lock.yaml" pnpm -C examples/worker-cloudflare audit --ignore-workspace
           # `bun audit` needs bun >= 1.2.15, but the bun examples pin bun 1.2.4 on purpose, and mise's
           # locked mode refuses a bun that is not in their mise.lock. So run bun from npm through the
-          # root pnpm (exact version, checked against the registry integrity and pnpm's
-          # minimumReleaseAge), from inside each example so it reads that example's bun.lock.
+          # root pnpm (exact version, checked against the registry integrity), from inside each
+          # example so it reads that example's bun.lock. `pnpm dlx` ignores the workspace's
+          # minimumReleaseAge, so the same 24 h cooldown is passed explicitly.
           # The absolute path keeps mise's shims from resolving the example's own tools.
           pnpm_bin="$(mise which pnpm)"
-          bun_audit() { (cd "$1" && "$pnpm_bin" dlx bun@1.4.3 audit); }
+          bun_audit() { (cd "$1" && "$pnpm_bin" --config.minimum-release-age=1440 dlx bun@1.4.3 audit); }
           audit "examples/backend-bun/bun.lock" bun_audit examples/backend-bun
           audit "examples/backend-bun-cjs/bun.lock" bun_audit examples/backend-bun-cjs
           audit "examples/backend-deno/bun.lock" bun_audit examples/backend-deno
