@@ -1,4 +1,8 @@
 rules:
+  dependabot-cooldown:
+    config:
+      # Matches pnpm's minimumReleaseAge (1440 minutes) in pnpm-workspace.yaml.
+      days: 1
   unpinned-uses:
     config:
       policies:
