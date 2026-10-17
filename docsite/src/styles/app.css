@@ -165,6 +165,13 @@ html {
     outline: 1px solid var(--vlab-dim);
     outline-offset: 2px;
   }
+
+  /* A TOC link spans its scroll container, which clips what falls outside it, so its
+     outline goes inside (the TOC column and, below xl, the TOC popover). */
+  #nd-toc a:focus-visible,
+  [data-toc-popover-content] a:focus-visible {
+    outline-offset: -1px;
+  }
 }
 
 /* Text in palette steps, not in alpha: Fumadocs sets prose at 90% of the foreground and
