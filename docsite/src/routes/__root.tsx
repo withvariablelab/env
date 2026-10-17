@@ -31,13 +31,15 @@ export const Route = createRootRoute({
         href: `${BASE_PATH}/fonts/${font}.woff2`,
         crossOrigin: "anonymous" as const,
       })),
+      // env's Sign in ink on a ground square.
+      { rel: "icon", type: "image/svg+xml", href: `${BASE_PATH}/favicon.svg` },
       ...[16, 32, 48].map((size) => ({
         rel: "icon",
         type: "image/png",
         sizes: `${size}x${size}`,
-        href: `${BASE_PATH}/favicon/favicon-${size}.png`,
+        href: `${BASE_PATH}/favicon-${size}.png`,
       })),
-      { rel: "apple-touch-icon", sizes: "180x180", href: `${BASE_PATH}/app-icon/apple-touch-icon.png` },
+      { rel: "apple-touch-icon", sizes: "180x180", href: `${BASE_PATH}/apple-touch-icon.png` },
       { rel: "manifest", href: `${BASE_PATH}/manifest.webmanifest` },
     ],
   }),
