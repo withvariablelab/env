@@ -42,9 +42,12 @@ export default defineConfig({
       prerender: {
         enabled: true,
         crawlLinks: true,
+        // Discovery always adds `/`, which has no route: the docs live under /docs.
+        autoStaticPathsDiscovery: false,
         filter: (page) => !page.path.startsWith("/api/") && !page.path.includes("#"),
       },
-      pages: [{ path: "/" }, { path: "/sitemap.xml" }, { path: "/llms.txt" }, { path: "/llms-full.txt" }],
+      // The crawl starts at the docs index, whose sidebar links every docs page.
+      pages: [{ path: "/docs" }, { path: "/sitemap.xml" }, { path: "/llms.txt" }, { path: "/llms-full.txt" }],
     }),
     react(),
     // Must run after TanStack Start's post-build prerender, which is also a `post` buildApp hook.

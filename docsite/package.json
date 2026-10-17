@@ -16,8 +16,6 @@
     "check:seo": "vite build && pnpm dlx @lhci/cli@0.14.0 autorun"
   },
   "dependencies": {
-    "@shikijs/langs": "^4.0.2",
-    "@shikijs/themes": "^4.0.2",
     "@tanstack/react-router": "1.169.2",
     "@tanstack/react-start": "1.167.65",
     "fumadocs-core": "16.8.10",
