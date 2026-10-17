@@ -11,6 +11,10 @@ const LEGACY_HOST = "env.oss.variable.land";
 // `SITE_URL`, but this Worker serves only what is under `/env/`.
 const PROJECT_URL = "https://lab.variable.land/env";
 
+// `/env/` was env's landing; the Project page replaces it. There is no prerendered
+// `env/index.html`, so the static assets miss and these requests reach the Worker.
+const LANDING_PATHS = new Set([BASE_PATH, `${BASE_PATH}/`, `${BASE_PATH}/index.html`]);
+
 // Public `/docs/foo.mdx` URLs and `Accept: text/markdown` requests on `/docs/*`
 // both serve raw markdown via the internal `/raw/{slug}` route. We rewrite here
 // so the route tree stays a vanilla splat (TanStack Router has no documented
@@ -22,9 +26,7 @@ export default createServerEntry({
   fetch(request) {
     const url = new URL(request.url);
 
-    // `/env/` was env's landing; the Project page replaces it. There is no prerendered
-    // `env/index.html`, so the static assets miss and the request reaches the Worker.
-    if (url.pathname === `${BASE_PATH}/`) {
+    if (LANDING_PATHS.has(url.pathname)) {
       return Response.redirect(`${PROJECT_URL}${url.search}`, 301);
     }
 
