@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import browserCollections from "#collections/browser.ts";
 import { LLMCopyButton, ViewOptions } from "#src/components/ai/page-actions.tsx";
 import { useMDXComponents } from "#src/components/mdx.tsx";
+import { Signature } from "#src/components/signature.tsx";
 import { BASE_PATH } from "#src/lib/base-path.ts";
 import { baseOptions } from "#src/lib/layout.shared.tsx";
 import { source } from "#src/lib/source.ts";
@@ -70,8 +71,10 @@ const clientLoader = browserCollections.docs.createClientLoader({
 function Page() {
   const data = useFumadocsLoader(Route.useLoaderData());
 
+  // The Signature goes in the sidebar footer: the foot of the sidebar on desktop and of
+  // the menu on phones, on every docs page and away from env's Sign at the top.
   return (
-    <DocsLayout {...baseOptions()} tree={data.pageTree}>
+    <DocsLayout {...baseOptions()} tree={data.pageTree} sidebar={{ footer: <Signature /> }}>
       <Suspense>{clientLoader.useContent(data.path, { url: data.url })}</Suspense>
     </DocsLayout>
   );
