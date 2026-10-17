@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "@variablelab/brand/tokens.css";
 @import "fumadocs-ui/css/preset.css";
-@import "./landing.css";
 
 @source "../../node_modules/fumadocs-ui/dist/**/*.js";
 
