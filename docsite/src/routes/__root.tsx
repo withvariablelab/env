@@ -1,9 +1,11 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
 import { RootProvider } from "fumadocs-ui/provider/tanstack";
 import type * as React from "react";
-import { SITE_URL } from "#src/components/landing/data.ts";
 import { BASE_PATH } from "#src/lib/base-path.ts";
 import appCss from "#src/styles/app.css?url";
+
+// env's card, served by lab.variable.land (1200x630).
+const OG_IMAGE = "https://lab.variable.land/og/env.png";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -15,11 +17,11 @@ export const Route = createRootRoute({
       { title: "env docs" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Variable Land" },
-      { property: "og:image", content: `${SITE_URL}/social/og-card.png` },
+      { property: "og:image", content: OG_IMAGE },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: `${SITE_URL}/social/twitter-card.png` },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
