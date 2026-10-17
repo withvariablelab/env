@@ -152,6 +152,12 @@ html {
   text-decoration-thickness: 1px;
 }
 
+/* The Logo sits only on ground (logo.md). The Signature is in the sidebar's footer, so
+   the desktop sidebar is ground, like the page and the mobile menu. */
+#nd-sidebar {
+  background-color: var(--vlab-ground);
+}
+
 ::selection {
   background-color: var(--vlab-rule-strong);
   color: var(--vlab-ink);
@@ -168,8 +174,8 @@ html {
 
   /* A TOC link spans its scroll container, which clips what falls outside it, so its
      outline goes inside (the TOC column and, below xl, the TOC popover). */
-  #nd-toc a:focus-visible,
-  [data-toc-popover-content] a:focus-visible {
+  [data-toc-popover-content] a:focus-visible,
+  #nd-toc a:focus-visible {
     outline-offset: -1px;
   }
 }
