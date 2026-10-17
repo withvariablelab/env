@@ -16,6 +16,16 @@ const PROJECT_URL = "https://lab.variable.land/env";
 // reach the Worker.
 const PROJECT_PAGE_PATHS = new Set([BASE_PATH, `${BASE_PATH}/`, `${BASE_PATH}/index.html`]);
 
+// Where an old link lands, in one hop. The static assets 307 a page path to its
+// trailing-slash form, so page paths get the slash here; paths that already end in `/`
+// and files (`.mdx`, `llms.txt`, images) go as they are. The root and `/index.html` go
+// straight to the Project page.
+function legacyTarget(pathname: string) {
+  if (pathname === "/" || pathname === "/index.html") return PROJECT_URL;
+  const isFile = /\.[^/]+$/.test(pathname);
+  return pathname.endsWith("/") || isFile ? `${SITE_URL}${pathname}` : `${SITE_URL}${pathname}/`;
+}
+
 // Public `/docs/foo.mdx` URLs and `Accept: text/markdown` requests on `/docs/*`
 // both serve raw markdown via the internal `/raw/{slug}` route. We rewrite here
 // so the route tree stays a vanilla splat (TanStack Router has no documented
@@ -32,9 +42,7 @@ export default createServerEntry({
     }
 
     if (url.hostname === LEGACY_HOST) {
-      // The legacy host's root goes straight to the Project page.
-      const target = url.pathname === "/" ? PROJECT_URL : `${SITE_URL}${url.pathname}`;
-      return Response.redirect(`${target}${url.search}`, 301);
+      return Response.redirect(`${legacyTarget(url.pathname)}${url.search}`, 301);
     }
 
     const explicitMdx = stripMdxSuffix(url.pathname);
