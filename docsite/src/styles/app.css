@@ -5,54 +5,54 @@
 
 @source "../../node_modules/fumadocs-ui/dist/**/*.js";
 
+/* IBM Plex Sans and Mono, 400 and 500: the latin woff2 files from @fontsource/ibm-plex-*,
+   copied into public/fonts unmodified. */
 @font-face {
-  font-family: "Geist Variable";
+  font-family: "IBM Plex Sans";
   font-style: normal;
   font-display: swap;
-  font-weight: 100 900;
-  src: url("/fonts/geist-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 400;
+  src: url("/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Geist Variable";
-  font-style: italic;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url("/fonts/geist-latin-wght-italic.woff2") format("woff2-variations");
-  unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Geist Mono Variable";
+  font-family: "IBM Plex Sans";
   font-style: normal;
   font-display: swap;
-  font-weight: 100 900;
-  src: url("/fonts/geist-mono-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 500;
+  src: url("/fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
-  font-family: "Geist Fallback";
-  src: local("Arial");
-  ascent-override: 96.69%;
-  descent-override: 22.66%;
-  line-gap-override: 0%;
-  size-adjust: 95.95%;
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Geist Mono Fallback";
-  src: local("Arial");
-  ascent-override: 80.95%;
-  descent-override: 18.97%;
-  line-gap-override: 0%;
-  size-adjust: 114.66%;
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 @theme {
-  --font-sans: "Geist Variable", "Geist Fallback", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --font-mono: "Geist Mono Variable", "Geist Mono Fallback", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--vlab-font-sans);
+  --font-mono: var(--vlab-font-mono);
+}
+
+/* Two weights only. Anything heavier than 500 (prose headings, `font-semibold`) gets
+   the 500 face as it is, never a synthesized bold. */
+html {
+  font-synthesis-weight: none;
 }
 
 /* Variable Lab's palette, from @variablelab/brand/tokens.css. The brand is dark only,

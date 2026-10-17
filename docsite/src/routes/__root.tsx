@@ -23,7 +23,8 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      ...["geist-latin-wght-normal", "geist-latin-wght-italic", "geist-mono-latin-wght-normal"].map((font) => ({
+      // The faces every docs page sets above the fold; Plex Mono 500 loads when a page uses it.
+      ...["ibm-plex-sans-latin-400-normal", "ibm-plex-sans-latin-500-normal", "ibm-plex-mono-latin-400-normal"].map((font) => ({
         rel: "preload",
         as: "font",
         type: "font/woff2",
