@@ -1,4 +1,4 @@
-# `@variablelab/env` docsite
+# env docsite
 
 The Fumadocs-powered docs for [`@variablelab/env`](../package), published at **[lab.variable.land/env](https://lab.variable.land/env)**.
 
@@ -13,7 +13,7 @@ Built with [TanStack Start](https://tanstack.com/start) + [Fumadocs](https://fum
 | [`src/components/`](./src/components) | Landing components, MDX overrides, mermaid renderer                                                                               |
 | [`src/lib/`](./src/lib)               | Fumadocs source adapter (`source.ts`), shared layout, llms-text builder                                                           |
 | [`src/server.ts`](./src/server.ts)    | **Workers entry** — wraps the TanStack Start handler; rewrites `*.mdx` and `Accept: text/markdown` requests to the `/raw/*` route |
-| [`public/`](./public)                 | Static assets — favicons, manifest, brand lockup, social cards                                                                    |
+| [`public/`](./public)                 | Static assets — fonts, favicons and app icons drawn from the Sign, manifest                                                       |
 | `source.config.ts`                    | Fumadocs MDX config (Shiki themes, processed-markdown for `/llms-full.txt`)                                                       |
 | `wrangler.jsonc`                      | Cloudflare Workers config — `main` and the `lab.variable.land/env` routes                                                         |
 
