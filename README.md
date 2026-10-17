@@ -25,7 +25,7 @@ This is the monorepo. Three things live here:
 | Path                      | What it is                                                                                                                      |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | [`package/`](./package)   | The [`@variablelab/env`](./package) library — published to npm                                                                     |
-| [`docsite/`](./docsite)   | The Fumadocs site behind [lab.variable.land/env](https://lab.variable.land/env), on Cloudflare Workers                          |
+| [`docsite/`](./docsite)   | The Fumadocs site behind [lab.variable.land/env/docs](https://lab.variable.land/env/docs), on Cloudflare Workers                |
 | [`examples/`](./examples) | 9 runtime-isolated demos (Node, Bun, Deno, Workers, Edge, Vite SPA, SSR) — each one is a real consumer of the published tarball |
 
 ## Working on it
