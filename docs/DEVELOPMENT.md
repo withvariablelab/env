@@ -7,7 +7,7 @@ How to set up, work in, and ship from this monorepo. For contribution convention
 ```
 env/
 ├── package/             # @variablelab/env library — published to npm
-├── docsite/             # Fumadocs site → lab.variable.land/env (Cloudflare Workers)
+├── docsite/             # Fumadocs site → lab.variable.land/env/docs (Cloudflare Workers)
 ├── examples/            # 12 runtime-isolated demos (Node, Bun, Deno, Workers, Edge, Vite, SSR)
 ├── docs/                # Repository docs (CONTRIBUTING.md, DEVELOPMENT.md)
 ├── mise.toml            # Tool versions + task orchestration
