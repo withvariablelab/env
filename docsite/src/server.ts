@@ -11,9 +11,10 @@ const LEGACY_HOST = "env.oss.variable.land";
 // `SITE_URL`, but this Worker serves only what is under `/env/`.
 const PROJECT_URL = "https://lab.variable.land/env";
 
-// `/env/` was env's landing; the Project page replaces it. There is no prerendered
-// `env/index.html`, so the static assets miss and these requests reach the Worker.
-const LANDING_PATHS = new Set([BASE_PATH, `${BASE_PATH}/`, `${BASE_PATH}/index.html`]);
+// `/env`, `/env/` and `/env/index.html` belong to the Project page, not to this Worker.
+// There is no prerendered `env/index.html`, so the static assets miss and these requests
+// reach the Worker.
+const PROJECT_PAGE_PATHS = new Set([BASE_PATH, `${BASE_PATH}/`, `${BASE_PATH}/index.html`]);
 
 // Public `/docs/foo.mdx` URLs and `Accept: text/markdown` requests on `/docs/*`
 // both serve raw markdown via the internal `/raw/{slug}` route. We rewrite here
@@ -26,12 +27,12 @@ export default createServerEntry({
   fetch(request) {
     const url = new URL(request.url);
 
-    if (LANDING_PATHS.has(url.pathname)) {
+    if (PROJECT_PAGE_PATHS.has(url.pathname)) {
       return Response.redirect(`${PROJECT_URL}${url.search}`, 301);
     }
 
     if (url.hostname === LEGACY_HOST) {
-      // The old root was env's home: send it to the Project page in one hop.
+      // The legacy host's root goes straight to the Project page.
       const target = url.pathname === "/" ? PROJECT_URL : `${SITE_URL}${url.pathname}`;
       return Response.redirect(`${target}${url.search}`, 301);
     }

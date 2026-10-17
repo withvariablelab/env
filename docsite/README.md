@@ -10,7 +10,7 @@ Built with [TanStack Start](https://tanstack.com/start) + [Fumadocs](https://fum
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | [`content/docs/`](./content/docs)     | MDX content — `getting-started/`, `concepts/`, `guides/`, `api-reference/`                                                        |
 | [`src/routes/`](./src/routes)         | TanStack Router routes — docs viewer, `llms.txt` / `llms-full.txt` endpoints                                                      |
-| [`src/components/`](./src/components) | MDX overrides, mermaid renderer                                                                                                   |
+| [`src/components/`](./src/components) | MDX overrides, the page actions, env's Sign, the Signature, the Zod icon                                                          |
 | [`src/lib/`](./src/lib)               | Fumadocs source adapter (`source.ts`), shared layout, llms-text builder                                                           |
 | [`src/server.ts`](./src/server.ts)    | **Workers entry** — wraps the TanStack Start handler; rewrites `*.mdx` and `Accept: text/markdown` requests to the `/raw/*` route |
 | [`public/`](./public)                 | Static assets — fonts, favicons and app icons drawn from the Sign, manifest                                                       |

@@ -1,4 +1,4 @@
-# @variablelab/env
+# env
 
 Contract-first environment configuration with typed schemas. Runtime-agnostic core (Node, Bun, Deno, browser, Workers, Edge) with opt-in adapters for Node, Vite, React (SSR), and a curated set of Zod-based environment schema primitives.
 
