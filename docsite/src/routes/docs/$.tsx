@@ -22,7 +22,7 @@ export const Route = createFileRoute("/docs/$")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.title} — @variablelab/env docs` },
+          { title: `${loaderData.title} — env docs` },
           ...(loaderData.description ? [{ name: "description", content: loaderData.description }] : []),
         ]
       : [],
