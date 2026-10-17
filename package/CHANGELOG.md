@@ -1,5 +1,11 @@
 # @variablelab/env
 
+## 0.5.4
+
+### Patch Changes
+
+- [#38](https://github.com/withvariablelab/env/pull/38) [`f69e264`](https://github.com/withvariablelab/env/commit/f69e2641f8c1974b12ca43ebc25d75c83d542dde) Thanks [@rqbazan](https://github.com/rqbazan)! - Put the Sign and the Tagline at the top of the README, point its documentation link to lab.variable.land/env/docs, and set the author to `rcrd <ricardo@variable.land>`.
+
 ## 0.5.3
 
 ### Patch Changes
