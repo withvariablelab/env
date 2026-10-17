@@ -18,10 +18,10 @@ const PROJECT_PAGE_PATHS = new Set([BASE_PATH, `${BASE_PATH}/`, `${BASE_PATH}/in
 
 // Where an old link lands, in one hop. The static assets 307 a page path to its
 // trailing-slash form, so page paths get the slash here; paths that already end in `/`
-// and files (`.mdx`, `llms.txt`, images) go as they are. The root goes straight to the
-// Project page.
+// and files (`.mdx`, `llms.txt`, images) go as they are. The root and `/index.html` go
+// straight to the Project page.
 function legacyTarget(pathname: string) {
-  if (pathname === "/") return PROJECT_URL;
+  if (pathname === "/" || pathname === "/index.html") return PROJECT_URL;
   const isFile = /\.[^/]+$/.test(pathname);
   return pathname.endsWith("/") || isFile ? `${SITE_URL}${pathname}` : `${SITE_URL}${pathname}/`;
 }
