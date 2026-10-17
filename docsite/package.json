@@ -39,6 +39,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@variablelab/brand": "^0.2.0",
     "@vitejs/plugin-react": "catalog:",
     "tailwindcss": "4.3.0",
     "typescript": "catalog:",

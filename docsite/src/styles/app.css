@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "fumadocs-ui/css/emerald.css";
+@import "@variablelab/brand/tokens.css";
 @import "fumadocs-ui/css/preset.css";
 @import "./landing.css";
 
@@ -53,4 +53,100 @@
 @theme {
   --font-sans: "Geist Variable", "Geist Fallback", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono: "Geist Mono Variable", "Geist Mono Fallback", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Variable Lab's palette, from @variablelab/brand/tokens.css. The brand is dark only,
+   so these values hold on every page: no light set, no `.dark` override. `static`
+   keeps the tokens Fumadocs reads only through inline styles, such as callout colors. */
+@theme static {
+  --color-fd-background: var(--vlab-ground);
+  --color-fd-foreground: var(--vlab-ink);
+  --color-fd-card: var(--vlab-surface);
+  --color-fd-card-foreground: var(--vlab-ink);
+  --color-fd-popover: var(--vlab-surface);
+  --color-fd-popover-foreground: var(--vlab-ink);
+  --color-fd-muted: var(--vlab-surface);
+  --color-fd-muted-foreground: var(--vlab-dim);
+  --color-fd-secondary: var(--vlab-surface);
+  --color-fd-secondary-foreground: var(--vlab-ink);
+  --color-fd-accent: var(--vlab-rule);
+  --color-fd-accent-foreground: var(--vlab-ink);
+  --color-fd-primary: var(--vlab-ink);
+  --color-fd-primary-foreground: var(--vlab-ground);
+  --color-fd-border: var(--vlab-rule);
+  --color-fd-ring: var(--vlab-rule-strong);
+  --color-fd-overlay: color-mix(in oklab, var(--vlab-ground) 60%, transparent);
+
+  /* Callouts and diffs take no hue: warnings and errors in ink, the rest in dim. */
+  --color-fd-info: var(--vlab-dim);
+  --color-fd-success: var(--vlab-dim);
+  --color-fd-idea: var(--vlab-dim);
+  --color-fd-warning: var(--vlab-ink);
+  --color-fd-error: var(--vlab-ink);
+  --color-fd-diff-add: var(--vlab-rule);
+  --color-fd-diff-add-symbol: var(--vlab-ink);
+  --color-fd-diff-remove: transparent;
+  --color-fd-diff-remove-symbol: var(--vlab-dim);
+}
+
+/* Flat: square corners and no shadows, whatever size a class asks for. */
+@theme {
+  --radius: 0;
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
+
+  --shadow: 0 0 #0000;
+  --shadow-2xs: 0 0 #0000;
+  --shadow-xs: 0 0 #0000;
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 0 #0000;
+  --shadow-lg: 0 0 #0000;
+  --shadow-xl: 0 0 #0000;
+  --shadow-2xl: 0 0 #0000;
+  --shadow-inner: 0 0 #0000;
+  --inset-shadow-2xs: 0 0 #0000;
+  --inset-shadow-xs: 0 0 #0000;
+  --inset-shadow-sm: 0 0 #0000;
+  --drop-shadow: 0 0 #0000;
+  --drop-shadow-xs: 0 0 #0000;
+  --drop-shadow-sm: 0 0 #0000;
+  --drop-shadow-md: 0 0 #0000;
+  --drop-shadow-lg: 0 0 #0000;
+  --drop-shadow-xl: 0 0 #0000;
+  --drop-shadow-2xl: 0 0 #0000;
+}
+
+/* Corners and shadows Fumadocs writes as literal values, outside the theme. These
+   rules are unlayered, so they win over the layered ones they replace. */
+.prose code,
+.prose kbd,
+.rounded-full {
+  border-radius: 0;
+}
+
+.prose kbd {
+  border: 1px solid var(--vlab-rule);
+  box-shadow: none;
+}
+
+.fd-scroll-container::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: var(--vlab-rule-strong);
+}
+
+/* Link underlines and the selection use rule-strong. */
+.prose a:not([data-card]) {
+  text-decoration-color: var(--vlab-rule-strong);
+  text-decoration-thickness: 1px;
+}
+
+::selection {
+  background-color: var(--vlab-rule-strong);
+  color: var(--vlab-ink);
 }

@@ -85,10 +85,10 @@ importers:
     dependencies:
       '@fontsource-variable/geist':
         specifier: ^5.2.8
-        version: 5.2.9
+        version: 5.3.0
       '@fontsource-variable/geist-mono':
         specifier: ^5.2.7
-        version: 5.2.8
+        version: 5.3.0
       '@shikijs/langs':
         specifier: ^4.0.2
         version: 4.1.0
@@ -147,6 +147,9 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.2.3(@types/react@19.2.14)
+      '@variablelab/brand':
+        specifier: ^0.2.0
+        version: 0.2.0(@fontsource/ibm-plex-mono@5.3.0)(@fontsource/ibm-plex-sans@5.3.0)
       '@vitejs/plugin-react':
         specifier: 'catalog:'
         version: 6.0.1(vite@8.0.11(@types/node@24.12.4)(esbuild@0.28.0)(jiti@2.7.0)(yaml@2.8.4))
@@ -851,11 +854,17 @@ packages:
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
 
-  '@fontsource-variable/geist-mono@5.2.8':
-    resolution: {integrity: sha512-KI5bj+hkkRiHttYHmccotUZ80ZuZyai+RwI1d7UId0clkx/jXxlo8qYK8j54WzmpBjtMoEMPyllV7faDcj+6RA==}
+  '@fontsource-variable/geist-mono@5.3.0':
+    resolution: {integrity: sha512-vBbuwDEo9AkrqADMXOrlAR3DFcJi4/JxeuU43FoiQERnNwsfXNnvxvReZG02cQKmyk4DZkZdBZX3oTDvy2zBAw==}
 
-  '@fontsource-variable/geist@5.2.9':
-    resolution: {integrity: sha512-TP+QSBG3wxKGPE33CbMy/L0Nu3qvJ6Fy81Yc4LnQ95xH+i+cfEp8fyU8/kfV14YwszxIFPhnoMTbjL71waVpyQ==}
+  '@fontsource-variable/geist@5.3.0':
+    resolution: {integrity: sha512-j0m+vLQuG5XAYoHtGCVu0spvlGreR3EzpECUVzkFmI1mTVnAO38l/NEPDCFgZ177JxzYJCLSmTQibIiYPilGrA==}
+
+  '@fontsource/ibm-plex-mono@5.3.0':
+    resolution: {integrity: sha512-eTgnZjZEGk1QtD3ZstF+Vclo2HLAni8YMy34/DxllwZvyz1lR/1RF/xTiAquOBO7MvqBx8D2Ig2WCPMVfdZu7Q==}
+
+  '@fontsource/ibm-plex-sans@5.3.0':
+    resolution: {integrity: sha512-CbE4CbbEEZJX860XyUiRpsksXIQR8Rp2XDva2VO53NJox9tVNtusrysd2x5YkUEY3ErQ66W1IiiQL8/wihhw5w==}
 
   '@fumadocs/tailwind@0.0.5':
     resolution: {integrity: sha512-ENKPWUDRmriccsrUDE4bDBq3FNr/ms3BP2rWlsAEMV1yP23pcCaan+ceGfeBUsAQjw7sj9Q3R4Kl3g/TCStPzQ==}
@@ -2125,6 +2134,12 @@ packages:
 
   '@usage-spec/core@1.1.0':
     resolution: {integrity: sha512-OjcN6IWdvuxN6bZYknTPIx9n/UTZODtGNaQEQe3yN7Y5DluH8/UJ8GeG+C0hNBWc/OePc0n9MmBw3rTbtoRVKg==}
+
+  '@variablelab/brand@0.2.0':
+    resolution: {integrity: sha512-6SG29icokA55gUjSWJJmwPm7RMtL9qd/H86d8oiOcxXeuNTAsYrQcRyx1SYqTKUk5R1nUq4nvYwMAHnhJJZO9A==}
+    peerDependencies:
+      '@fontsource/ibm-plex-mono': ^5.3.0
+      '@fontsource/ibm-plex-sans': ^5.3.0
 
   '@variablelab/clibuddy@0.7.3':
     resolution: {integrity: sha512-DG18Hygr3y623IP7G4Fspgzjs2U8OyOHCtmfCf+Y10V23Jr6Ew50+RcoVtXFsYrisPm0BaM9r0LNV6tE2jAU0A==}
@@ -4800,9 +4815,13 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
-  '@fontsource-variable/geist-mono@5.2.8': {}
+  '@fontsource-variable/geist-mono@5.3.0': {}
 
-  '@fontsource-variable/geist@5.2.9': {}
+  '@fontsource-variable/geist@5.3.0': {}
+
+  '@fontsource/ibm-plex-mono@5.3.0': {}
+
+  '@fontsource/ibm-plex-sans@5.3.0': {}
 
   '@fumadocs/tailwind@0.0.5(@tailwindcss/oxide@4.3.0)(tailwindcss@4.3.0)':
     optionalDependencies:
@@ -6024,6 +6043,11 @@ snapshots:
   '@usage-spec/core@1.1.0':
     dependencies:
       '@bgotink/kdl': 0.4.0
+
+  '@variablelab/brand@0.2.0(@fontsource/ibm-plex-mono@5.3.0)(@fontsource/ibm-plex-sans@5.3.0)':
+    dependencies:
+      '@fontsource/ibm-plex-mono': 5.3.0
+      '@fontsource/ibm-plex-sans': 5.3.0
 
   '@variablelab/clibuddy@0.7.3(@pnpm/logger@1001.0.1)':
     dependencies:

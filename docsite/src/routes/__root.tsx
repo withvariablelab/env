@@ -10,7 +10,8 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#0a0a0b" },
+      { name: "color-scheme", content: "dark" },
+      { name: "theme-color", content: "#14120e" },
       { title: "@variablelab/env docs" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "@variablelab/env" },
@@ -57,7 +58,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body className="flex min-h-screen flex-col">
-        <RootProvider search={{ options: { api: `${BASE_PATH}/api/search` } }}>{children}</RootProvider>
+        <RootProvider
+          search={{ options: { api: `${BASE_PATH}/api/search` } }}
+          // The brand has one palette, and it is dark.
+          theme={{ forcedTheme: "dark", defaultTheme: "dark", enableSystem: false }}
+        >
+          {children}
+        </RootProvider>
         <Scripts />
       </body>
     </html>

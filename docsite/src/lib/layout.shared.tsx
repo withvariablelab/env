@@ -15,6 +15,7 @@ export function baseOptions(): BaseLayoutProps {
         </div>
       ),
     },
+    themeSwitch: { enabled: false },
     githubUrl: "https://github.com/withvariablelab/env",
   };
 }

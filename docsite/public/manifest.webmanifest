@@ -6,6 +6,6 @@
     { "src": "app-icon/icon-512.png", "sizes": "512x512", "type": "image/png" },
     { "src": "app-icon/icon-bg-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
-  "theme_color": "#0a0a0b",
-  "background_color": "#0a0a0b"
+  "theme_color": "#14120e",
+  "background_color": "#14120e"
 }
