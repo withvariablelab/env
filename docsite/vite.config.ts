@@ -46,7 +46,7 @@ export default defineConfig({
         autoStaticPathsDiscovery: false,
         filter: (page) => !page.path.startsWith("/api/") && !page.path.includes("#"),
       },
-      // The crawl starts at the docs index, whose sidebar links every docs page.
+      // The crawl starts at the docs index and follows its links to every docs page.
       pages: [{ path: "/docs" }, { path: "/sitemap.xml" }, { path: "/llms.txt" }, { path: "/llms-full.txt" }],
     }),
     react(),
