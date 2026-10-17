@@ -7,6 +7,10 @@ import { SITE_URL } from "#src/lib/site-url.ts";
 // where the static assets live, so they reach the Worker and get redirected.
 const LEGACY_HOST = "env.oss.variable.land";
 
+// env's Project page, which Variable Lab's site serves at `/env` itself. It reads like
+// `SITE_URL`, but this Worker serves only what is under `/env/`.
+const PROJECT_URL = "https://lab.variable.land/env";
+
 // Public `/docs/foo.mdx` URLs and `Accept: text/markdown` requests on `/docs/*`
 // both serve raw markdown via the internal `/raw/{slug}` route. We rewrite here
 // so the route tree stays a vanilla splat (TanStack Router has no documented
@@ -18,8 +22,16 @@ export default createServerEntry({
   fetch(request) {
     const url = new URL(request.url);
 
+    // `/env/` was env's landing; the Project page replaces it. There is no prerendered
+    // `env/index.html`, so the static assets miss and the request reaches the Worker.
+    if (url.pathname === `${BASE_PATH}/`) {
+      return Response.redirect(`${PROJECT_URL}${url.search}`, 301);
+    }
+
     if (url.hostname === LEGACY_HOST) {
-      return Response.redirect(`${SITE_URL}${url.pathname}${url.search}`, 301);
+      // The old root was env's home: send it to the Project page in one hop.
+      const target = url.pathname === "/" ? PROJECT_URL : `${SITE_URL}${url.pathname}`;
+      return Response.redirect(`${target}${url.search}`, 301);
     }
 
     const explicitMdx = stripMdxSuffix(url.pathname);
