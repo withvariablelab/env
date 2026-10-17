@@ -11,6 +11,7 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - "mise.toml"
+      - "mise.lock"
   pull_request:
     types: [opened, synchronize, reopened]
     branches:
@@ -22,6 +23,7 @@ on:
       - "pnpm-lock.yaml"
       - "pnpm-workspace.yaml"
       - "mise.toml"
+      - "mise.lock"
 
 permissions: {}
 
