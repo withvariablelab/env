@@ -2,7 +2,7 @@ import logo from "@variablelab/brand/assets/logo.svg";
 
 // Variable Lab's Signature: the Logo in a 16x18 box, as on www (drawn at its own proportions), 8px from
 // "Variable Land" set as text, one link to lab.variable.land. The Logo is decorative, so
-// the link's name is the text. It signs the docs apart from env's Sign, never beside it.
+// the link's name is the text.
 // On hover the text takes a dim underline at a 4px offset, as links do on www.
 export function Signature() {
   return (

@@ -4,7 +4,7 @@ import type * as React from "react";
 import { BASE_PATH } from "#src/lib/base-path.ts";
 import appCss from "#src/styles/app.css?url";
 
-// env's card, served by lab.variable.land (1200x630).
+// env's card, served by lab.variable.land.
 const OG_IMAGE = "https://lab.variable.land/og/env.png";
 
 export const Route = createRootRoute({

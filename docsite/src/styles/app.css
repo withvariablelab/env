@@ -152,15 +152,15 @@ html {
   text-decoration-thickness: 1px;
 }
 
-/* The Logo sits only on ground (logo.md). The Signature is in the sidebar's footer, so
-   the desktop sidebar is ground, like the page and the mobile menu. */
-#nd-sidebar {
-  background-color: var(--vlab-ground);
-}
-
 ::selection {
   background-color: var(--vlab-rule-strong);
   color: var(--vlab-ink);
+}
+
+/* The Logo sits only on ground (the brand's logo.md). The Signature is in the sidebar's
+   footer, so the desktop sidebar is ground, like the page and the mobile menu. */
+#nd-sidebar {
+  background-color: var(--vlab-ground);
 }
 
 /* One square focus outline in dim, in place of the browser's rounded blue one. It sits

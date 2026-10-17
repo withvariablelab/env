@@ -1,4 +1,4 @@
-# `@variablelab/env` docsite
+# env docsite
 
 The Fumadocs-powered docs for [`@variablelab/env`](../package), published at **[lab.variable.land/env](https://lab.variable.land/env)**.
 
