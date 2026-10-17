@@ -66,7 +66,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <RootProvider
           search={{ options: { api: `${BASE_PATH}/api/search` } }}
           // The brand has one palette, and it is dark.
-          theme={{ forcedTheme: "dark", defaultTheme: "dark", enableSystem: false }}
+          theme={{ forcedTheme: "dark" }}
         >
           {children}
         </RootProvider>
