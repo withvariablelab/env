@@ -103,6 +103,7 @@ Examples are runtime-isolated demos. Each one is a real consumer of the publishe
 6. Add a row to the matrix in [`.github/workflows/e2e.yml`](../.github/workflows/e2e.yml).
 7. Update the table in [`examples/README.md`](../examples/README.md).
 8. Run the install + e2e and commit the generated lockfile.
+9. From the new directory, run `mise lock -p linux-x64,linux-x64-musl,linux-arm64,linux-arm64-musl,macos-x64,macos-arm64,windows-x64` and commit its `mise.lock`. CI installs tools with `--locked`, so an example without one fails E2E.
 
 The detailed setup mechanics — which package manager fits which runtime, why Deno needs `nodeModulesDir: "manual"`, the depends-on-`//:env:pack` rule — are documented in [DEVELOPMENT.md](./DEVELOPMENT.md#working-on-the-examples-examples).
 

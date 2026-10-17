@@ -11,6 +11,7 @@ env/
 ├── examples/            # 12 runtime-isolated demos (Node, Bun, Deno, Workers, Edge, Vite, SSR)
 ├── docs/                # Repository docs (CONTRIBUTING.md, DEVELOPMENT.md)
 ├── mise.toml            # Tool versions + task orchestration
+├── mise.lock            # Locked tool versions + checksums (each example has its own)
 ├── pnpm-workspace.yaml  # Workspace for `package` + `docsite` only
 ├── lefthook.yml         # Git hooks (jscheck on commit, tests on push)
 └── biome.json           # Root biome config (excludes examples/**)
@@ -165,6 +166,7 @@ The full step-by-step is in [CONTRIBUTING.md](./CONTRIBUTING.md#adding-a-new-exa
 6. Add a row to the matrix in [`.github/workflows/e2e.yml`](../.github/workflows/e2e.yml).
 7. Update the table in [`examples/README.md`](../examples/README.md).
 8. `mise run setup` from the new dir — commit the generated lockfile.
+9. `mise lock` for every platform from the new dir — commit its `mise.lock` (CI installs tools with `--locked`).
 
 ## mise tasks reference
 
