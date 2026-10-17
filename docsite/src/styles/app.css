@@ -74,7 +74,8 @@ html {
   --color-fd-primary: var(--vlab-ink);
   --color-fd-primary-foreground: var(--vlab-ground);
   --color-fd-border: var(--vlab-rule);
-  --color-fd-ring: var(--vlab-rule-strong);
+  /* dim, not rule-strong: a focus ring needs 3:1 against ground and surface. */
+  --color-fd-ring: var(--vlab-dim);
   --color-fd-overlay: color-mix(in oklab, var(--vlab-ground) 60%, transparent);
 
   /* Callouts and diffs take no hue: warnings and errors in ink, the rest in dim. */
@@ -154,4 +155,24 @@ html {
 ::selection {
   background-color: var(--vlab-rule-strong);
   color: var(--vlab-ink);
+}
+
+/* One square focus outline in dim, in place of the browser's rounded blue one. It sits
+   in the base layer, so the controls Fumadocs gives `focus-visible:outline-none` keep
+   their ring alone (in dim, through --color-fd-ring). */
+@layer base {
+  :focus-visible {
+    outline: 1px solid var(--vlab-dim);
+    outline-offset: 2px;
+  }
+}
+
+/* Text in palette steps, not in alpha: Fumadocs sets prose at 90% of the foreground and
+   search excerpts at 80%. Main text is ink; secondary text is ink-muted. */
+.prose {
+  --tw-prose-body: var(--vlab-ink);
+}
+
+.text-fd-popover-foreground\/80 {
+  color: var(--vlab-ink-muted);
 }

@@ -53,7 +53,8 @@ const clientLoader = browserCollections.docs.createClientLoader({
     return (
       <DocsPage toc={toc}>
         <DocsTitle>{frontmatter.title}</DocsTitle>
-        <DocsDescription>{frontmatter.description}</DocsDescription>
+        {/* The paragraph under a title is secondary prose: ink-muted, not dim. */}
+        <DocsDescription className="text-(--vlab-ink-muted)">{frontmatter.description}</DocsDescription>
         <div className="flex flex-row items-center justify-end gap-1 border-b pb-4 md:justify-start md:gap-2">
           <LLMCopyButton markdownUrl={markdownUrl} />
           <ViewOptions markdownUrl={markdownUrl} githubUrl={githubUrl} />
