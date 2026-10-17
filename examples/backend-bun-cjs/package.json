@@ -5,7 +5,7 @@
   "type": "module",
   "dependencies": {
     "@variablelab/env": "file:../../package/.local/variablelab-env.tgz",
-    "hono": "4.12.18",
+    "hono": "4.13.13",
     "zod": "4.3.6"
   },
   "devDependencies": {
