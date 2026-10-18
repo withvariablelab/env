@@ -22,6 +22,9 @@ jobs:
     permissions:
       contents: read
       issues: write
+    # Adds mise.audit.toml (locked in mise.audit.lock): the bun that runs `bun audit`.
+    env:
+      MISE_ENV: audit
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -69,14 +72,11 @@ jobs:
           audit "examples/ssr-react-router/pnpm-lock.yaml" pnpm -C examples/ssr-react-router audit --ignore-workspace
           audit "examples/ssr-tanstack-start/pnpm-lock.yaml" pnpm -C examples/ssr-tanstack-start audit --ignore-workspace
           audit "examples/worker-cloudflare/pnpm-lock.yaml" pnpm -C examples/worker-cloudflare audit --ignore-workspace
-          # `bun audit` needs bun >= 1.2.15, but the bun examples pin bun 1.2.4 on purpose, and mise's
-          # locked mode refuses a bun that is not in their mise.lock. So run bun from npm through the
-          # root pnpm (exact version, checked against the registry integrity), from inside each
-          # example so it reads that example's bun.lock. `pnpm dlx` ignores the workspace's
-          # minimumReleaseAge, so the same 24 h cooldown is passed explicitly.
-          # The absolute path keeps mise's shims from resolving the example's own tools.
-          pnpm_bin="$(mise which pnpm)"
-          bun_audit() { (cd "$1" && "$pnpm_bin" --config.minimum-release-age=1440 dlx bun@1.4.3 audit); }
+          # `bun audit` needs bun >= 1.2.15, but the bun examples pin bun 1.2.4 on purpose. So run the
+          # root's audit bun (mise.audit.toml), from inside each example so it reads that example's
+          # bun.lock. The absolute path keeps mise from resolving the example's own bun there.
+          bun_bin="$(mise which bun)"
+          bun_audit() { (cd "$1" && "$bun_bin" audit); }
           audit "examples/backend-bun/bun.lock" bun_audit examples/backend-bun
           audit "examples/backend-bun-cjs/bun.lock" bun_audit examples/backend-bun-cjs
           audit "examples/backend-deno/bun.lock" bun_audit examples/backend-deno
