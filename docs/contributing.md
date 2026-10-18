@@ -42,6 +42,7 @@ The pull request title takes the same form, because it becomes the squash-merge 
 - [ ] The pull request title follows Conventional Commits.
 - [ ] Tests cover the change: unit tests in `package/src/__tests__/`, and e2e tests in `examples/<name>/test/e2e/` when relevant.
 - [ ] `mise run lib:test` and `mise run check` pass locally.
+- [ ] `mise run examples:check` passes locally, when the change touches `examples/` or `package/`.
 - [ ] `mise run test:e2e` passes locally, at least for the examples the change touches.
 - [ ] A changeset is added, if the published `@variablelab/env` changed. See [Changesets](#changesets).
 - [ ] The docs are updated, if public API or behavior changed.
