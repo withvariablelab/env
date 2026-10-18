@@ -49,11 +49,11 @@ mise run check       # JS & TS check across package + docsite
 
 Run `mise tasks` for the full list.
 
-For everything else — the per-task reference, the per-example layout, how to iterate on the library while seeing changes in the examples, troubleshooting — see [DEVELOPMENT.md](./docs/DEVELOPMENT.md).
+For everything else — the per-task reference, the per-example layout, how to iterate on the library while seeing changes in the examples, troubleshooting — see [development.md](./docs/development.md).
 
 ## Contributing
 
-Issues, ideas, and PRs welcome. Read [CONTRIBUTING.md](./docs/CONTRIBUTING.md) before opening a PR — it covers the branch / commit / changeset conventions and the release flow.
+Issues, ideas, and PRs welcome. Read [contributing.md](./docs/contributing.md) before opening a PR — it covers the branch / commit / changeset conventions and the release flow.
 
 ## License
 

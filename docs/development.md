@@ -1,6 +1,6 @@
 # Development
 
-How to set up, work in, and ship from this monorepo. For contribution conventions (branches, commits, changesets, PR flow), see [CONTRIBUTING.md](./CONTRIBUTING.md).
+How to set up, work in, and ship from this monorepo. For contribution conventions (branches, commits, changesets, PR flow), see [contributing.md](./contributing.md).
 
 ## What's in here
 
@@ -9,7 +9,7 @@ env/
 ├── package/             # @variablelab/env library — published to npm
 ├── docsite/             # Fumadocs site → lab.variable.land/env/docs (Cloudflare Workers)
 ├── examples/            # 12 runtime-isolated demos (Node, Bun, Deno, Workers, Edge, Vite, SSR)
-├── docs/                # Repository docs (CONTRIBUTING.md, DEVELOPMENT.md)
+├── docs/                # Repository docs (contributing.md, development.md)
 ├── mise.toml            # Tool versions + task orchestration
 ├── mise.lock            # Locked tool versions + checksums (each example has its own)
 ├── pnpm-workspace.yaml  # Workspace for `package` + `docsite` only
@@ -156,7 +156,7 @@ The `backend-*`, `worker-*`, and `edge-nextjs` examples drive Playwright in HTTP
 
 ### Adding a new example
 
-The full step-by-step is in [CONTRIBUTING.md](./CONTRIBUTING.md#adding-a-new-example). The shape is:
+The full step-by-step is in [contributing.md](./contributing.md#adding-a-new-example). The shape is:
 
 1. New dir under `examples/<name>/`.
 2. `package.json` with `"@variablelab/env": "file:../../package/.local/variablelab-env.tgz"` and the runtime's flavor of devDeps (e.g. `@types/bun` for Bun, `@types/deno` for Deno).

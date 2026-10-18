@@ -11,7 +11,7 @@ Monorepo managed with pnpm workspaces + Turborepo:
 - [`package/`](./package/README.md) — the `@variablelab/env` npm package (source & tests)
 - [`docsite/`](./docsite/README.md) — Fumadocs; published at [lab.variable.land/env/docs](https://lab.variable.land/env/docs)
 - [`examples/`](./examples/README.md) — runnable example apps with Playwright e2e suites
-- [`docs/`](./docs) — repository docs (`CONTRIBUTING.md`, `DEVELOPMENT.md`)
+- [`docs/`](./docs) — repository docs (`contributing.md`, `development.md`)
 
 ## Release
 
