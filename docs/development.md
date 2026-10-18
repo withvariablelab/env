@@ -281,7 +281,7 @@ Avoid `for d in examples/*/; do ...; done`: it runs one example at a time and pr
 
 ### pnpm tries to install across the whole monorepo from inside an example
 
-The example directories sit inside the same tree as `pnpm-workspace.yaml`, so pnpm takes them for workspace members. They aren't, but pnpm needs an explicit `--ignore-workspace` to honor that. The pnpm-based examples already pass it in their `setup` tasks, and a new pnpm-based example has to do the same.
+The example directories sit inside the same tree as `pnpm-workspace.yaml`, so pnpm takes them for workspace members. They aren't, but pnpm needs an explicit `--ignore-workspace` to honor that. The pnpm-based examples already pass it in their `setup` tasks, and a new pnpm-based example has to do the same. `--ignore-workspace` also skips the cooldown in `pnpm-workspace.yaml`, so each pnpm-based example has an `.npmrc` with the same settings, and a new one copies it.
 
 ### Deno can't import the library from the tarball
 

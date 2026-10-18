@@ -96,6 +96,7 @@ Examples are runtime-isolated demos. Each one installs the packed `@variablelab/
    ```jsonc
    "@variablelab/env": "file:../../package/.local/variablelab-env.tgz"
    ```
+   A pnpm example also copies the `.npmrc` from an existing pnpm example.
 3. Add a `mise.toml` with the runtime tools (`node`, `bun`, `deno` or `pnpm`) and the standard tasks (`setup`, `start`, `test:e2e`, `check`). Use the existing example with the closest runtime as a template.
 4. Add a `biome.json` extending `@rrlab/biome-config`, except in a Deno-only example.
 5. Add the path to `[monorepo].config_roots` in the root [`mise.toml`](../mise.toml).
