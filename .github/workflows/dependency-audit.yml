@@ -1,0 +1,106 @@
+name: Dependency audit
+
+# Weekly audit of every lockfile in the repo. It is not a pull_request check, so a new
+# advisory never blocks unrelated PRs: it opens one issue (label `dependency-audit`),
+# comments on it while findings remain, and closes it once the audit comes back clean.
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    name: Audit dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: 🛠️ Setup mise
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          install: true
+          cache: true
+
+      # Each audit command exits non-zero when it finds advisories (or cannot reach the
+      # registry); both end up in the issue so a person looks at them.
+      - name: 🔍 Audit lockfiles
+        id: audit
+        run: |
+          report="$RUNNER_TEMP/audit.md"
+          : > "$report"
+          found=false
+          audit() {
+            local label="$1"
+            shift
+            local out
+            if ! out="$("$@" 2>&1)"; then
+              found=true
+              {
+                echo "### \`$label\`"
+                echo
+                echo '```'
+                printf '%s\n' "${out:0:15000}"
+                echo '```'
+                echo
+              } >> "$report"
+            fi
+          }
+          # REPO-SPECIFIC: one line per lockfile.
+          audit "pnpm-lock.yaml" pnpm audit
+          # Each example installs on its own (--ignore-workspace), so audit its lockfile, not the root one.
+          audit "examples/backend-node/pnpm-lock.yaml" pnpm -C examples/backend-node audit --ignore-workspace
+          audit "examples/backend-node-cjs/pnpm-lock.yaml" pnpm -C examples/backend-node-cjs audit --ignore-workspace
+          audit "examples/edge-nextjs/pnpm-lock.yaml" pnpm -C examples/edge-nextjs audit --ignore-workspace
+          audit "examples/spa-vite-dynamic/pnpm-lock.yaml" pnpm -C examples/spa-vite-dynamic audit --ignore-workspace
+          audit "examples/spa-vite-plugin/pnpm-lock.yaml" pnpm -C examples/spa-vite-plugin audit --ignore-workspace
+          audit "examples/ssr-react-router/pnpm-lock.yaml" pnpm -C examples/ssr-react-router audit --ignore-workspace
+          audit "examples/ssr-tanstack-start/pnpm-lock.yaml" pnpm -C examples/ssr-tanstack-start audit --ignore-workspace
+          audit "examples/worker-cloudflare/pnpm-lock.yaml" pnpm -C examples/worker-cloudflare audit --ignore-workspace
+          # `bun audit` needs bun >= 1.2.15, but the bun examples pin bun 1.2.4 on purpose, and mise's
+          # locked mode refuses a bun that is not in their mise.lock. So run bun from npm through the
+          # root pnpm (exact version, checked against the registry integrity), from inside each
+          # example so it reads that example's bun.lock. `pnpm dlx` ignores the workspace's
+          # minimumReleaseAge, so the same 24 h cooldown is passed explicitly.
+          # The absolute path keeps mise's shims from resolving the example's own tools.
+          pnpm_bin="$(mise which pnpm)"
+          bun_audit() { (cd "$1" && "$pnpm_bin" --config.minimum-release-age=1440 dlx bun@1.4.3 audit); }
+          audit "examples/backend-bun/bun.lock" bun_audit examples/backend-bun
+          audit "examples/backend-bun-cjs/bun.lock" bun_audit examples/backend-bun-cjs
+          audit "examples/backend-deno/bun.lock" bun_audit examples/backend-deno
+          audit "examples/backend-deno-cjs/bun.lock" bun_audit examples/backend-deno-cjs
+          echo "found=$found" >> "$GITHUB_OUTPUT"
+
+      - name: 📝 Open, update or close the audit issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          FOUND: ${{ steps.audit.outputs.found }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          label="dependency-audit"
+          gh label create "$label" --color B60205 --description "Opened by the weekly dependency audit" --force > /dev/null
+          number="$(gh issue list --label "$label" --state open --limit 1 --json number --jq '.[0].number // empty')"
+          if [ "$FOUND" = "true" ]; then
+            body="$RUNNER_TEMP/body.md"
+            { head -c 60000 "$RUNNER_TEMP/audit.md"; echo; echo "Run: $RUN_URL"; } > "$body"
+            if [ -n "$number" ]; then
+              gh issue comment "$number" --body-file "$body"
+            else
+              gh issue create --title "Dependency audit found known vulnerabilities" --label "$label" --body-file "$body"
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment "The weekly dependency audit came back clean: $RUN_URL"
+          fi

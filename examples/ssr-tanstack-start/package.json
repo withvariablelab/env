@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@tanstack/react-router": "1.169.2",
-    "@tanstack/react-start": "1.167.65",
+    "@tanstack/react-router": "1.170.45",
+    "@tanstack/react-start": "1.169.3",
     "@variablelab/env": "file:../../package/.local/variablelab-env.tgz",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -20,13 +20,13 @@
     "@rrlab/cli": "1.3.2",
     "@rrlab/ts-config": "0.0.3",
     "@rrlab/ts-plugin": "1.1.3",
-    "@tanstack/router-plugin": "1.167.35",
+    "@tanstack/router-plugin": "1.168.47",
     "@types/node": "24.12.4",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
     "playwright": "1.59.1",
     "typescript": "6.0.3",
-    "vite": "8.0.11"
+    "vite": "8.3.4"
   }
 }
