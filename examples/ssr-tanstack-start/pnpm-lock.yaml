@@ -24,8 +24,8 @@ importers:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
       srvx:
-        specifier: 0.11.15
-        version: 0.11.15
+        specifier: 1.0.5
+        version: 1.0.5
       zod:
         specifier: 4.3.6
         version: 4.3.6
@@ -638,8 +638,8 @@ packages:
     engines: {node: '>=20.0.0'}
 
   '@variablelab/env@file:../../package/.local/variablelab-env.tgz':
-    resolution: {integrity: sha512-WAMCRBnOAK3n082rH8E+uHnqRD/xzggvB29i3wqnQwbqO0H8FwAi3e4zVKeSRN0ykifA8FfR6D7ItYd57md8vA==, tarball: file:../../package/.local/variablelab-env.tgz}
-    version: 0.5.4
+    resolution: {integrity: sha512-Qa1SgZTben3YJWhFLZmX3VESfxrm/E1nBl3gwvkxncN3PwzbsQcWFPj8GDH+a8dp0bosegWAv7wuyRhiQZAksg==, tarball: file:../../package/.local/variablelab-env.tgz}
+    version: 0.5.5
     engines: {node: '>=22.12.0'}
     peerDependencies:
       react: '>=19'
@@ -1133,11 +1133,6 @@ packages:
   split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
-
-  srvx@0.11.15:
-    resolution: {integrity: sha512-iXsux0UcOjdvs0LCMa2Ws3WwcDUozA3JN3BquNXkaFPP7TpRqgunKdEgoZ/uwb1J6xaYHfxtz9Twlh6yzwM6Tg==}
-    engines: {node: '>=20.16.0'}
-    hasBin: true
 
   srvx@1.0.5:
     resolution: {integrity: sha512-KvSKRpgPG/oaq3cyT614OQ2bAa7DynuGamivCZeoZzIUULOdbQz6wUtnnVuC4+DCx2Zglzo8v5gBYmWIWYhDxA==}
@@ -2340,8 +2335,6 @@ snapshots:
   source-map@0.7.6: {}
 
   split2@4.2.0: {}
-
-  srvx@0.11.15: {}
 
   srvx@1.0.5: {}
 
