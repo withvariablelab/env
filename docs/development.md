@@ -77,7 +77,7 @@ Run `mise tasks` from anywhere in the repo to see the full list.
 | Task                        | What it does                                                                  |
 | --------------------------- | ----------------------------------------------------------------------------- |
 | `setup`                     | Bootstrap everything (tools, root deps, tarball, examples, Playwright).       |
-| `env:pack`                  | Build `@variablelab/env` and pack it into `package/.local/variablelab-env.tgz`. |
+| `env:pack`                  | Build `@variablelab/env` and pack it into a tarball in `package/.local/`.     |
 | `env:watch`                 | Watch `package/src/`, repack on change, reinstall in every example.           |
 | `playwright:install`        | Install Chromium for Playwright (one-time, idempotent).                       |
 | `docsite`                   | Start the docs site dev server.                                               |
