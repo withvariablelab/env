@@ -11,7 +11,7 @@ test("loads development config via auto-discovery", async ({ request }) => {
       IS_PROD: false,
       IS_TEST: false,
       log: { LEVEL: "debug" },
-      server: { PORT: 3002, HOST: "127.0.0.1" },
+      server: { PORT: 3012, HOST: "127.0.0.1" },
       db: { URL: "postgres://localhost/dev", LOGGING: true },
     },
   });

@@ -37,6 +37,7 @@ run = "react-router build"
 
 [tasks.start]
 depends = ["setup"]
+env = { PORT = "3005" }
 run = "react-router-serve build/server/index.js"
 
 [tasks."test:e2e"]

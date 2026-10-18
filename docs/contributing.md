@@ -91,7 +91,7 @@ When pull requests with changesets land on `main`, the release job in [`ci.yml`]
 
 Examples are runtime-isolated demos. Each one installs the packed `@variablelab/env` tarball, as an outside consumer would, with its own lockfile and outside the pnpm workspace. To add one:
 
-1. Create the directory under `examples/<name>/` with the source for the demo.
+1. Create the directory under `examples/<name>/` with the source for the demo, and give it ports no other example uses (see [Ports](../examples/README.md#ports)).
 2. Add a `package.json` that consumes `@variablelab/env` from the local tarball:
    ```jsonc
    "@variablelab/env": "file:../../package/.local/variablelab-env.tgz"

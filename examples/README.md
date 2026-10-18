@@ -75,3 +75,22 @@ mise run //examples/backend-node:start
 ## Why isolated?
 
 `@variablelab/env` advertises itself as runtime-agnostic. Examples that secretly resolve through a shared pnpm workspace don't actually prove that promise. With per-example `mise.toml`, lockfiles, and a packed tarball, each example is a real consumer — it works exactly as it would for someone running `pnpm add @variablelab/env` in a fresh project.
+
+## Ports
+
+Each example uses its own ports, so `mise run test:e2e` can run all the suites in parallel.
+
+| Example              | Ports                                      |
+| -------------------- | ------------------------------------------ |
+| `backend-node`       | 3001                                       |
+| `backend-bun`        | 3002                                       |
+| `backend-deno`       | 3003                                       |
+| `backend-node-cjs`   | 3011                                       |
+| `backend-bun-cjs`    | 3012                                       |
+| `backend-deno-cjs`   | 3013                                       |
+| `worker-cloudflare`  | 8787                                       |
+| `edge-nextjs`        | 3004                                       |
+| `spa-vite-plugin`    | 5173 `dev` and E2E, 4173 `preview`         |
+| `spa-vite-dynamic`   | 5174 `dev`, 4174 `preview` (E2E uses both) |
+| `ssr-react-router`   | 5175 `dev`, 3005 `start` and E2E           |
+| `ssr-tanstack-start` | 3006                                       |
