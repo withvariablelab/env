@@ -4,13 +4,13 @@ description: Exports from the @variablelab/env/react entrypoint — the React in
 icon: Atom
 ---
 
-The `@variablelab/env/react` entrypoint is the React integration for server-rendered apps — SSR (request-time) or SSG (build-time). Render `<EnvScript />` in your document and the resolved env shows up at `window.__env` before client code runs.
+The `@variablelab/env/react` entrypoint is the React integration for server-rendered apps — SSR (request-time) or SSG (build-time). Render `<EnvScript runtimeEnv={…} />` in your document. It writes the object into a `<script id="env" type="application/json">` tag, and in the browser `readEnv()` (and so `defineEnv` without `runtimeEnv`) parses it and caches it at `window.__env`.
 
 ## Exports
 
 | Export      | Kind       | Summary                                                                                |
 | ----------- | ---------- | -------------------------------------------------------------------------------------- |
-| `EnvScript` | Component  | Serializes the public branch of your resolved env into a `<script id="env">` element.  |
+| `EnvScript` | Component  | Serializes the `runtimeEnv` object you pass it into a `<script id="env" type="application/json">` element. You pick the public values. |
 
 <Callout type="info">
   Full signatures and prop tables are coming soon. Until then, see

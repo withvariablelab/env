@@ -4,17 +4,17 @@ description: Exports from the @variablelab/env entrypoint — the runtime-agnost
 icon: Box
 ---
 
-The `@variablelab/env` entrypoint is the only one you always import — it contains the runtime-agnostic core. Adapter entrypoints (`/node`, `/vite`, `/react`, `/zod`) build on top of it.
+The `@variablelab/env` entrypoint is the only one you always import — it contains the runtime-agnostic core. The other entrypoints are opt-in, and the [API reference overview](/docs/api-reference) lists them.
 
 ## Exports
 
 | Export       | Kind     | Summary                                                                              |
 | ------------ | -------- | ------------------------------------------------------------------------------------ |
 | `schema`     | Function | Declare the contract — branches and Standard Schema leaves.                          |
-| `defineEnv`  | Function | Merge config + environment variables, validate, and return a typed `env` object.     |
+| `defineEnv`  | Function | Merge config + environment variables, validate, and return a typed `env` object: `Promise<Env<S>>` when `config` is a Promise, otherwise `Env<S>`. |
 | `envName`    | Function | Detect the current environment name across runtimes — `development`, `production`, … |
 | `readEnv`    | Function | Read raw values from the active source (`process.env` on the server, `window.__env` in the browser). Returns `{}` on runtimes without `process` (Workers) — pass `runtimeEnv` to `defineEnv` instead. |
-| `Config`     | Type     | The input shape of per-environment config files for a given schema.                  |
+| `Config`     | Type     | The shape of per-environment config files for a given schema: the output type of every leaf (post-coercion), with every key optional. |
 | `Env`        | Type     | The output shape of the resolved `env` object for a given schema.                    |
 
 <Callout type="info">

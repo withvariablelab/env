@@ -24,8 +24,10 @@ defineEnv({
 If a leaf is required and has no value from any source, `defineEnv` throws naming the dot-path:
 
 ```text
-Invalid value at "server.PORT": Required
+Invalid value at "server.HOST": Invalid input: expected string, received undefined
 ```
+
+The text after the colon is the validator's own message, here Zod's, so it differs from one validator to another.
 
 Schema-level defaults (`z.string().default(…)`) still apply normally; `defaults` in `defineEnv` is for values you only know at wiring time, not at schema-definition time.
 
@@ -43,7 +45,7 @@ defineEnv({ schema: Env, config, runtimeEnv: { ...process.env, ...overrides } })
 
 ## Type checking of inputs
 
-- `config` is checked against `Config<typeof Env>` — the **input** type of every leaf (pre-coercion).
-- `defaults` is checked against the **output** type (post-coercion), because defaults skip the schema's coercion step.
+- `config` and `defaults` are both checked against the **output** type of every leaf (post-coercion): `Config<typeof Env>` and `Defaults<typeof Env>` are the same type, with every key optional.
+- That is a compile-time check only. At runtime, `defineEnv` merges defaults, config and environment variables first and then validates the merged object, so a default goes through the leaf's coercion like a value from any other source.
 
-So `db: { URL: 42 }` in `defaults` is a compile error if `URL` is `z.string()`, even though the schema would accept `42` after coercion in `config`.
+So `db: { URL: 42 }` is a compile error in either one if `URL` is `z.string()`.

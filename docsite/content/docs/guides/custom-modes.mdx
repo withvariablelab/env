@@ -8,11 +8,11 @@ icon: GitBranch
 
 You run `vite build --mode staging` and expect `envName()` to say `"staging"` in the browser. It won't — and the reason is subtle. In the browser, `envName()`'s `readEnv()` only reads `window.__env` (or the `<EnvScript />` tag), **never `process.env`**. A pure SPA has neither, so `NODE_ENV` and `VITE_ENV` are invisible and `envName()` falls through to its `"development"` fallback — no matter what `--mode` you built with. (Vite even forces `NODE_ENV="production"` at build time, but that only ever reaches `envName()` on the _server_, not in browser code.)
 
-This is independent of how you load config: it bites both [Pattern 1 (dynamic import)](/docs/guides/spa-dynamic-import) and any browser code that calls `envName()` directly.
+This is independent of how you load config: it bites both the [dynamic import](/docs/guides/spa-dynamic-import) pattern and any browser code that calls `envName()` directly.
 
 ## The fix
 
-The `envConfig()` plugin injects `__ENV_NAME__ = JSON.stringify(mode)` as a build-time constant. `envName()` checks `__ENV_NAME__` **before** `NODE_ENV` in its [precedence chain](/docs/concepts/env-name), so the browser sees the mode you actually built.
+The `envConfig()` plugin injects `__ENV_NAME__` as a build-time constant: `VITE_ENV` (or the `envVar` option) when set, otherwise Vite's `mode`. `envName()` checks `__ENV_NAME__` **before** `NODE_ENV` in its [precedence chain](/docs/concepts/env-name), so the browser sees the mode you actually built.
 
 ```ts title="vite.config.ts"
 import { envConfig } from "@variablelab/env/vite";
@@ -44,7 +44,7 @@ src/
     production.ts
 ```
 
-The plugin's discovery scans `[src/]config/<mode>.{ts,mts,cts,js,mjs,cjs,json}` and pulls in the right one — same algorithm as `loadConfig` in `@variablelab/env/fs`.
+The plugin's discovery scans `[src/]config/<env>.{ts,mts,cts,js,mjs,cjs,json}`, where `<env>` is `VITE_ENV` or, when it is unset, the mode, and pulls in the right one — same algorithm as `loadConfig` in `@variablelab/env/fs`.
 
 ## Selecting the env without `--mode`
 

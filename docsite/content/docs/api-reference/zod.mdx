@@ -12,10 +12,11 @@ This entrypoint is **optional**: it's there because we wanted it ourselves, not 
 
 | Export    | Kind   | Summary                                                                        |
 | --------- | ------ | ------------------------------------------------------------------------------ |
-| `port`    | Schema | A valid TCP port (`1`–`65535`), coerced from string.                           |
+| `port`    | Schema | A TCP port (`0`–`65535`), an integer coerced from a string.                    |
 | `host`    | Schema | A non-empty hostname string.                                                   |
 | `bool`    | Schema | Loose boolean parser — accepts `"true"`/`"false"`/`"1"`/`"0"` and friends.     |
-| `secret`  | Schema | Non-empty string that gets redacted from console output and error messages.   |
+| `logLevel` | Schema | One of `fatal`, `error`, `warn`, `info`, `debug` or `trace`, the Pino and Bunyan levels. |
+| `secret`  | Schema | A string of at least 16 characters, for signing or session secrets. It isn't redacted: the resolved value prints as is. |
 | `json`    | Schema factory | Parse a JSON-string env var into a validated object; also accepts the decoded object from config files. |
 
 <Callout type="info">

@@ -57,7 +57,7 @@ defineEnv({
 });
 ```
 
-The empty string `""` is **not** accepted — `null` is the only way to declare a flat branch. This avoids the readability confusion of `""` (which looks like a missing value).
+The type rejects the empty string `""`: it is a compile error, and `null` is the way to declare a flat branch. This avoids the readability confusion of `""` (which looks like a missing value).
 
 ## Mixed mode: branch prefix + per-leaf override
 

@@ -32,6 +32,6 @@ In the browser, `envName()`'s `readEnv()` only sees `window.__env` (or the `<Env
 
 The plugin solves this by injecting `__ENV_NAME__` as a build-time constant (from `VITE_ENV`, else Vite's `mode`). That constant is the only thing `envName()` can read in the browser, so it sees the env you actually built.
 
-This is why **the plugin is required for any non-development browser build** — even if you load config via dynamic import (Pattern 1) and don't actually use the `#config` alias.
+This is why **the plugin is required for any non-development browser build** — even if you load config with a dynamic import ([SPA — dynamic import](/docs/guides/spa-dynamic-import)) and don't use the `#config` alias.
 
 See [Guides → SPA dynamic import](/docs/guides/spa-dynamic-import) and [Guides → Custom modes](/docs/guides/custom-modes) for the wiring.
