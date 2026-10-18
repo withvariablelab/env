@@ -222,7 +222,7 @@ Every example declares the dependency as a local file tarball:
 
 ### The examples
 
-The examples, with the runtime, package manager, entry points and what each one shows, are listed in [`examples/README.md`](../examples/README.md).
+The examples, with the runtime, package manager, entry points, ports and what each one shows, are listed in [`examples/README.md`](../examples/README.md).
 
 ### Adding a new example
 
