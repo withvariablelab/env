@@ -5,6 +5,6 @@
 import { serve } from "srvx/node";
 import handler from "./dist/server/server.js";
 
-const port = Number(process.env.PORT) || 3003;
+const port = Number(process.env.PORT) || 3006;
 serve({ fetch: handler.fetch, port });
 console.log(`tss-prod-app listening on http://127.0.0.1:${port}`);

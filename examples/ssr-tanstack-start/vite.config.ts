@@ -5,5 +5,5 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [tanstackStart(), react(), envConfig()],
-  server: { port: 3003, strictPort: true },
+  server: { port: 3006, strictPort: true },
 });
