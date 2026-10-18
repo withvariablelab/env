@@ -2,7 +2,7 @@
 
 Contract-first environment configuration with typed schemas. Runtime-agnostic core (Node, Bun, Deno, browser, Workers, Edge) with opt-in adapters for Node, Vite, React (SSR), and a curated set of Zod-based environment schema primitives.
 
-See [README.md](./README.md) for setup, tooling, and commands.
+See [docs/development.md](./docs/development.md) for setup, tooling, and commands.
 
 ## Repository structure
 
