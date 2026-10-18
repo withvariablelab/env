@@ -1,6 +1,6 @@
 ---
 title: Overview
-description: The mental model behind @variablelab/env — one contract, three runtime adapters, and a single resolved env object.
+description: The mental model behind @variablelab/env — one contract, opt-in adapters, and a single resolved env object.
 icon: Map
 ---
 
@@ -11,7 +11,8 @@ icon: Map
 A **schema** declares every variable your app expects, grouped into branches. It's the only source of truth — types, validation, and env-var names all derive from it.
 
 ```ts
-import { schema } from "@variablelab/env";
+import { type Config, schema } from "@variablelab/env";
+import * as z from "zod";
 
 const Env = schema({
   server: {
@@ -52,7 +53,7 @@ The core (`@variablelab/env`) doesn't touch the file system or the bundler. Adap
 | `@variablelab/env/fs`      | Node / Bun / Deno | Load config files from disk (`loadConfig`)                    |
 | `@variablelab/env/vite`    | Build time        | Alias `#config`, inject `__ENV_NAME__` for the browser        |
 | `@variablelab/env/react`   | SSR / SSG         | Serialize public env into `<script id="env">` for hydration   |
-| `@variablelab/env/zod`     | Any               | Opinionated Zod primitives (`port`, `host`, `bool`, `secret`) |
+| `@variablelab/env/zod`     | Any               | Opinionated Zod primitives, such as `port`, `host` and `secret` |
 
 You import the adapter that matches where the code runs. Pure SPA? No `/fs`. No SSR? No `/react`. The core stays small.
 

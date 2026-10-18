@@ -12,6 +12,8 @@ env/
 ├── docs/                # Repository docs (contributing.md, development.md)
 ├── mise.toml            # Tool versions + task orchestration
 ├── mise.lock            # Locked tool versions + checksums (each example has its own)
+├── mise.audit.toml      # The dependency audit's tools, added with MISE_ENV=audit
+├── mise.audit.lock      # Locked versions + checksums of those tools
 ├── pnpm-workspace.yaml  # Workspace for `package` + `docsite` only
 ├── lefthook.yml         # Git hooks (Biome and the type check on commit, tests on push)
 └── biome.json           # Root biome config (excludes examples/**)
@@ -70,7 +72,7 @@ mise run check       # JS & TS check across package + docsite
 mise run test:e2e    # the e2e suite of every example
 ```
 
-Run `mise tasks` from anywhere in the repo to see the full list.
+Run `mise tasks` to list the root tasks and those of the directory you are in, or `mise tasks ls --all` to list every example's tasks too.
 
 ### Root tasks (in [`mise.toml`](../mise.toml))
 
@@ -88,13 +90,13 @@ Run `mise tasks` from anywhere in the repo to see the full list.
 | `examples:check`            | JS & TS check across every example.                                           |
 | `examples:bump`             | `reinstall` the tarball in every example.                                     |
 
-### Per-example tasks (the same in every `examples/*/mise.toml`)
+### Per-example tasks
 
 | Task          | What it does                                                                         |
 | ------------- | ------------------------------------------------------------------------------------ |
 | `setup`       | Pack env and install deps with the example's own package manager (depends on `//:env:pack`). |
 | `reinstall`   | Force-reinstall the env tarball.                                                     |
-| `start`       | Run the server (or `dev`, `build` and `preview` in the Vite-based ones).             |
+| `start`       | Run the server. The SPA examples have `dev`, `build` and `preview` instead, and the SSR and Next.js examples add `dev` and `build`. |
 | `test:e2e`    | Playwright.                                                                          |
 | `check`       | JS & TS check.                                                                       |
 
@@ -119,13 +121,14 @@ On every pull request to `main`:
 - **E2E** ([`e2e.yml`](../.github/workflows/e2e.yml)): a matrix job per example, when the pull request touches `examples/`, `package/`, the workflow itself, the pnpm lockfile or workspace, or the root mise files. Each job sets up its own runtime with `jdx/mise-action` v4.3.0 (with `working_directory: examples/<name>`), packs the library with `mise run env:pack`, and runs `mise run //examples/<name>:test:e2e`.
 - **Examples** ([`examples.yml`](../.github/workflows/examples.yml)): one job, on the same paths as E2E, that installs each example's tools, packs the library and runs `mise run examples:check`.
 - **Workflow audit** ([`workflow-audit.yml`](../.github/workflows/workflow-audit.yml)): zizmor on the workflows in `.github/`.
+- **Docsite** ([`docsite.yml`](../.github/workflows/docsite.yml)): the Build job runs `pnpm --filter docsite build`, which builds the docs site without deploying it. [Workers Builds](../docsite/README.md#deploying) deploys `main`.
 
 CI, E2E and Examples use the experimental mise monorepo feature (`MISE_EXPERIMENTAL=1`).
 
 Outside pull requests:
 
 - **Dependency audit** ([`dependency-audit.yml`](../.github/workflows/dependency-audit.yml)): every Monday, an audit of every lockfile in the repo. It keeps an issue labeled `dependency-audit` open while it finds known vulnerabilities.
-- **Docsite** ([`docsite.yml`](../.github/workflows/docsite.yml)): a Lighthouse SEO audit of the docs site, run by hand.
+- **Docsite** ([`docsite.yml`](../.github/workflows/docsite.yml)): the Audit SEO job, a Lighthouse SEO audit of the docs site, run by hand.
 
 ### Git hooks
 
@@ -190,12 +193,12 @@ Content lives in `docsite/content/docs/` as MDX. [`docsite/README.md`](../docsit
 
 ## Working on the examples (`examples/*`)
 
-Every example has the same task names, so you can `cd` into any of them and run:
+Every example has `setup`, `reinstall`, `test:e2e` and `check`, so you can `cd` into any of them and run:
 
 ```sh
 mise run setup          # pack env + install deps (uses the example's native PM)
 mise run reinstall      # force-reinstall the env tarball
-mise run start          # run the server / dev server
+mise run start          # the server (`mise run dev` in the SPA examples)
 mise run test:e2e       # Playwright
 mise run check          # JS & TS check
 ```
@@ -219,36 +222,11 @@ Every example declares the dependency as a local file tarball:
 
 ### The examples
 
-Each item names the runtime, the package manager and what the example shows. [`examples/README.md`](../examples/README.md) lists the entry points each one exercises.
-
-- [`backend-node`](../examples/backend-node): Node 24, with pnpm. A plain Node server.
-- [`backend-bun`](../examples/backend-bun): Bun 1.2.4, with bun. A native Bun consumer.
-- [`backend-deno`](../examples/backend-deno): Deno 2 for the server and Node 24 for the test runner, with bun. Deno can't extract `file:` tarballs natively, so `bun install` hydrates `node_modules/` (flat layout) and Deno reads it through `nodeModulesDir: "manual"`.
-- [`backend-node-cjs`](../examples/backend-node-cjs): Node 24, with pnpm. `loadConfig` (sync), with the server booted from a CommonJS `require()` entry.
-- [`backend-bun-cjs`](../examples/backend-bun-cjs): Bun 1.2.4, with bun. `loadConfig` (sync) under a Bun CommonJS `require()` entry.
-- [`backend-deno-cjs`](../examples/backend-deno-cjs): Deno 2 for the server and Node 24 for the test runner, with bun. `loadConfig` (sync) under a Deno CommonJS `require()` entry.
-- [`worker-cloudflare`](../examples/worker-cloudflare): Cloudflare Workers, with pnpm. It checks `runtimeEnv: c.env` per request, without the `nodejs_compat` flag.
-- [`edge-nextjs`](../examples/edge-nextjs): Next.js Edge, with pnpm. It checks the Edge runtime path.
-- [`spa-vite-plugin`](../examples/spa-vite-plugin): Vite and React, with pnpm. The `envConfig()` plugin and the `#config` alias.
-- [`spa-vite-dynamic`](../examples/spa-vite-dynamic): Vite and React, with pnpm. The dynamic `import()` pattern.
-- [`ssr-react-router`](../examples/ssr-react-router): React Router 7, with pnpm. `<EnvScript />` for SSR and hydration.
-- [`ssr-tanstack-start`](../examples/ssr-tanstack-start): TanStack Start, with pnpm. `<EnvScript />` through TanStack Start.
-
-The `backend-*`, `worker-*` and `edge-nextjs` examples drive Playwright in HTTP-only mode (the `request` fixture). The SPA and SSR examples drive a real Chromium browser, so they need `mise run playwright:install` first, which `setup` already runs.
+The examples, with the runtime, package manager, entry points, ports and what each one shows, are listed in [`examples/README.md`](../examples/README.md).
 
 ### Adding a new example
 
-The full step-by-step is in the [contributing guide](contributing.md#adding-a-new-example). The shape is:
-
-1. A new directory under `examples/<name>/`.
-2. A `package.json` with `"@variablelab/env": "file:../../package/.local/variablelab-env.tgz"` and the runtime's own devDependencies, such as `@types/bun` for Bun or `@types/deno` for Deno.
-3. A `mise.toml` with `[tools]` and the standard tasks, copied from the closest existing example.
-4. A `biome.json` extending `@rrlab/biome-config`, except in a Deno-only example.
-5. The path in `[monorepo].config_roots` in the root [`mise.toml`](../mise.toml).
-6. A row in the matrix in [`.github/workflows/e2e.yml`](../.github/workflows/e2e.yml).
-7. A row in the table in [`examples/README.md`](../examples/README.md).
-8. `mise run setup` from the new directory, and a commit of the generated lockfile.
-9. `mise lock` for every platform from the new directory, and a commit of its `mise.lock` (CI installs tools with `--locked`).
+Follow [Adding a new example](contributing.md#adding-a-new-example) in the contributing guide.
 
 ## Troubleshooting
 

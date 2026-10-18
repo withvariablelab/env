@@ -1,6 +1,6 @@
 # docsite — agent notes
 
-Workspace-specific guidance. The general project layout and run commands live in [README.md](./README.md).
+Workspace-specific guidance. Run commands are in [docs/development.md](../docs/development.md#working-on-the-docs-docsite), and the layout is in [README.md](./README.md).
 
 ## SEO audit (Lighthouse CI)
 
@@ -19,6 +19,6 @@ The pinned `@lhci/cli@X.Y.Z` version lives in two places that **must be kept in 
 
 When bumping the version, update both — otherwise CI keeps restoring the old `~/.cache/pnpm/dlx` and the new bin is re-downloaded every run, defeating the cache.
 
-URLs and budgets live in [`.lighthouserc.cjs`](./.lighthouserc.cjs). The URL list is parsed from `dist/client/env/sitemap.xml` (produced by prerendering [`src/routes/sitemap[.]xml.ts`](./src/routes/sitemap[.]xml.ts) during `vite build`) — new docs are picked up automatically. Budgets: SEO and best-practices pinned at 100 (`error`); accessibility ≥90 and performance ≥50 (`warn`). Any regression in `meta-description`, `document-title`, `is-crawlable`, etc. fails the PR.
+URLs and budgets live in [`.lighthouserc.cjs`](./.lighthouserc.cjs). The URL list is parsed from `dist/client/env/sitemap.xml` (produced by prerendering [`src/routes/sitemap[.]xml.ts`](./src/routes/sitemap[.]xml.ts) during `vite build`) — new docs are picked up automatically. Budgets: SEO and best-practices pinned at 100 (`error`); accessibility ≥90 and performance ≥50 (`warn`). Any regression in `meta-description`, `document-title`, `is-crawlable` and so on fails the audit run. In CI the audit is the "Audit SEO" job of `docsite.yml`, which runs only by hand (`workflow_dispatch`); [docs/development.md](../docs/development.md#workflows) lists what runs on a pull request.
 
 **Why Lighthouse CI instead of Unlighthouse:** an earlier version of this workflow used Unlighthouse. It worked but `unlighthouse-ci` leaks Chrome process handles after a successful scan and never exits cleanly — under GitHub Actions the step would hang several minutes after the audit finished. LHCI handles process cleanup correctly and is the more battle-tested CI primitive.

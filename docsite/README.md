@@ -32,7 +32,6 @@ pnpm dev             # local dev server
 pnpm build           # production build (Vite + Cloudflare adapter)
 pnpm preview         # preview the built bundle
 pnpm run deploy      # build + wrangler deploy
-pnpm test:types      # typechecks
 ```
 
 `docsite/` lives in the small pnpm workspace alongside [`package/`](../package). It is **not** runtime-isolated like the [`examples/`](../examples) — those each declare their own runtime via mise and use a packed tarball of `@variablelab/env`.

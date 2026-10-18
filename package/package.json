@@ -1,7 +1,7 @@
 {
   "name": "@variablelab/env",
   "version": "0.5.5",
-  "description": "Contract-first environment configuration with typed schemas",
+  "description": "Only declared variables, checked at boot.",
   "homepage": "https://github.com/withvariablelab/env/tree/main/package#readme",
   "bugs": {
     "url": "https://github.com/withvariablelab/env/issues"

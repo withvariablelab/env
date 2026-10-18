@@ -100,7 +100,7 @@ const config = loadConfig({ schema: Env, pattern: "config/{env}.ts", cwd: appRoo
 
 Because `loadConfig` is synchronous, it also works in **config files that tooling loads synchronously** — files pulled in via `require()` or bundled to CJS, where a top-level `await` would be rejected (`ERR_REQUIRE_ASYNC_MODULE`, or a build-time _"top-level await is not supported with the cjs output format"_). The wiring is exactly the same as above; there's no `await` to trip over.
 
-See the runnable [`backend-node-cjs`](https://github.com/withvariablelab/env/tree/main/examples/backend-node-cjs), [`backend-bun-cjs`](https://github.com/withvariablelab/env/tree/main/examples/backend-bun-cjs), and [`backend-deno-cjs`](https://github.com/withvariablelab/env/tree/main/examples/backend-deno-cjs) examples — each boots its server from a CommonJS `require()` entry.
+See the runnable `*-cjs` examples in [`examples/`](https://github.com/withvariablelab/env/tree/main/examples#readme). Each one boots its server from a CommonJS `require()` entry.
 
 ## Tradeoffs
 

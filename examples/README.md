@@ -1,23 +1,23 @@
-# `@variablelab/env` examples
+# env examples
 
 Real-world usage examples for [`@variablelab/env`](../package). **Each example is runtime-isolated**: it declares its own runtime in a local `mise.toml`, brings its own package manager and lockfile, and consumes `@variablelab/env` from a packed tarball — exactly as an external consumer would. End-to-end tests use Playwright and exercise real `env` failure modes (missing required vars, wrong types, per-mode config isolation, SSR↔client hydration drift, config loaded synchronously from a CommonJS/`require()` entry).
 
-| Example                                      | Runtime                                  | Package manager | `env` entries exercised                                                          |
-| -------------------------------------------- | ---------------------------------------- | --------------- | -------------------------------------------------------------------------------- |
-| [`backend-node`](./backend-node)             | Node.js 24                               | pnpm            | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/zod`                       |
-| [`backend-bun`](./backend-bun)               | Bun 1.2.4                                | bun             | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/zod`                       |
-| [`backend-deno`](./backend-deno)             | Deno 2 (server) + Node 24 (test runner)  | bun             | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/zod`                       |
-| [`backend-node-cjs`](./backend-node-cjs)     | Node.js 24                               | pnpm            | `@variablelab/env` + `@variablelab/env/fs` (sync `loadConfig` via `require()`) + `@variablelab/env/zod` |
-| [`backend-bun-cjs`](./backend-bun-cjs)       | Bun 1.2.4                                | bun             | `@variablelab/env` + `@variablelab/env/fs` (sync `loadConfig` via `require()`) + `@variablelab/env/zod` |
-| [`backend-deno-cjs`](./backend-deno-cjs)     | Deno 2 (server) + Node 24 (test runner)  | bun             | `@variablelab/env` + `@variablelab/env/fs` (sync `loadConfig` via `require()`) + `@variablelab/env/zod` |
-| [`worker-cloudflare`](./worker-cloudflare)   | Cloudflare Workers (wrangler)            | pnpm            | `@variablelab/env` (`runtimeEnv: c.env`, per-request) + `@variablelab/env/zod`         |
-| [`edge-nextjs`](./edge-nextjs)               | Next.js Edge runtime                     | pnpm            | `@variablelab/env` + `@variablelab/env/zod` (no FS on Edge)                            |
-| [`spa-vite-plugin`](./spa-vite-plugin)       | Node.js (Vite)                           | pnpm            | `@variablelab/env` + `@variablelab/env/vite` (`envConfig()` + `#config`)               |
-| [`spa-vite-dynamic`](./spa-vite-dynamic)     | Node.js (Vite)                           | pnpm            | `@variablelab/env` (dynamic `import()`) + `@variablelab/env/vite` (for `__ENV_NAME__`) |
-| [`ssr-react-router`](./ssr-react-router)     | Node.js (React Router 7)                 | pnpm            | `@variablelab/env` + `@variablelab/env/fs` + `@variablelab/env/react` (`<EnvScript />`)   |
-| [`ssr-tanstack-start`](./ssr-tanstack-start) | Node.js (TanStack Start)                 | pnpm            | `@variablelab/env` + `@variablelab/env/vite` + `@variablelab/env/react`                   |
+Each item names the runtime, the package manager, what the example shows, the entry points it imports and its ports. Each example uses its own ports, so `mise run test:e2e` can run all the suites in parallel.
 
-The `backend-*`, `worker-*`, and `edge-nextjs` examples drive Playwright in HTTP-only mode (the `request` fixture); the 4 SPA / SSR examples drive a real chromium browser.
+- [`backend-node`](./backend-node): Node 24, with pnpm. A plain Node server. Imports `@variablelab/env`, `@variablelab/env/fs` and `@variablelab/env/zod`. Port 3001.
+- [`backend-bun`](./backend-bun): Bun 1.2.4, with bun. A native Bun consumer. Imports `@variablelab/env`, `@variablelab/env/fs` and `@variablelab/env/zod`. Port 3002.
+- [`backend-deno`](./backend-deno): Deno 2 for the server and Node 24 for the test runner, with bun. A Deno server whose `node_modules/` bun installs: see [How `@variablelab/env` is consumed](#how-variablelabenv-is-consumed). Imports `@variablelab/env`, `@variablelab/env/fs` and `@variablelab/env/zod`. Port 3003.
+- [`backend-node-cjs`](./backend-node-cjs): Node 24, with pnpm. `loadConfig` (sync), with the server booted from a CommonJS `require()` entry. Imports `@variablelab/env`, `@variablelab/env/fs` and `@variablelab/env/zod`. Port 3011.
+- [`backend-bun-cjs`](./backend-bun-cjs): Bun 1.2.4, with bun. `loadConfig` (sync) under a Bun CommonJS `require()` entry. Imports `@variablelab/env`, `@variablelab/env/fs` and `@variablelab/env/zod`. Port 3012.
+- [`backend-deno-cjs`](./backend-deno-cjs): Deno 2 for the server and Node 24 for the test runner, with bun. `loadConfig` (sync) under a Deno CommonJS `require()` entry. Imports `@variablelab/env`, `@variablelab/env/fs` and `@variablelab/env/zod`. Port 3013.
+- [`worker-cloudflare`](./worker-cloudflare): Cloudflare Workers through wrangler, with pnpm. `runtimeEnv: c.env` per request, without the `nodejs_compat` flag. Imports `@variablelab/env` and `@variablelab/env/zod`. Port 8787.
+- [`edge-nextjs`](./edge-nextjs): the Next.js Edge runtime, with pnpm. The Edge runtime path, which has no filesystem. Imports `@variablelab/env` and `@variablelab/env/zod`. Port 3004.
+- [`spa-vite-plugin`](./spa-vite-plugin): Vite and React, with pnpm. The `envConfig()` plugin and the `#config` alias. Imports `@variablelab/env`, `@variablelab/env/vite` and `@variablelab/env/zod`. Ports 5173 for `dev` and E2E, and 4173 for `preview`.
+- [`spa-vite-dynamic`](./spa-vite-dynamic): Vite and React, with pnpm. The dynamic `import()` pattern, with the plugin only for `__ENV_NAME__`. Imports `@variablelab/env`, `@variablelab/env/vite` and `@variablelab/env/zod`. Ports 5174 for `dev` and 4174 for `preview`, both used by E2E.
+- [`ssr-react-router`](./ssr-react-router): React Router 7, with pnpm. `<EnvScript />` for SSR and hydration. Imports `@variablelab/env`, `@variablelab/env/fs`, `@variablelab/env/react` and `@variablelab/env/zod`. Ports 5175 for `dev`, and 3005 for `start` and E2E.
+- [`ssr-tanstack-start`](./ssr-tanstack-start): TanStack Start, with pnpm. `<EnvScript />` through TanStack Start. Imports `@variablelab/env`, `@variablelab/env/vite`, `@variablelab/env/react` and `@variablelab/env/zod`. Port 3006.
+
+The `backend-*`, `worker-*` and `edge-nextjs` examples drive Playwright in HTTP-only mode (the `request` fixture), and the SPA and SSR examples drive a real Chromium browser.
 
 ## How `@variablelab/env` is consumed
 
@@ -29,14 +29,14 @@ Each example declares the dependency as a local file tarball:
 
 The tarball is generated by `mise run env:pack` (which calls `pnpm pack` inside `package/`). This guarantees each example consumes the package **as published** — same `files`, same `publishConfig.exports`, same peerDeps — instead of reaching into the workspace source tree.
 
-`backend-deno` is the special case: `deno install` / `deno add` don't extract `file:` tarballs — they leave `node_modules/@variablelab/env` as a dangling symlink to the `.tgz`. So we use `bun install` to hydrate the directory (bun extracts the tarball into a flat layout) and let Deno read it via `nodeModulesDir: "manual"`. Deno still owns the runtime; bun is only there to do the install step.
+The Deno examples are the special case: `deno install` / `deno add` don't extract `file:` tarballs — they leave `node_modules/@variablelab/env` as a dangling symlink to the `.tgz`. So we use `bun install` to hydrate the directory (bun extracts the tarball into a flat layout) and let Deno read it via `nodeModulesDir: "manual"`. Deno still owns the runtime; bun is only there to do the install step.
 
 ## Setup (from the monorepo root)
 
 ```sh
 mise install          # node + pnpm; bun/deno installed per-example as needed
 mise run setup        # bootstraps everything: tools, root deps, env tarball, all examples, Playwright browsers
-mise run test:e2e     # runs all 12 e2e suites
+mise run test:e2e     # runs the e2e suite of every example
 ```
 
 ## Run a single example
@@ -47,7 +47,7 @@ Each task is invoked from the monorepo root with the `//path:task` syntax:
 mise run //examples/backend-node:test:e2e
 mise run //examples/backend-bun:start
 mise run //examples/spa-vite-plugin:dev
-mise run //examples/ssr-react-router:test:types
+mise run //examples/ssr-react-router:check
 ```
 
 Or `cd` into the example and run tasks unprefixed:
@@ -70,27 +70,8 @@ mise run env:watch
 mise run //examples/backend-node:start
 ```
 
-`env:watch` runs `tsdown --watch` plus a chokidar that pipes into `env:pack` + `examples:bump` (which `reinstall`s the tarball in every example).
+`env:watch` runs chokidar on `package/src/`, which calls `env:pack` and then `examples:bump` (which `reinstall`s the tarball in every example) on every change.
 
 ## Why isolated?
 
 `@variablelab/env` advertises itself as runtime-agnostic. Examples that secretly resolve through a shared pnpm workspace don't actually prove that promise. With per-example `mise.toml`, lockfiles, and a packed tarball, each example is a real consumer — it works exactly as it would for someone running `pnpm add @variablelab/env` in a fresh project.
-
-## Ports
-
-Each example uses its own ports, so `mise run test:e2e` can run all the suites in parallel.
-
-| Example              | Ports                                      |
-| -------------------- | ------------------------------------------ |
-| `backend-node`       | 3001                                       |
-| `backend-bun`        | 3002                                       |
-| `backend-deno`       | 3003                                       |
-| `backend-node-cjs`   | 3011                                       |
-| `backend-bun-cjs`    | 3012                                       |
-| `backend-deno-cjs`   | 3013                                       |
-| `worker-cloudflare`  | 8787                                       |
-| `edge-nextjs`        | 3004                                       |
-| `spa-vite-plugin`    | 5173 `dev` and E2E, 4173 `preview`         |
-| `spa-vite-dynamic`   | 5174 `dev`, 4174 `preview` (E2E uses both) |
-| `ssr-react-router`   | 5175 `dev`, 3005 `start` and E2E           |
-| `ssr-tanstack-start` | 3006                                       |
