@@ -1,5 +1,11 @@
 # @variablelab/env
 
+## 0.5.5
+
+### Patch Changes
+
+- [#48](https://github.com/withvariablelab/env/pull/48) [`07a7316`](https://github.com/withvariablelab/env/commit/07a73161e5430d02e1d6751a20e0161a7dd7c383) Thanks [@rqbazan](https://github.com/rqbazan)! - The README gains a usage example, an entry points table and absolute links, and the package now ships its MIT LICENSE.
+
 ## 0.5.4
 
 ### Patch Changes
