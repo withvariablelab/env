@@ -1,7 +1,11 @@
 name: Docsite
 
 on:
-  # Manual only until the slow Lighthouse audit is reworked.
+  # Pull requests only build the site; Workers Builds deploys main.
+  pull_request:
+    branches:
+      - main
+  # The SEO audit is slow, so it runs by hand until the Lighthouse audit is reworked.
   workflow_dispatch:
 
 concurrency:
@@ -11,9 +15,39 @@ concurrency:
 permissions: {}
 
 jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' }}
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    env:
+      MISE_EXPERIMENTAL: "1"
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: 🛠️ Setup mise
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          install: true
+          cache: true
+          experimental: true
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # `vite build` only writes dist/; it never runs `wrangler deploy`.
+      - name: 🔨 Build docsite
+        run: pnpm --filter docsite build
+
   seo:
     name: Audit SEO
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     permissions:
       contents: read
     timeout-minutes: 15
