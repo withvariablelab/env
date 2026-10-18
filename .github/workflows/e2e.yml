@@ -48,6 +48,9 @@ jobs:
           - { example: backend-node,        browser: false }
           - { example: backend-bun,         browser: false }
           - { example: backend-deno,        browser: false }
+          - { example: backend-node-cjs,    browser: false }
+          - { example: backend-bun-cjs,     browser: false }
+          - { example: backend-deno-cjs,    browser: false }
           - { example: worker-cloudflare,   browser: false }
           - { example: edge-nextjs,         browser: false }
           - { example: spa-vite-dynamic,    browser: true  }
