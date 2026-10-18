@@ -117,9 +117,10 @@ On every pull request to `main`:
 
 - **CI** ([`ci.yml`](../.github/workflows/ci.yml)): the library and docs pipeline, inside the pnpm workspace (`package` + `docsite`). It runs `mise run check`, `mise run lib:test` and `mise run lib:build`. On `main`, it also runs the Changesets release job, and for a `feat/*` or `fix/*` branch, or a pull request with the `preview` label, it publishes a [preview release](contributing.md#preview-releases).
 - **E2E** ([`e2e.yml`](../.github/workflows/e2e.yml)): a matrix job per example, when the pull request touches `examples/`, `package/`, the workflow itself, the pnpm lockfile or workspace, or the root mise files. Each job sets up its own runtime with `jdx/mise-action` v4.3.0 (with `working_directory: examples/<name>`), packs the library with `mise run env:pack`, and runs `mise run //examples/<name>:test:e2e`.
+- **Examples** ([`examples.yml`](../.github/workflows/examples.yml)): one job, on the same paths as E2E, that installs each example's tools, packs the library and runs `mise run examples:check`.
 - **Workflow audit** ([`workflow-audit.yml`](../.github/workflows/workflow-audit.yml)): zizmor on the workflows in `.github/`.
 
-CI and E2E use the experimental mise monorepo feature (`MISE_EXPERIMENTAL=1`).
+CI, E2E and Examples use the experimental mise monorepo feature (`MISE_EXPERIMENTAL=1`).
 
 Outside pull requests:
 
@@ -303,4 +304,4 @@ mise run examples:bump
 
 ### CI passes but local fails (or the reverse)
 
-Make sure your local mise is current (`mise self-update`), and that you ran `mise install` from the root and from the example. CI uses `jdx/mise-action` v4.3.0 with `working_directory: examples/<name>` to provision both layers.
+Make sure your local mise is current (`mise self-update`), and that you ran `mise install` from the root and from the example. E2E uses `jdx/mise-action` v4.3.0 with `working_directory: examples/<name>` to provision both layers. Examples runs it from the root, then `mise install --locked` in each example.

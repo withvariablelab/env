@@ -1,0 +1,69 @@
+name: Examples
+
+# Same paths as e2e.yml: the examples, the library they pack, and the tooling that installs both.
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "examples/**"
+      - "package/**"
+      - ".github/workflows/examples.yml"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "mise.toml"
+      - "mise.lock"
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+    paths:
+      - "examples/**"
+      - "package/**"
+      - ".github/workflows/examples.yml"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "mise.toml"
+      - "mise.lock"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  check:
+    name: Check examples
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    env:
+      MISE_EXPERIMENTAL: "1"
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: 🛠️ Setup mise
+        uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          install: true
+          cache: true
+          experimental: true
+
+      # `mise install` takes no monorepo glob, so each example's own runtime (bun, deno) installs here.
+      - name: 🧰 Install example tools
+        run: for d in examples/*/; do mise install --locked -C "$d"; done
+
+      - name: 📦 Install root dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 🎁 Pack @variablelab/env
+        run: mise run env:pack
+
+      - name: 💅 Lint and typecheck examples
+        timeout-minutes: 5
+        run: mise run examples:check
