@@ -77,7 +77,7 @@ checksum = "sha256:95daaff11c116a52ad54785e7914c8e9c9cdcaba793c5ed929c74ca2d8e62
 url = "https://dl.deno.land/release/v2.9.7/deno-x86_64-apple-darwin.zip"
 
 [tools.deno."platforms.windows-x64"]
-checksum = "sha256:Algorithm"
+checksum = "sha256:a0c3101b4158d1dfb7d6a78a7bf0f3de80c96bb423c152beec8beb22786f2238"
 url = "https://dl.deno.land/release/v2.9.7/deno-x86_64-pc-windows-msvc.zip"
 
 [[tools.node]]
