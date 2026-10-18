@@ -1,6 +1,6 @@
 {
   "name": "@variablelab/env",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Contract-first environment configuration with typed schemas",
   "homepage": "https://github.com/withvariablelab/env/tree/main/package#readme",
   "bugs": {
