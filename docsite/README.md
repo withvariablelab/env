@@ -19,7 +19,7 @@ Built with [TanStack Start](https://tanstack.com/start) + [Fumadocs](https://fum
 
 ## Running
 
-From the repo root (after `mise install && mise run setup` — see [DEVELOPMENT.md](../docs/DEVELOPMENT.md)):
+From the repo root (after `mise install && mise run setup` — see [development.md](../docs/development.md)):
 
 ```sh
 mise run docsite     # alias for `pnpm --filter=docsite dev`

@@ -1,60 +1,33 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/withvariablelab/env/HEAD/package/brand/sign-readme.svg" width="64" height="64" alt="">
+  <img src="https://raw.githubusercontent.com/withvariablelab/env/HEAD/package/brand/sign-readme.svg" width="64" alt="">
 </p>
 
-<h1 align="center">env</h1>
+<h1 align="center"><a href="https://lab.variable.land/env">env</a></h1>
 
 <p align="center">Only declared variables, checked at boot.</p>
 
-[![npm version](https://img.shields.io/npm/v/@variablelab/env?label=%40variablelab%2Fenv&color=blue)](https://www.npmjs.com/package/@variablelab/env)
-[![CI](https://github.com/withvariablelab/env/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/withvariablelab/env/actions/workflows/ci.yml)
-[![changesets](https://img.shields.io/badge/maintained%20with-changesets-176de3.svg)](https://github.com/changesets/changesets)
+This repository holds env: the `@variablelab/env` library, its docs site and its examples.
 
-Contract-first environment configuration with typed schemas — runtime-agnostic core (Node, Bun, Deno, browser, Workers, Edge) with opt-in adapters for Node, Vite, and React (SSR).
-
-```bash
+```sh
 pnpm add @variablelab/env
 ```
 
-**[lab.variable.land/env/docs](https://lab.variable.land/env/docs)** — full docs
+Usage and the entry points are in the library's [README](package/README.md), and everything else is in the [docs](https://lab.variable.land/env/docs/getting-started/installation).
 
 ## Repository
 
-This is the monorepo. Three things live here:
-
-| Path                      | What it is                                                                                                                      |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| [`package/`](./package)   | The [`@variablelab/env`](./package) library — published to npm                                                                     |
-| [`docsite/`](./docsite)   | The Fumadocs site behind [lab.variable.land/env/docs](https://lab.variable.land/env/docs), on Cloudflare Workers                |
-| [`examples/`](./examples) | 9 runtime-isolated demos (Node, Bun, Deno, Workers, Edge, Vite SPA, SSR) — each one is a real consumer of the published tarball |
-
-## Working on it
-
-The whole thing is orchestrated with [mise](https://mise.jdx.dev). Get the runtimes, install, run the e2e suites:
-
-```bash
-mise install        # installs node + pnpm; bun/deno added on demand by examples
-mise run setup      # root deps + pack the library + install every example + Playwright browsers
-mise run test:e2e   # runs the e2e suite of every example
-```
-
-Day-to-day:
-
-```bash
-mise run docsite     # docs site dev server
-mise run lib:test    # unit tests for @variablelab/env
-mise run lib:build   # build @variablelab/env
-mise run check       # JS & TS check across package + docsite
-```
-
-Run `mise tasks` for the full list.
-
-For everything else — the per-task reference, the per-example layout, how to iterate on the library while seeing changes in the examples, troubleshooting — see [DEVELOPMENT.md](./docs/DEVELOPMENT.md).
+- [`package/`](package): the `@variablelab/env` library, published to npm.
+- [`docsite/`](docsite): the docs at [lab.variable.land/env/docs](https://lab.variable.land/env/docs), built with Fumadocs and served by Cloudflare Workers.
+- [`examples/`](examples): runtime-isolated apps for Node, Bun, Deno, Workers, Edge, a Vite SPA and SSR. Each one installs the packed library, as an outside consumer would.
 
 ## Contributing
 
-Issues, ideas, and PRs welcome. Read [CONTRIBUTING.md](./docs/CONTRIBUTING.md) before opening a PR — it covers the branch / commit / changeset conventions and the release flow.
+The [contributing guide](docs/contributing.md) covers issues, pull requests and releases, and the [development guide](docs/development.md) covers setting up the repo and running its checks.
 
 ## License
 
-[MIT](./LICENSE) © [Variable Land](https://variable.land)
+The code is [MIT](LICENSE). The Sign in `package/brand/` is not: its use is set by [BRAND-USE.md](https://github.com/withvariablelab/brand/blob/main/BRAND-USE.md).
+
+<p align="center">
+  <a href="https://lab.variable.land"><img src="https://cdn.jsdelivr.net/gh/withvariablelab/brand@v0.3.1/.github/readme/logo.svg" width="24" alt="" align="absmiddle">&nbsp;Variable Land</a>
+</p>
