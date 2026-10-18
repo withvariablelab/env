@@ -28,7 +28,7 @@ The split is intentional: the library promises to be runtime-agnostic, and the e
 
 ### mise
 
-You need [mise](https://mise.jdx.dev) 2026.6.6 or later, the `min_version` in [`mise.toml`](../mise.toml). It installs and pins everything else: Node and pnpm at the root, and bun or deno in the examples that use them.
+You need [mise](https://mise.jdx.dev) 2026.6.11 or later, the `min_version` in [`mise.toml`](../mise.toml). It installs and pins everything else: Node and pnpm at the root, and bun or deno in the examples that use them.
 
 ```sh
 curl https://mise.run | sh
