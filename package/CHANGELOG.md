@@ -1,5 +1,11 @@
 # @variablelab/env
 
+## 0.5.6
+
+### Patch Changes
+
+- [#61](https://github.com/withvariablelab/env/pull/61) [`d809514`](https://github.com/withvariablelab/env/commit/d8095140546289259f838558fc0e1cc9d3cdbc81) Thanks [@rqbazan](https://github.com/rqbazan)! - The package description is now env's tagline, "Only declared variables, checked at boot."
+
 ## 0.5.5
 
 ### Patch Changes

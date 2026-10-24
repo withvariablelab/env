@@ -1,6 +1,6 @@
 {
   "name": "@variablelab/env",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Only declared variables, checked at boot.",
   "homepage": "https://github.com/withvariablelab/env/tree/main/package#readme",
   "bugs": {
