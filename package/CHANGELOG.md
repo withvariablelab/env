@@ -1,5 +1,13 @@
 # @variablelab/env
 
+## 0.5.6
+
+### Patch Changes
+
+- [#66](https://github.com/withvariablelab/env/pull/66) [`d8475af`](https://github.com/withvariablelab/env/commit/d8475af849e4a66b556e4df61c3cf3e680c39929) Thanks [@rqbazan](https://github.com/rqbazan)! - Built with tsdown 0.23 and TypeScript 7: the published JavaScript and type declarations are laid out differently, with the same exports and types.
+
+- [#61](https://github.com/withvariablelab/env/pull/61) [`d809514`](https://github.com/withvariablelab/env/commit/d8095140546289259f838558fc0e1cc9d3cdbc81) Thanks [@rqbazan](https://github.com/rqbazan)! - The package description is now env's tagline, "Only declared variables, checked at boot."
+
 ## 0.5.5
 
 ### Patch Changes
