@@ -16,8 +16,8 @@ concurrency:
 permissions: {}
 
 jobs:
-  test:
-    name: Test
+  check:
+    name: Check, test and build
     runs-on: ubuntu-latest
     # Playwright image: browsers come pre-installed.
     container: mcr.microsoft.com/playwright:v1.59.1-noble
@@ -53,6 +53,45 @@ jobs:
 
       - name: 🔨 Build library
         run: mise run lib:build
+
+  secrets:
+    name: Scan for secrets
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: 🛠️ Setup mise
+        uses: jdx/mise-action@82a612c5ab8bcda7cc5db6b7e81a8e7584c3dc6e # v5.2.3
+        with:
+          version: 2026.10.19
+          install_args: gitleaks
+          cache: true
+
+      - name: 🔐 Scan the new commits
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: gitleaks git --redact --verbose --log-opts="$BASE_SHA..$HEAD_SHA"
+
+  # The ruleset requires a check named "Test": this job reports the checks and the secret scan under that name.
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs: [check, secrets]
+    if: ${{ always() }}
+    permissions: {}
+    steps:
+      - name: ✅ The checks passed and no secret leaked
+        env:
+          CHECK: ${{ needs.check.result }}
+          SECRETS: ${{ needs.secrets.result }}
+        run: test "$CHECK" = "success" && test "$SECRETS" = "success"
 
   release:
     name: Release
