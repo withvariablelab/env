@@ -15,7 +15,7 @@ env/
 ├── mise.audit.toml      # The dependency audit's tools, added with MISE_ENV=audit
 ├── mise.audit.lock      # Locked versions + checksums of those tools
 ├── pnpm-workspace.yaml  # Workspace for `package` + `docsite` only
-├── lefthook.yml         # Git hooks (Biome and the type check on commit, tests on push)
+├── lefthook.yml         # Git hooks (Biome, the type check and gitleaks on commit, tests on push)
 └── biome.json           # Root biome config (excludes examples/**)
 ```
 
@@ -54,7 +54,7 @@ mise run setup      # ↓ runs the bootstrap chain
 
 1. `mise install`: installs the root tools.
 2. `for d in examples/*/; do mise install -C "$d"; done`: installs each example's runtime (bun, deno and so on). `mise install` doesn't accept monorepo globs, so the loop stays.
-3. `pnpm install`: the workspace dependencies for `package` + `docsite`.
+3. `pnpm install`: the workspace dependencies for `package` + `docsite`, and the [git hooks](#git-hooks), which lefthook's postinstall writes. With `CI` set, that postinstall skips them, so after a `CI=1 pnpm install` run `pnpm lefthook install` to add them.
 4. `mise run "//examples/...:setup"`: runs each example's `setup` task in parallel, resolved through `[monorepo].config_roots`. Each `setup` declares `depends = ["//:env:pack"]`, so mise runs `env:pack` once before the examples install.
 5. `mise run playwright:install`: fetches Chromium for the SPA and SSR e2e suites.
 
@@ -132,14 +132,16 @@ Outside pull requests:
 
 ### Git hooks
 
-[`lefthook.yml`](../lefthook.yml) runs:
+[`lefthook.yml`](../lefthook.yml) extends `base.yml`, the config that `@rrlab/cli` ships, and adds its own jobs:
 
-- **pre-commit**, in parallel:
-  - `pnpm rr jscheck --fix-staged`: Biome on the staged files.
-  - `pnpm rr tsc`: the type check, only when staged files match `{package,docsite}/**/*.{ts,tsx}` or `{package,docsite}/tsconfig.json`.
+- **pre-commit**, in parallel, from `base.yml`:
+  - `pnpm rr jsc --fix-staged`: Biome on the staged files.
+  - `pnpm rr tsc`: the type check of `package` and `docsite`, only when a TypeScript file or a tsconfig is staged.
+  - `mise exec -- gitleaks git --pre-commit --staged --redact`: [gitleaks](https://github.com/gitleaks/gitleaks) on the staged changes.
+- **pre-commit**, from `lefthook.yml`: `shared-hooks` fails the commit, saying to run `pnpm install`, when `base.yml` is missing from `node_modules`.
 - **pre-push**: `pnpm --filter=@variablelab/env test`.
 
-The hooks skip the examples on purpose: they take long enough that only CI runs them.
+Biome and the type check skip the examples on purpose: they take long enough that only CI checks them. gitleaks scans every staged change, the examples' included.
 
 ## Working on the library (`package/`)
 
