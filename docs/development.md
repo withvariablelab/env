@@ -30,7 +30,7 @@ The split is intentional: the library promises to be runtime-agnostic, and the e
 
 ### mise
 
-You need [mise](https://mise.jdx.dev) 2026.10.19 or later, the `min_version` in [`mise.toml`](../mise.toml). It installs and pins everything else: Node and pnpm at the root, and bun or deno in the examples that use them.
+You need [mise](https://mise.jdx.dev) 2026.10.19 or later, the `min_version` in [`mise.toml`](../mise.toml). It installs and pins everything else: Node, pnpm and [gitleaks](https://github.com/gitleaks/gitleaks) at the root, and bun or deno in the examples that use them.
 
 ```sh
 curl https://mise.run | sh
@@ -46,7 +46,7 @@ The first time you `cd` into an example, mise asks you to trust its `mise.toml`.
 ```sh
 git clone git@github.com:withvariablelab/env.git
 cd env
-mise install        # node + pnpm
+mise install        # node, pnpm and gitleaks
 mise run setup      # ↓ runs the bootstrap chain
 ```
 
