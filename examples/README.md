@@ -34,7 +34,7 @@ The Deno examples are the special case: `deno install` / `deno add` don't extrac
 ## Setup (from the monorepo root)
 
 ```sh
-mise install          # node + pnpm; bun/deno installed per-example as needed
+mise install          # node, pnpm and gitleaks; bun/deno installed per-example as needed
 mise run setup        # bootstraps everything: tools, root deps, env tarball, all examples, Playwright browsers
 mise run test:e2e     # runs the e2e suite of every example
 ```

@@ -49,6 +49,8 @@ pnpm run deploy      # build + wrangler deploy
 
 All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm run deploy` is the manual equivalent.
 
+Workers Builds runs pnpm through Corepack, which installs the version that `devEngines.packageManager` in the root [`package.json`](../package.json) names: `12.16.1`, the one [`mise.toml`](../mise.toml) pins. pnpm 10 can't read the lockfile pnpm 12 writes (`ERR_PNPM_BROKEN_LOCKFILE`).
+
 ## Notes
 
 - `postinstall` runs `fumadocs-mdx` to generate `.source/` (Fumadocs' MDX index). Commit-ignored.

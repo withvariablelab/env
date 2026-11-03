@@ -38,13 +38,13 @@ export const env = defineEnv({ schema: Env });
 
 ## Entry points
 
-| Entry point | What it adds |
-| --- | --- |
-| `@variablelab/env` | `defineEnv` and `schema`: the runtime-agnostic core. |
-| `@variablelab/env/fs` | `loadConfig`, which reads config files on Node, Bun and Deno. |
-| `@variablelab/env/vite` | `envConfig()`, a Vite plugin. |
+| Entry point              | What it adds                                                        |
+| ------------------------ | ------------------------------------------------------------------- |
+| `@variablelab/env`       | `defineEnv` and `schema`: the runtime-agnostic core.                |
+| `@variablelab/env/fs`    | `loadConfig`, which reads config files on Node, Bun and Deno.       |
+| `@variablelab/env/vite`  | `envConfig()`, a Vite plugin.                                       |
 | `@variablelab/env/react` | `<EnvScript />`, which hydrates the runtime env across SSR and CSR. |
-| `@variablelab/env/zod` | Zod schema primitives, such as `port`, `host` and `secret`. |
+| `@variablelab/env/zod`   | Zod schema primitives, such as `port`, `host` and `secret`.         |
 
 ## Documentation
 

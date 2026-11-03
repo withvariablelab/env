@@ -1,6 +1,6 @@
 [tools]
 node = "24"
-pnpm = "10.30.3"
+pnpm = "12.16.1"
 
 [env]
 _.path = ["{{config_root}}/node_modules/.bin"]
@@ -15,7 +15,7 @@ sources = [
 ]
 outputs = ["node_modules/.modules.yaml"]
 run = [
-  "pnpm install --ignore-workspace --no-frozen-lockfile",
+  "pnpm install --ignore-workspace --no-frozen-lockfile --config.strict-dep-builds=false",
   "react-router typegen",
 ]
 
@@ -23,7 +23,7 @@ run = [
 description = "Force-reinstall the env tarball"
 depends = ["//:env:pack"]
 run = [
-  "pnpm install --ignore-workspace --no-frozen-lockfile --force",
+  "pnpm install --ignore-workspace --no-frozen-lockfile --config.strict-dep-builds=false --force",
   "react-router typegen",
 ]
 

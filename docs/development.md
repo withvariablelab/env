@@ -15,7 +15,7 @@ env/
 ├── mise.audit.toml      # The dependency audit's tools, added with MISE_ENV=audit
 ├── mise.audit.lock      # Locked versions + checksums of those tools
 ├── pnpm-workspace.yaml  # Workspace for `package` + `docsite` only
-├── lefthook.yml         # Git hooks (Biome and the type check on commit, tests on push)
+├── lefthook.yml         # Git hooks (Biome, the type check and gitleaks on commit, tests on push)
 └── biome.json           # Root biome config (excludes examples/**)
 ```
 
@@ -30,7 +30,7 @@ The split is intentional: the library promises to be runtime-agnostic, and the e
 
 ### mise
 
-You need [mise](https://mise.jdx.dev) 2026.6.11 or later, the `min_version` in [`mise.toml`](../mise.toml). It installs and pins everything else: Node and pnpm at the root, and bun or deno in the examples that use them.
+You need [mise](https://mise.jdx.dev) 2026.10.19 or later, the `min_version` in [`mise.toml`](../mise.toml). It installs and pins everything else: Node, pnpm and [gitleaks](https://github.com/gitleaks/gitleaks) at the root, and bun or deno in the examples that use them.
 
 ```sh
 curl https://mise.run | sh
@@ -46,7 +46,7 @@ The first time you `cd` into an example, mise asks you to trust its `mise.toml`.
 ```sh
 git clone git@github.com:withvariablelab/env.git
 cd env
-mise install        # node + pnpm
+mise install        # node, pnpm and gitleaks
 mise run setup      # ↓ runs the bootstrap chain
 ```
 
@@ -54,7 +54,7 @@ mise run setup      # ↓ runs the bootstrap chain
 
 1. `mise install`: installs the root tools.
 2. `for d in examples/*/; do mise install -C "$d"; done`: installs each example's runtime (bun, deno and so on). `mise install` doesn't accept monorepo globs, so the loop stays.
-3. `pnpm install`: the workspace dependencies for `package` + `docsite`.
+3. `pnpm install`: the workspace dependencies for `package` + `docsite`, and the [git hooks](#git-hooks), which lefthook's postinstall writes. With `CI` set, that postinstall skips them, so after a `CI=1 pnpm install` run `pnpm lefthook install` to add them.
 4. `mise run "//examples/...:setup"`: runs each example's `setup` task in parallel, resolved through `[monorepo].config_roots`. Each `setup` declares `depends = ["//:env:pack"]`, so mise runs `env:pack` once before the examples install.
 5. `mise run playwright:install`: fetches Chromium for the SPA and SSR e2e suites.
 
@@ -76,29 +76,29 @@ Run `mise tasks` to list the root tasks and those of the directory you are in, o
 
 ### Root tasks (in [`mise.toml`](../mise.toml))
 
-| Task                        | What it does                                                                  |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| `setup`                     | Bootstrap everything (tools, root deps, tarball, examples, Playwright).       |
-| `env:pack`                  | Build `@variablelab/env` and pack it into a tarball in `package/.local/`.     |
-| `env:watch`                 | Watch `package/src/`, repack on change, reinstall in every example.           |
-| `playwright:install`        | Install Chromium for Playwright (one-time, idempotent).                       |
-| `docsite`                   | Start the docs site dev server.                                               |
-| `lib:test`                  | Unit tests for `@variablelab/env`.                                            |
-| `lib:build`                 | Build `@variablelab/env`.                                                     |
-| `check`                     | JS & TS check across the workspace (`package` + `docsite`).                   |
-| `test:e2e`                  | Run e2e for every example.                                                    |
-| `examples:check`            | JS & TS check across every example.                                           |
-| `examples:bump`             | `reinstall` the tarball in every example.                                     |
+| Task                 | What it does                                                              |
+| -------------------- | ------------------------------------------------------------------------- |
+| `setup`              | Bootstrap everything (tools, root deps, tarball, examples, Playwright).   |
+| `env:pack`           | Build `@variablelab/env` and pack it into a tarball in `package/.local/`. |
+| `env:watch`          | Watch `package/src/`, repack on change, reinstall in every example.       |
+| `playwright:install` | Install Chromium for Playwright (one-time, idempotent).                   |
+| `docsite`            | Start the docs site dev server.                                           |
+| `lib:test`           | Unit tests for `@variablelab/env`.                                        |
+| `lib:build`          | Build `@variablelab/env`.                                                 |
+| `check`              | JS & TS check across the workspace (`package` + `docsite`).               |
+| `test:e2e`           | Run e2e for every example.                                                |
+| `examples:check`     | JS & TS check across every example.                                       |
+| `examples:bump`      | `reinstall` the tarball in every example.                                 |
 
 ### Per-example tasks
 
-| Task          | What it does                                                                         |
-| ------------- | ------------------------------------------------------------------------------------ |
-| `setup`       | Pack env and install deps with the example's own package manager (depends on `//:env:pack`). |
-| `reinstall`   | Force-reinstall the env tarball.                                                     |
-| `start`       | Run the server. The SPA examples have `dev`, `build` and `preview` instead, and the SSR and Next.js examples add `dev` and `build`. |
-| `test:e2e`    | Playwright.                                                                          |
-| `check`       | JS & TS check.                                                                       |
+| Task        | What it does                                                                                                                        |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `setup`     | Pack env and install deps with the example's own package manager (depends on `//:env:pack`).                                        |
+| `reinstall` | Force-reinstall the env tarball.                                                                                                    |
+| `start`     | Run the server. The SPA examples have `dev`, `build` and `preview` instead, and the SSR and Next.js examples add `dev` and `build`. |
+| `test:e2e`  | Playwright.                                                                                                                         |
+| `check`     | JS & TS check.                                                                                                                      |
 
 ### Why mise is the only API
 
@@ -117,13 +117,13 @@ The same goes for each example's `mise.toml`: inside `examples/<name>`, the API 
 
 On every pull request to `main`:
 
-- **CI** ([`ci.yml`](../.github/workflows/ci.yml)): the library and docs pipeline, inside the pnpm workspace (`package` + `docsite`). It runs `mise run check`, `mise run lib:test` and `mise run lib:build`. On `main`, it also runs the Changesets release job, and for a `feat/*` or `fix/*` branch, or a pull request with the `preview` label, it publishes a [preview release](contributing.md#preview-releases).
-- **E2E** ([`e2e.yml`](../.github/workflows/e2e.yml)): a matrix job per example, when the pull request touches `examples/`, `package/`, the workflow itself, the pnpm lockfile or workspace, or the root mise files. Each job sets up its own runtime with `jdx/mise-action` v4.3.0 (with `working_directory: examples/<name>`), packs the library with `mise run env:pack`, and runs `mise run //examples/<name>:test:e2e`.
+- **CI** ([`ci.yml`](../.github/workflows/ci.yml)): the library and docs pipeline, inside the pnpm workspace (`package` + `docsite`). It runs `mise run check`, `mise run lib:test` and `mise run lib:build`, and beside them gitleaks scans the pull request's commits for secrets. The required `Test` check passes when both do. On `main`, it also runs the Changesets release job, and for a `feat/*` or `fix/*` branch, or a pull request with the `preview` label, it publishes a [preview release](contributing.md#preview-releases).
+- **E2E** ([`e2e.yml`](../.github/workflows/e2e.yml)): a matrix job per example, when the pull request touches `examples/`, `package/`, the workflow itself, the pnpm lockfile or workspace, or the root mise files. Each job sets up its own runtime with `jdx/mise-action` v5.2.3 (with `working_directory: examples/<name>`), packs the library with `mise run env:pack`, and runs `mise run //examples/<name>:test:e2e`.
 - **Examples** ([`examples.yml`](../.github/workflows/examples.yml)): one job, on the same paths as E2E, that installs each example's tools, packs the library and runs `mise run examples:check`.
 - **Workflow audit** ([`workflow-audit.yml`](../.github/workflows/workflow-audit.yml)): zizmor on the workflows in `.github/`.
 - **Docsite** ([`docsite.yml`](../.github/workflows/docsite.yml)): the Build job runs `pnpm --filter docsite build`, which builds the docs site without deploying it. [Workers Builds](../docsite/README.md#deploying) deploys `main`.
 
-CI, E2E and Examples use the experimental mise monorepo feature (`MISE_EXPERIMENTAL=1`).
+The workflows that need mise set it up at 2026.10.19, the `min_version`, with `jdx/mise-action`, which installs the locked tools of the root, and of an example only where the job runs in it or installs them itself. CI, E2E and Examples use the experimental mise monorepo feature (`MISE_EXPERIMENTAL=1`).
 
 Outside pull requests:
 
@@ -132,14 +132,16 @@ Outside pull requests:
 
 ### Git hooks
 
-[`lefthook.yml`](../lefthook.yml) runs:
+[`lefthook.yml`](../lefthook.yml) extends `base.yml`, the config that `@rrlab/cli` ships, and adds its own jobs:
 
-- **pre-commit**, in parallel:
-  - `pnpm rr jscheck --fix-staged`: Biome on the staged files.
-  - `pnpm rr tsc`: the type check, only when staged files match `{package,docsite}/**/*.{ts,tsx}` or `{package,docsite}/tsconfig.json`.
+- **pre-commit**, in parallel, from `base.yml`:
+  - `pnpm rr jsc --fix-staged`: Biome on the staged files.
+  - `pnpm rr tsc`: the type check of `package` and `docsite`, only when a TypeScript file or a tsconfig is staged.
+  - `mise exec -- gitleaks git --pre-commit --staged --redact`: [gitleaks](https://github.com/gitleaks/gitleaks) on the staged changes.
+- **pre-commit**, from `lefthook.yml`: `shared-hooks` fails the commit, saying to run `pnpm install`, when `base.yml` is missing from `node_modules`.
 - **pre-push**: `pnpm --filter=@variablelab/env test`.
 
-The hooks skip the examples on purpose: they take long enough that only CI runs them.
+Biome and the type check skip the examples on purpose: they take long enough that only CI checks them. gitleaks scans every staged change, the examples' included.
 
 ## Working on the library (`package/`)
 
@@ -260,7 +262,9 @@ Avoid `for d in examples/*/; do ...; done`: it runs one example at a time and pr
 
 ### pnpm tries to install across the whole monorepo from inside an example
 
-The example directories sit inside the same tree as `pnpm-workspace.yaml`, so pnpm takes them for workspace members. They aren't, but pnpm needs an explicit `--ignore-workspace` to honor that. The pnpm-based examples already pass it in their `setup` tasks, and a new pnpm-based example has to do the same. `--ignore-workspace` also skips the cooldown in `pnpm-workspace.yaml`, so each pnpm-based example has an `.npmrc` with the same settings, and a new one copies it.
+The example directories sit inside the same tree as `pnpm-workspace.yaml`, so pnpm takes them for workspace members. They aren't, but pnpm needs an explicit `--ignore-workspace` to honor that. The pnpm-based examples already pass it in their `setup` and `reinstall` tasks, and a new pnpm-based example has to do the same.
+
+`--ignore-workspace` also skips the settings in `pnpm-workspace.yaml`, and pnpm 12 reads only auth and registry settings from an `.npmrc`. So the examples get pnpm's own cooldown, which is a day by default, the same as the workspace's `minimumReleaseAge`, without its exclusions. They pass `--config.strict-dep-builds=false` too: the workspace's `allowBuilds` doesn't reach them, and pnpm 12 would otherwise fail the install on a dependency's build script, such as esbuild's or workerd's. With it, pnpm skips those scripts with a warning, as pnpm 10 did, and the examples run without them. A new pnpm-based example passes the same flags.
 
 ### Deno can't import the library from the tarball
 
@@ -282,4 +286,4 @@ mise run examples:bump
 
 ### CI passes but local fails (or the reverse)
 
-Make sure your local mise is current (`mise self-update`), and that you ran `mise install` from the root and from the example. E2E uses `jdx/mise-action` v4.3.0 with `working_directory: examples/<name>` to provision both layers. Examples runs it from the root, then `mise install --locked` in each example.
+Make sure your local mise is 2026.10.19 or later (`mise self-update`), and that you ran `mise install` from the root and from the example. E2E uses `jdx/mise-action` v5.2.3 with `working_directory: examples/<name>` to provision both layers. Examples runs it from the root, then `mise install --locked` in each example.

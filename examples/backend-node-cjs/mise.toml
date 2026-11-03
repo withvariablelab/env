@@ -1,6 +1,6 @@
 [tools]
 node = "24"
-pnpm = "10.30.3"
+pnpm = "12.16.1"
 
 [env]
 _.path = ["{{config_root}}/node_modules/.bin"]
@@ -14,12 +14,12 @@ sources = [
   "{{config_root}}/../../package/.local/variablelab-env.tgz",
 ]
 outputs = ["node_modules/.modules.yaml"]
-run = "pnpm install --ignore-workspace --no-frozen-lockfile"
+run = "pnpm install --ignore-workspace --no-frozen-lockfile --config.strict-dep-builds=false"
 
 [tasks.reinstall]
 description = "Force-reinstall the env tarball"
 depends = ["//:env:pack"]
-run = "pnpm install --ignore-workspace --no-frozen-lockfile --force"
+run = "pnpm install --ignore-workspace --no-frozen-lockfile --config.strict-dep-builds=false --force"
 
 [tasks.start]
 depends = ["setup"]

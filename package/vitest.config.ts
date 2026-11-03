@@ -5,7 +5,6 @@ export default defineConfig({
   test: {
     projects: [
       {
-        extends: true,
         test: {
           name: "node",
           environment: "node",
@@ -13,7 +12,6 @@ export default defineConfig({
         },
       },
       {
-        extends: true,
         test: {
           name: "browser",
           include: ["./src/__tests__/*.test.tsx"],

@@ -1,7 +1,24 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["@rrlab/biome-config"],
   "files": {
-    "includes": ["**", "!**/routeTree.gen.ts", "!examples"]
+    "includes": [
+      "**",
+      "!**/routeTree.gen.ts",
+      "!examples",
+      "!pnpm-lock.yaml",
+      "!.mise/locks",
+      "!.changeset/*.md",
+      "!**/CHANGELOG.md",
+      "!.github/workflows/pullfrog.yml"
+    ]
+  },
+  "markdown": {
+    "parser": {
+      "frontmatter": true
+    },
+    "formatter": {
+      "formatEmbeds": false
+    }
   }
 }

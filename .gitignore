@@ -189,3 +189,7 @@ gha-creds-*.json
 # Testing
 __screenshots__
 .vitest-attachments
+
+# mise
+.mise/*
+!.mise/locks/
