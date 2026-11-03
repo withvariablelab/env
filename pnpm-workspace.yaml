@@ -5,7 +5,7 @@ packages:
 catalog:
   "@rrlab/ts-config": 0.0.6
   "@rrlab/tsdown-config": 0.2.1
-  "@types/node": 24.12.4
+  "@types/node": 26.6.6
   "@types/react": 19.2.14
   "@types/react-dom": 19.2.3
   "@vitejs/plugin-react": 6.0.1
