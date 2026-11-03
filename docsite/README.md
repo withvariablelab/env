@@ -46,11 +46,10 @@ pnpm run deploy      # build + wrangler deploy
 | Build command     | `pnpm build`                        |
 | Deploy command    | `npx wrangler deploy` (the default) |
 | Build watch paths | `docsite/**`, `pnpm-lock.yaml`      |
-| Build variable    | `PNPM_VERSION` = `12.16.1`          |
 
 All commands run inside `docsite/`, so they use its pinned wrangler. `pnpm run deploy` is the manual equivalent.
 
-Workers Builds installs with its own pnpm, 10.11.1 unless `PNPM_VERSION` names another, and pnpm 10 can't read the lockfile pnpm 12 writes (`ERR_PNPM_BROKEN_LOCKFILE`). So `PNPM_VERSION` is the pnpm that [`mise.toml`](../mise.toml) pins, and a bump of one is a bump of both.
+Workers Builds runs pnpm through Corepack, which takes the version from `devEngines.packageManager` in the root [`package.json`](../package.json), the pnpm 12 that [`mise.toml`](../mise.toml) pins. pnpm 10 can't read the lockfile pnpm 12 writes (`ERR_PNPM_BROKEN_LOCKFILE`).
 
 ## Notes
 
