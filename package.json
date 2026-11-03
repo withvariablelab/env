@@ -16,5 +16,11 @@
     "typescript": "catalog:",
     "vitest": "4.1.12"
   },
-  "packageManager": "pnpm@10.30.3"
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^12.16.1",
+      "onFail": "error"
+    }
+  }
 }

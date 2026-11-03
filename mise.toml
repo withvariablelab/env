@@ -1,4 +1,4 @@
-min_version = "2026.6.11"
+min_version = "2026.10.19"
 monorepo_root = true
 
 [env]
@@ -7,7 +7,7 @@ _.path = ["{{config_root}}/node_modules/.bin"]
 
 [tools]
 node = "24"
-pnpm = "10.30.3"
+pnpm = "12.16.1"
 
 [settings]
 lockfile = true
