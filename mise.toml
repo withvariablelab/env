@@ -45,6 +45,15 @@ description = "Rebuild + repack on every change in package/src and bump examples
 dir = "{{config_root}}/package"
 run = "pnpm dlx chokidar-cli 'src/**/*' --ignore 'dist/**' -c 'mise run env:pack && mise run examples:bump'"
 
+[tasks."examples:relock"]
+description = "Relock the pnpm examples on the env tarball this checkout packs"
+depends = ["env:pack"]
+run = 'for lock in examples/*/pnpm-lock.yaml; do pnpm --dir "${lock%/*}" install --ignore-workspace --lockfile-only --config.strict-dep-builds=false; done'
+
+[tasks."release:version"]
+description = "The release job's version step: bump the versions, then relock the examples on the new package"
+run = ["pnpm changeset version", "mise run examples:relock"]
+
 [tasks."examples:bump"]
 description = "Reinstall the local env tarball in every example"
 run = "mise run \"//examples/...:reinstall\""

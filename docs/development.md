@@ -76,19 +76,21 @@ Run `mise tasks` to list the root tasks and those of the directory you are in, o
 
 ### Root tasks (in [`mise.toml`](../mise.toml))
 
-| Task                 | What it does                                                              |
-| -------------------- | ------------------------------------------------------------------------- |
-| `setup`              | Bootstrap everything (tools, root deps, tarball, examples, Playwright).   |
-| `env:pack`           | Build `@variablelab/env` and pack it into a tarball in `package/.local/`. |
-| `env:watch`          | Watch `package/src/`, repack on change, reinstall in every example.       |
-| `playwright:install` | Install Chromium for Playwright (one-time, idempotent).                   |
-| `docsite`            | Start the docs site dev server.                                           |
-| `lib:test`           | Unit tests for `@variablelab/env`.                                        |
-| `lib:build`          | Build `@variablelab/env`.                                                 |
-| `check`              | JS & TS check across the workspace (`package` + `docsite`).               |
-| `test:e2e`           | Run e2e for every example.                                                |
-| `examples:check`     | JS & TS check across every example.                                       |
-| `examples:bump`      | `reinstall` the tarball in every example.                                 |
+| Task                 | What it does                                                                 |
+| -------------------- | ---------------------------------------------------------------------------- |
+| `setup`              | Bootstrap everything (tools, root deps, tarball, examples, Playwright).      |
+| `env:pack`           | Build `@variablelab/env` and pack it into a tarball in `package/.local/`.    |
+| `env:watch`          | Watch `package/src/`, repack on change, reinstall in every example.          |
+| `playwright:install` | Install Chromium for Playwright (one-time, idempotent).                      |
+| `docsite`            | Start the docs site dev server.                                              |
+| `lib:test`           | Unit tests for `@variablelab/env`.                                           |
+| `lib:build`          | Build `@variablelab/env`.                                                    |
+| `check`              | JS & TS check across the workspace (`package` + `docsite`).                  |
+| `test:e2e`           | Run e2e for every example.                                                   |
+| `examples:check`     | JS & TS check across every example.                                          |
+| `examples:bump`      | `reinstall` the tarball in every example.                                    |
+| `examples:relock`    | Repack, then relock every pnpm example on the new tarball.                   |
+| `release:version`    | `changeset version`, then `examples:relock`: the release job's version step. |
 
 ### Per-example tasks
 
