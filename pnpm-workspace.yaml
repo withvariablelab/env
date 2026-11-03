@@ -26,7 +26,7 @@ publicHoistPattern:
   - "@total-typescript/*"
 
 # Supply-chain cooldown: malicious releases are usually pulled within 24h.
-# The pnpm examples install with --ignore-workspace, which skips this file, so each carries the same values in its own .npmrc.
+# The pnpm examples install with --ignore-workspace, which skips this file: pnpm's default cooldown, also a day, applies to them.
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - "@variablelab/*"

@@ -501,8 +501,8 @@ packages:
     engines: {node: '>=20.0.0'}
 
   '@variablelab/env@file:../../package/.local/variablelab-env.tgz':
-    resolution: {integrity: sha512-WAMCRBnOAK3n082rH8E+uHnqRD/xzggvB29i3wqnQwbqO0H8FwAi3e4zVKeSRN0ykifA8FfR6D7ItYd57md8vA==, tarball: file:../../package/.local/variablelab-env.tgz}
-    version: 0.5.4
+    resolution: {integrity: sha512-NS1/v8OVu0BjcBhz98ewqwYk9WPg9kbX1B7LR/RSjB46G6nix+1PXU8RXFBL/snUGvdJXPD33mXlaGti/fK2dg==, tarball: file:../../package/.local/variablelab-env.tgz}
+    version: 0.5.5
     engines: {node: '>=22.12.0'}
     peerDependencies:
       react: '>=19'
