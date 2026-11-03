@@ -45,18 +45,18 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { example: backend-node,        browser: false }
-          - { example: backend-bun,         browser: false }
-          - { example: backend-deno,        browser: false }
-          - { example: backend-node-cjs,    browser: false }
-          - { example: backend-bun-cjs,     browser: false }
-          - { example: backend-deno-cjs,    browser: false }
-          - { example: worker-cloudflare,   browser: false }
-          - { example: edge-nextjs,         browser: false }
-          - { example: spa-vite-dynamic,    browser: true  }
-          - { example: spa-vite-plugin,     browser: true  }
-          - { example: ssr-react-router,    browser: true  }
-          - { example: ssr-tanstack-start,  browser: true  }
+          - { example: backend-node, browser: false }
+          - { example: backend-bun, browser: false }
+          - { example: backend-deno, browser: false }
+          - { example: backend-node-cjs, browser: false }
+          - { example: backend-bun-cjs, browser: false }
+          - { example: backend-deno-cjs, browser: false }
+          - { example: worker-cloudflare, browser: false }
+          - { example: edge-nextjs, browser: false }
+          - { example: spa-vite-dynamic, browser: true }
+          - { example: spa-vite-plugin, browser: true }
+          - { example: ssr-react-router, browser: true }
+          - { example: ssr-tanstack-start, browser: true }
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

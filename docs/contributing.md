@@ -95,9 +95,11 @@ Examples are runtime-isolated demos. Each one installs the packed `@variablelab/
 
 1. Create the directory under `examples/<name>/` with the source for the demo, and give it ports no other example uses (the [examples list](../examples/README.md) gives the ports of each example).
 2. Add a `package.json` that consumes `@variablelab/env` from the local tarball, with the runtime's own devDependencies, such as `@types/bun` for Bun or `@types/deno` for Deno:
+
    ```jsonc
    "@variablelab/env": "file:../../package/.local/variablelab-env.tgz"
    ```
+
    A pnpm example also copies the `.npmrc` from an existing pnpm example.
 3. Add a `mise.toml` with the runtime tools (`node`, `bun`, `deno` or `pnpm`) and the [per-example tasks](development.md#per-example-tasks) in the development guide. Use the existing example with the closest runtime as a template.
 4. Add a `biome.json` extending `@rrlab/biome-config`, except in a Deno-only example.
