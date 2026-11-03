@@ -156,10 +156,11 @@ describe("defineEnv() — explicit vars override the convention", () => {
     expect(env.db.LOGGING).toBe(true);
   });
 
-  it('rejects empty string `""` as a branch prefix at type level', () => {
-    const env = defineEnv({
+  // Through the async overload, the last one: when no overload matches, TypeScript 7 reports the last overload's error.
+  it('rejects empty string `""` as a branch prefix at type level', async () => {
+    const env = await defineEnv({
       schema: S,
-      config: {},
+      config: Promise.resolve({}),
       vars: {
         // @ts-expect-error use `null` for a flat branch, not the empty string
         server: "",
