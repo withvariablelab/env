@@ -286,6 +286,10 @@ mise run //examples/<name>:reinstall
 mise run examples:bump
 ```
 
+### `mise run setup` changes the examples' `pnpm-lock.yaml`
+
+The pnpm examples lock the packed tarball's version and integrity, so a change to what `env:pack` packs (`package/src/`, `package/package.json`, a catalog version in `pnpm-workspace.yaml`) changes them on the next setup. Each release pull request relocks them; between releases, run `mise run examples:relock` and commit the eight lockfiles.
+
 ### CI passes but local fails (or the reverse)
 
 Make sure your local mise is 2026.10.19 or later (`mise self-update`), and that you ran `mise install` from the root and from the example. E2E uses `jdx/mise-action` v5.2.3 with `working_directory: examples/<name>` to provision both layers. Examples runs it from the root, then `mise install --locked` in each example.

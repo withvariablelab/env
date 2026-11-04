@@ -31,7 +31,8 @@ run = [
 [tasks."env:pack"]
 description = "Build @variablelab/env and pack it into package/.local/variablelab-env.tgz"
 dir = "{{config_root}}/package"
-sources = ["src/**/*", "package.json", "tsdown.config.ts"]
+# ../pnpm-workspace.yaml: pnpm pack writes the catalog's versions into the packed package.json.
+sources = ["src/**/*", "package.json", "tsdown.config.ts", "../pnpm-workspace.yaml"]
 outputs = [".local/variablelab-env.tgz"]
 run = [
   "rr pack",
