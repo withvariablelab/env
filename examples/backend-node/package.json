@@ -7,7 +7,7 @@
     "@hono/node-server": "2.1.5",
     "@variablelab/env": "file:../../package/.local/variablelab-env.tgz",
     "hono": "4.13.13",
-    "zod": "4.3.6"
+    "zod": "4.6.6"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.15",
