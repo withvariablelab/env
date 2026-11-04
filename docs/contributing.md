@@ -87,7 +87,7 @@ Nobody bumps versions or edits `CHANGELOG.md` by hand: Changesets does both duri
 
 ## Releases
 
-When pull requests with changesets land on `main`, the release job in [`ci.yml`](../.github/workflows/ci.yml) (`changesets/action`, running as `vland-bot`) opens or updates a "chore: update versions" pull request. A maintainer merges it, and that runs the release job again, which publishes the new version to npm and tags the release on GitHub.
+When pull requests with changesets land on `main`, the release job in [`ci.yml`](../.github/workflows/ci.yml) (`changesets/action`, running as `vland-bot`) opens or updates a "chore: update versions" pull request. Its version step, `mise run release:version`, also relocks the pnpm examples, whose lockfiles hold the packed tarball's version and integrity, so a fresh `mise run setup` leaves the tree clean after the release. A maintainer merges it, and that runs the release job again, which publishes the new version to npm and tags the release on GitHub.
 
 ## Adding a new example
 
