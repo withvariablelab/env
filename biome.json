@@ -2,23 +2,6 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["@rrlab/biome-config"],
   "files": {
-    "includes": [
-      "**",
-      "!**/routeTree.gen.ts",
-      "!examples",
-      "!pnpm-lock.yaml",
-      "!.mise/locks",
-      "!.changeset/*.md",
-      "!**/CHANGELOG.md",
-      "!.github/workflows/pullfrog.yml"
-    ]
-  },
-  "markdown": {
-    "parser": {
-      "frontmatter": true
-    },
-    "formatter": {
-      "formatEmbeds": false
-    }
+    "includes": ["**", "!**/routeTree.gen.ts", "!examples"]
   }
 }
