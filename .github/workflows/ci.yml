@@ -146,7 +146,7 @@ jobs:
           commit-message: "chore: update versions"
           pr-title: "chore: update versions"
           # The examples lock the packed tarball's version and integrity: relock them in the same PR.
-          version: mise run release:version
+          version-script: mise run release:version
           publish-script: pnpm changeset publish
         env:
           LEFTHOOK: 0
