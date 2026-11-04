@@ -16,7 +16,7 @@ importers:
         version: 7.18.4(react-router@7.18.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3)
       '@variablelab/env':
         specifier: file:../../package/.local/variablelab-env.tgz
-        version: file:../../package/.local/variablelab-env.tgz(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@8.3.4(@types/node@24.12.4)(esbuild@0.28.2)(yaml@2.8.4))(zod@4.3.6)
+        version: file:../../package/.local/variablelab-env.tgz(@types/node@24.12.4)(esbuild@0.28.2)(yaml@2.8.4)
       isbot:
         specifier: 5.1.30
         version: 5.1.30
@@ -30,8 +30,8 @@ importers:
         specifier: 7.18.4
         version: 7.18.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       zod:
-        specifier: 4.3.6
-        version: 4.3.6
+        specifier: 4.6.6
+        version: 4.6.6
     devDependencies:
       '@biomejs/biome':
         specifier: 2.4.15
@@ -928,20 +928,6 @@ packages:
     resolution: {integrity: sha512-yNWLIgiqcW7mEXYb/v2TeUCOlU/vigqwpor1qDWWUWXeIJ4BfsQrMZwKx99RY0g/zHmAUmugKWqIObQOziwoUA==, tarball: file:../../package/.local/variablelab-env.tgz}
     version: 0.5.6
     engines: {node: '>=22.12.0'}
-    peerDependencies:
-      react: '>=19'
-      react-dom: '>=19'
-      vite: '>=5'
-      zod: ^4
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      vite:
-        optional: true
-      zod:
-        optional: true
 
   '@variablelab/loggy@0.2.2':
     resolution: {integrity: sha512-uqIaSjnHEg2SxsJqyPQ2GgTN3LBozh2dLEP4n6saGvz1yMUZl9DWhhZ7Tty6M73A4I9inSle/y267qXueZtQMg==}
@@ -983,8 +969,8 @@ packages:
     resolution: {integrity: sha512-NF+epuEdnUYVlGuhaxbbq+dvJttwLnGY+YixlXlME5KpQ5W3CnXA5cVTneY3SPbPDRkcjMbifrwmFYcClgOZeg==}
     engines: {node: '>= 0.8'}
 
-  body-parser@1.20.8:
-    resolution: {integrity: sha512-JNcyFQ64OiijEkPzUBTCe+hyPXUD/3LEldGQ6iF5LR1w00mx9o7xtDWHXBY2iItjdCFGoilOLNQbH943ut7pHA==}
+  body-parser@1.20.9:
+    resolution: {integrity: sha512-FISIQxV5u91Y9gvuFq3q/tA/qTqLJn3AhRcEvyozyhJTh5OBFFtv827AdHU7Rbyct4r+Ba1/99oFa1Y3yuFsdw==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
 
   bole@5.0.29:
@@ -1455,8 +1441,8 @@ packages:
     resolution: {integrity: sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==}
     engines: {node: '>=18'}
 
-  minimatch@10.2.5:
-    resolution: {integrity: sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==}
+  minimatch@10.2.6:
+    resolution: {integrity: sha512-vpLQEs+VLCr1nU0BXS07maYoFwlDAH0gngQuuttxIwutDFEMHq2blX+8vpgxDdK3J1PwjCJiep77OitTZ4Ll1A==}
     engines: {node: 18 || 20 || >=22}
 
   minipass@7.1.3:
@@ -1900,6 +1886,9 @@ packages:
 
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
+
+  zod@4.6.6:
+    resolution: {integrity: sha512-4UmzQUF5fxvfcYHlbjBmejU+w+hbDnWFx4aS8kBx7nPBHcO2SqPbpAG8snbdg+Xse4pRefR98hgjFgIMCI/UhA==}
 
 snapshots:
 
@@ -2677,7 +2666,7 @@ snapshots:
     transitivePeerDependencies:
       - '@pnpm/logger'
 
-  '@variablelab/env@file:../../package/.local/variablelab-env.tgz(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@8.3.4(@types/node@24.12.4)(esbuild@0.28.2)(yaml@2.8.4))(zod@4.3.6)':
+  '@variablelab/env@file:../../package/.local/variablelab-env.tgz(@types/node@24.12.4)(esbuild@0.28.2)(yaml@2.8.4)':
     dependencies:
       '@standard-schema/spec': 1.1.0
       defu: 6.1.7
@@ -2686,6 +2675,19 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
       vite: 8.3.4(@types/node@24.12.4)(esbuild@0.28.2)(yaml@2.8.4)
       zod: 4.3.6
+    transitivePeerDependencies:
+      - '@types/node'
+      - '@vitejs/devtools'
+      - esbuild
+      - jiti
+      - less
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - yaml
 
   '@variablelab/loggy@0.2.2':
     dependencies:
@@ -2726,7 +2728,7 @@ snapshots:
     dependencies:
       safe-buffer: 5.1.2
 
-  body-parser@1.20.8:
+  body-parser@1.20.9:
     dependencies:
       bytes: 3.1.2
       content-type: 1.0.5
@@ -2922,7 +2924,7 @@ snapshots:
     dependencies:
       accepts: 1.3.8
       array-flatten: 1.1.1
-      body-parser: 1.20.8
+      body-parser: 1.20.9
       content-disposition: 0.5.4
       content-type: 1.0.5
       cookie: 0.7.2
@@ -3022,7 +3024,7 @@ snapshots:
 
   glob@13.0.6:
     dependencies:
-      minimatch: 10.2.5
+      minimatch: 10.2.6
       minipass: 7.1.3
       path-scurry: 2.0.2
 
@@ -3167,7 +3169,7 @@ snapshots:
 
   mimic-function@5.0.1: {}
 
-  minimatch@10.2.5:
+  minimatch@10.2.6:
     dependencies:
       brace-expansion: 5.0.12
 
@@ -3576,4 +3578,7 @@ snapshots:
 
   yaml@2.8.4: {}
 
-  zod@4.3.6: {}
+  zod@4.3.6:
+    optional: true
+
+  zod@4.6.6: {}
