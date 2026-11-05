@@ -9,8 +9,9 @@ on:
     branches:
       - main
 
+# Each label run gets a group of its own, so labels added at once can't cancel the run GitHub reads "Test" from.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.action == 'labeled' && github.run_id || github.ref }}
   cancel-in-progress: true
 
 permissions: {}
@@ -156,7 +157,19 @@ jobs:
     name: Publish preview
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: ${{ startsWith(github.head_ref, 'feat') || startsWith(github.head_ref, 'fix') || contains(github.event.pull_request.labels.*.name, 'preview') }}
+    # A feat/fix branch publishes on opened, synchronize and reopened. Any other branch publishes from the label run
+    # that adds `preview` (a PR opened with it gets one too), then on synchronize and reopened while it has it.
+    if: >-
+      ${{ (github.event.action == 'labeled'
+        && github.event.label.name == 'preview'
+        && !startsWith(github.head_ref, 'feat') && !startsWith(github.head_ref, 'fix'))
+      || (github.event.action != 'labeled'
+        && (startsWith(github.head_ref, 'feat') || startsWith(github.head_ref, 'fix')
+          || (github.event.action != 'opened' && contains(github.event.pull_request.labels.*.name, 'preview')))) }}
+    # One publish to `pr-<number>` at a time: label runs don't share the workflow's group.
+    concurrency:
+      group: ${{ github.workflow }}-preview-${{ github.ref }}
+      cancel-in-progress: false
     permissions:
       contents: read
       id-token: write # npm trusted publishing (OIDC)
