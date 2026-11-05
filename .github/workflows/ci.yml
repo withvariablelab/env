@@ -9,7 +9,7 @@ on:
     branches:
       - main
 
-# Each label run gets a group of its own, so labels added at once can't cancel the run GitHub reads Test from.
+# Each label run gets a group of its own, so labels added at once can't cancel the run GitHub reads "Test" from.
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.action == 'labeled' && github.run_id || github.ref }}
   cancel-in-progress: true
@@ -157,15 +157,15 @@ jobs:
     name: Publish preview
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # Opened, synchronize and reopened runs publish on a feat/fix branch or with `preview`; a label run only when it
-    # adds `preview` to any other branch.
+    # A feat/fix branch publishes on opened, synchronize and reopened. Any other branch publishes from the label run
+    # that adds `preview` (a PR opened with it gets one too), then on synchronize and reopened while it has it.
     if: >-
       ${{ (github.event.action == 'labeled'
         && github.event.label.name == 'preview'
         && !startsWith(github.head_ref, 'feat') && !startsWith(github.head_ref, 'fix'))
       || (github.event.action != 'labeled'
         && (startsWith(github.head_ref, 'feat') || startsWith(github.head_ref, 'fix')
-          || contains(github.event.pull_request.labels.*.name, 'preview'))) }}
+          || (github.event.action != 'opened' && contains(github.event.pull_request.labels.*.name, 'preview')))) }}
     # One publish to `pr-<number>` at a time: label runs don't share the workflow's group.
     concurrency:
       group: ${{ github.workflow }}-preview-${{ github.ref }}
